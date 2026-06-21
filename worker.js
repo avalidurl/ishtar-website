@@ -1,16 +1,14 @@
-// Thin asset Worker: serves the static site via the ASSETS binding, and fixes the one thing
-// the static asset server gets wrong — it serves .md / .txt without a charset, so browsers
-// decode the (correct) UTF-8 bytes as Latin-1 and show mojibake (e.g. "Gökhan" → "GÃ¶khan").
-// run_worker_first in wrangler.toml routes .md/.txt here so we can stamp charset=utf-8.
+// Asset Worker: serves the static site via ASSETS and fixes .md/.txt charset (browsers decode
+// charset-less text/markdown as Latin-1 -> mojibake). run_worker_first routes requests here.
+// x-ishtar-worker marks that this code ran (debug: confirms run_worker_first is active).
 export default {
   async fetch(request, env) {
     const res = await env.ASSETS.fetch(request);
     const p = new URL(request.url).pathname;
-    if (p.endsWith(".md") || p.endsWith(".txt")) {
-      const headers = new Headers(res.headers);
-      headers.set("content-type", (p.endsWith(".md") ? "text/markdown" : "text/plain") + "; charset=utf-8");
-      return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
-    }
-    return res;
+    const headers = new Headers(res.headers);
+    headers.set("x-ishtar-worker", "1");
+    if (p.endsWith(".md")) headers.set("content-type", "text/markdown; charset=utf-8");
+    else if (p.endsWith(".txt")) headers.set("content-type", "text/plain; charset=utf-8");
+    return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
   },
 };
