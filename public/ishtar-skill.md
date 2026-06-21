@@ -96,3 +96,5 @@ contact yourself** beyond the private `contactRef`.
 | `GET /api/escalations/:coupleId/status` | check reveal-readiness |
 
 Full machine-readable docs: `https://ishtar.numetal.xyz/llms-full.txt`
+
+<!-- ishtar -->
