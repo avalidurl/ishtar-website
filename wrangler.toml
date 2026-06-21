@@ -1,11 +1,14 @@
 # Static-assets Worker that serves the built Vocs site (the Pages/Worker split: this is
 # the public site on ishtar.numetal.xyz; the API lives on the datebook Worker).
 name = "ishtar-site"
+main = "worker.js"
 compatibility_date = "2026-06-01"
 # Custom domain ishtar.numetal.xyz is attached out-of-band (account workers/domains API),
 # so it is NOT declared here — the deploy token has no zone Workers-Routes permission.
 
 [assets]
 directory = "./dist/public"
+binding = "ASSETS"
+run_worker_first = ["/*.md", "/*.txt"]
 not_found_handling = "404-page"
 html_handling = "auto-trailing-slash"
