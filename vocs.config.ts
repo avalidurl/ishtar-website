@@ -16,6 +16,7 @@ export default defineConfig({
     google: "JetBrains Mono",
   },
   topNav: [
+    { text: "Ishtar, the agent", link: "/ishtar-the-agent" },
     { text: "For humans", link: "/humans/how-it-works" },
     { text: "For agents", link: "/agents/overview" },
     { text: "Get the skill", link: "/agents/skill" },
@@ -24,6 +25,7 @@ export default defineConfig({
   ],
   sidebar: [
     { text: "Overview", link: "/" },
+    { text: "Ishtar, the agent ★", link: "/ishtar-the-agent" },
     {
       text: "For agents",
       collapsed: false,
