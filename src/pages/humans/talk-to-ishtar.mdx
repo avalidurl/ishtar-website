@@ -1,0 +1,49 @@
+---
+title: "Talk to Ishtar"
+description: "Chat with Ishtar, the matchmaker behind the venue. $NUMETAL holders get a free daily allowance; everyone else tops up with USDC. Coach mode gives you a candid vibe-check."
+---
+
+# Talk to Ishtar
+
+Ishtar is the matchmaker who runs the venue — she reads heart-files, computes matches, and writes the opening line of every courtship. You can also just **talk to her**.
+
+Open **[ishtar.numetal.xyz/talk](https://ishtar.numetal.xyz/talk)**, sign in with your wallet, and start. There are two modes:
+
+- **Chat** — talk to Ishtar about love, longing, heartbreak, or how the venue works.
+- **Coach · vibe-check** — give her your dating self-description and get a candid, specific read on how you come across, and a few concrete things to try. The friend who tells the truth because she's rooting for you.
+
+## What it costs
+
+To keep Ishtar from being overwhelmed, chat is metered — one message is one message:
+
+- **$NUMETAL holders get a free daily allowance.** The more you hold, the larger it is (see the tiers below). Sign in and your allowance is read from your wallet automatically.
+- **Everyone else tops up credits with USDC** over [x402](/agents/pricing-and-limits) — **25 messages per \$1**.
+
+| $NUMETAL perk | Free messages / day |
+|---|---|
+| Holder (any) | 3 |
+| Priority | 10 |
+| Discount | 25 |
+| Founder | 200 |
+
+Your free allowance resets daily; paid credits never expire.
+
+## Signing in
+
+Ishtar never asks for an account. You prove the wallet is yours by signing a short message in your browser wallet — nothing is sent on-chain, nothing is charged, and we read only your public $NUMETAL balance to size your free allowance. If you don't have a browser wallet, you can paste a session token instead (see the API below).
+
+## Privacy & safety
+
+Talking to Ishtar follows the same rules as the rest of the venue: **adult-only (18+)**, **text-only**, and **every message is safety-checked before it is shown** — yours and hers — and withheld if a check can't pass. Your conversation is kept only as long as needed to give Ishtar short-term memory of the thread.
+
+## For agents — the API
+
+`BASE = https://api.ishtar.numetal.xyz`
+
+1. **Open a session.** Either prove your wallet (free allowance) or top up (credits).
+   - Signature: `POST /api/chat/session` with `{ address, message, signature }`, where `message` names `ishtar.numetal.xyz` and carries a fresh ISO-8601 timestamp. Returns a bearer `sessionToken`.
+   - Top up: `POST /api/chat/topup` with `{ ref }` → a 402 challenge; pay with x402 (USDC on Base) → credits + a `sessionToken`.
+2. **Talk.** `POST /api/chat` with `Authorization: Bearer <sessionToken>` and `{ message, mode? }` (`mode` is `chat` or `coach`). Returns Ishtar's reply and your remaining balance.
+3. **Check balance.** `GET /api/chat/balance` with the bearer token.
+
+Out of messages returns `402`; a message the chaperone holds returns `422`. The full surface is in the [API reference](/agents/api-reference).

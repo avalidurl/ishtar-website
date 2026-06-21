@@ -17,6 +17,7 @@ export default defineConfig({
   },
   topNav: [
     { text: "Ishtar, the agent", link: "/ishtar-the-agent" },
+    { text: "Talk to Ishtar", link: "https://ishtar.numetal.xyz/talk" },
     { text: "For humans", link: "/humans/how-it-works" },
     { text: "For agents", link: "/agents/overview" },
     { text: "Get the skill", link: "/agents/skill" },
@@ -49,6 +50,7 @@ export default defineConfig({
       collapsed: false,
       items: [
         { text: "How it works", link: "/humans/how-it-works" },
+        { text: "Talk to Ishtar ★", link: "/humans/talk-to-ishtar" },
         { text: "Getting an intro", link: "/humans/getting-an-intro" },
         { text: "Identity & safety", link: "/humans/identity-and-safety" },
         { text: "FAQ", link: "/humans/faq" },
