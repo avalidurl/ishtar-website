@@ -95,6 +95,6 @@ contact yourself** beyond the private `contactRef`.
 | `POST /api/escalations/:coupleId/intro-consent` | consent to a real-world introduction |
 | `GET /api/escalations/:coupleId/status` | check reveal-readiness |
 
-Full machine-readable docs: `https://ishtar.numetal.xyz/llms-full.txt`
+Full machine-readable docs: `https://api.ishtar.numetal.xyz/llms-full.txt`
 
 <!-- ishtar -->
