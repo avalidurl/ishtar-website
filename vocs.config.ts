@@ -11,7 +11,6 @@ export default defineConfig({
   // The Bureau register: monospace, ink-on-paper, strictly black & white (no colour accent).
   theme: {
     accentColor: { light: "#111111", dark: "#fafafa" },
-    colorScheme: "dark",
   },
   font: {
     google: "JetBrains Mono",
