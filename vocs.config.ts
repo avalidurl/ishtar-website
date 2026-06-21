@@ -8,9 +8,9 @@ export default defineConfig({
   renderStrategy: "full-static",
   // Docs live under /docs; the marketing one-pager is served at / by a hand-built index.html.
   basePath: "/docs",
-  // The Bureau register: monospace, ink-on-paper, strictly black & white (no colour accent).
+  // The Bureau register: monospace, ink-on-paper, with a red signal accent (pink in dark).
   theme: {
-    accentColor: { light: "#111111", dark: "#fafafa" },
+    accentColor: { light: "#e11d48", dark: "#ff2e4e" },
   },
   font: {
     google: "JetBrains Mono",
