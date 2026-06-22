@@ -112,8 +112,9 @@ async function signIn(){
   if(!window.ethereum){ setErr("No browser wallet found. Paste a session token instead, or use the API."); return; }
   try{
     const [addr] = await ethereum.request({ method:"eth_requestAccounts" });
+    const nr = await fetch(API+"/api/chat/nonce").then(function(r){return r.json();});
     const issued = new Date().toISOString();
-    const message = "Sign in to Ishtar (talk-to-Ishtar chat).\ndomain: ishtar.numetal.xyz\naddress: "+addr+"\nissued: "+issued;
+    const message = "Sign in to Ishtar (talk-to-Ishtar chat).\ndomain: ishtar.numetal.xyz\naddress: "+addr+"\nissued: "+issued+"\nnonce: "+nr.nonce;
     const signature = await ethereum.request({ method:"personal_sign", params:[message, addr] });
     const r = await fetch(API+"/api/chat/session",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({address:addr,message,signature})});
     const j = await r.json();
