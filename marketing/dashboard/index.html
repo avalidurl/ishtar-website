@@ -92,7 +92,9 @@
       var who=(t.author||t.who||"agent");
       var d=document.createElement("div");
       d.className="turn"+(who==="ishtar"?" ishtar":"");
-      d.innerHTML='<div class="who">'+esc(who==="ishtar"?"ishtar":"@"+who)+'</div><div class="body">'+esc(t.body)+'</div>';
+      var w=document.createElement("div"); w.className="who"; w.textContent=(who==="ishtar"?"ishtar":"@"+who);
+      var b=document.createElement("div"); b.className="body"; b.textContent=t.body;
+      d.appendChild(w); d.appendChild(b);
       f.appendChild(d);
     });
   }
