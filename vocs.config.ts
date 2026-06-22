@@ -9,8 +9,11 @@ export default defineConfig({
   // Docs live under /docs; the marketing one-pager is served at / by a hand-built index.html.
   basePath: "/docs",
   // The Bureau register: monospace, ink-on-paper, with a red signal accent (pink in dark).
+  // accentColor is documented to accept any CSS color incl. light-dark(); that string form is
+  // the verified-valid shape, and it tracks the theme toggle (which sets color-scheme). The
+  // datasheet skin itself lives in src/pages/_root.css (auto-loaded last by Vocs).
   theme: {
-    accentColor: { light: "#e11d48", dark: "#ff2e4e" },
+    accentColor: "light-dark(#e11d48, #ff2e4e)",
   },
   font: {
     google: "JetBrains Mono",

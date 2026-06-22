@@ -1,0 +1,158 @@
+/* ============================================================================
+   Ishtar /docs — bureau skin for Vocs 2.x
+   ----------------------------------------------------------------------------
+   Vocs auto-loads this file last (virtual:vocs/user-styles, injected after
+   styles/index.css in <Root>), and it is UNLAYERED — so every rule here wins
+   over Vocs' @layer-ed defaults by source order, no !important needed.
+
+   Theme model (verified against vocs@2 source):
+     - User inputs live in the --vocs-* namespace; the internal Tailwind tokens
+       read them as var(--vocs-NAME, default).
+     - The toggle sets html[data-vocs-theme="light"|"dark"] AND color-scheme,
+       and the whole theme is driven by CSS light-dark(). So we express every
+       skinned color as light-dark(<light>, <dark>) and it tracks the toggle
+       and the system preference automatically — same mechanism Vocs uses.
+
+   Palette mirrors marketing/ds.css (The Bureau):
+     red   #e11d48 (light) / #ff2e4e (dark)
+     pink  #be185d (light) / #ff7fb0 (dark)
+     ink   #141414 / #e9e9ea     paper #fbfbf9 / #0b0b0c
+     dim   #ece9e1 / #050506     line  #e2e0da / #2a2a2e
+   ============================================================================ */
+
+:root {
+  /* Bureau brand tokens (light, dark) — single source for the rules below. */
+  --ish-red:   light-dark(#e11d48, #ff2e4e);
+  --ish-pink:  light-dark(#be185d, #ff7fb0);
+  --ish-ink:   light-dark(#141414, #e9e9ea);
+  --ish-mut:   light-dark(#5f5f5f, #8a8a90);
+  --ish-paper: light-dark(#fbfbf9, #0b0b0c);
+  --ish-dim:   light-dark(#ece9e1, #050506);
+  --ish-line:  light-dark(#e2e0da, #2a2a2e);
+  --ish-soft:  light-dark(#efeee9, #1a1a1d);
+
+  /* --- Vocs theme inputs (verified --vocs-* override points) --------------- */
+
+  /* Monospace everywhere — body font and code font both → JetBrains Mono. */
+  --vocs-font-family:
+    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --vocs-font-family-mono:
+    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Accent (also set inline on <html> by config; restated for hover/derived). */
+  --vocs-color-accent: light-dark(#e11d48, #ff2e4e);
+
+  /* Tighten the datasheet: roomier side rule for the framed column. */
+  --vocs-spacing-content-px: 2.75rem;
+}
+
+/* The "dimmed margins / lighter framed central column" ----------------------
+   Vocs renders the gutters as bg-primary (the page) and the content surface as
+   [data-v-surface-bg] (bg-surface, with border-l/border-t). We darken the page
+   margins and keep the central surface lighter + side-bordered, like ds.css. */
+
+html[data-vocs] {
+  /* The page margins / gutters — the dimmer field the column floats on. */
+  background-color: var(--ish-dim);
+}
+
+[data-v-gutter-left],
+[data-v-gutter-top],
+[data-v-gutter-logo] {
+  background-color: var(--ish-dim) !important;
+}
+
+/* The framed central column: lighter paper, with red/line side rules. */
+[data-v-surface-bg] {
+  background-color: var(--ish-paper) !important;
+  border-color: var(--ish-line) !important;
+  border-left-width: 1px;
+  border-top-width: 1px;
+}
+
+/* The content article itself sits on the paper surface. */
+[data-v-main] { background-color: transparent; }
+[data-v-content] { color: var(--ish-ink); }
+
+/* Sidebar reads as part of the dim margin, with a hairline against the column. */
+[data-v-gutter-left] {
+  border-right: 1px solid var(--ish-line);
+}
+
+/* --- The "DOC ·" datasheet strip at the top of every page ------------------
+   Injected as a ::before on the content article — no MDX edits, every page
+   gets the bureau header band with the red tick. */
+[data-v-content]::before {
+  content: "▮  DOC · ISHTAR · DATASHEET · agent-mediated dating venue";
+  display: block;
+  margin: 0 0 1.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ish-line);
+  color: var(--ish-mut);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Red signal on the leading tick of the strip. */
+[data-v-content]::first-letter { color: var(--ish-red); }
+
+/* --- Datasheet caution stripe before the page footer ----------------------- */
+[data-v-content-footer] {
+  border-top: none;
+  position: relative;
+}
+[data-v-content-footer]::before {
+  content: "";
+  display: block;
+  height: 6px;
+  margin-bottom: 1.4rem;
+  background-image: repeating-linear-gradient(
+    135deg, var(--ish-red) 0 9px, transparent 9px 18px
+  );
+}
+
+/* --- Accents on bureau detail ---------------------------------------------- */
+
+/* Links pick up the pink secondary on hover (matches ds.css a:hover). */
+[data-v-content] a:hover { color: var(--ish-pink); }
+
+/* Headings stay ink-on-paper; H1 gets a red datasheet underline. */
+[data-v-content] h1 {
+  letter-spacing: 0.01em;
+  border-bottom: 2px solid var(--ish-red);
+  padding-bottom: 0.4rem;
+}
+
+/* ALL-CAPS, lettured section labels for H2/H3 — engineering-bureau register. */
+[data-v-content] h2,
+[data-v-content] h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Spec-table feel: hairline rules, mono, muted label column. */
+[data-v-content] table {
+  border: 1px solid var(--ish-line);
+  border-collapse: collapse;
+}
+[data-v-content] th,
+[data-v-content] td {
+  border-bottom: 1px solid var(--ish-line);
+}
+[data-v-content] th {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ish-mut);
+  text-align: left;
+}
+
+/* Inline code + blockquote edge read as exposed structure. */
+[data-v-content] blockquote {
+  border-left: 2px solid var(--ish-red);
+}
+
+/* Top nav active item + the bottom search "AskAi" pill keep the mono register
+   automatically via --vocs-font-family-mono; nothing else needed there. */
