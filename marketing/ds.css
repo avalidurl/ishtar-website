@@ -3,23 +3,28 @@
    One source of truth for the marketing surfaces (one-pager, /talk, /dashboard). */
 :root{
   --bg:#0b0b0c; --fg:#e9e9ea; --mut:#8a8a90; --line:#2a2a2e; --soft:#1a1a1d; --card:#131316;
-  --red:#ff2e4e; --pink:#ff7fb0; --on-red:#14000a;
+  --red:#ff2e4e; --pink:#ff7fb0; --on-red:#14000a; --bg-dim:#050506;
 }
 :root[data-theme="light"]{
   --bg:#fbfbf9; --fg:#141414; --mut:#5f5f5f; --line:#e2e0da; --soft:#efeee9; --card:#ffffff;
-  --red:#e11d48; --pink:#be185d; --on-red:#ffffff;
+  --red:#e11d48; --pink:#be185d; --on-red:#ffffff; --bg-dim:#ece9e1;
 }
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
   --bg:#fbfbf9; --fg:#141414; --mut:#5f5f5f; --line:#e2e0da; --soft:#efeee9; --card:#ffffff;
-  --red:#e11d48; --pink:#be185d; --on-red:#ffffff;
+  --red:#e11d48; --pink:#be185d; --on-red:#ffffff; --bg-dim:#ece9e1;
 }}
 *{ box-sizing:border-box; }
-html,body{ margin:0; background:var(--bg); color:var(--fg);
+html,body{ margin:0; background:var(--bg-dim); color:var(--fg);
   font-family:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:14.5px; line-height:1.6; -webkit-font-smoothing:antialiased; }
 a{ color:var(--fg); text-decoration:none; }
 a:hover{ color:var(--pink); }
 b{ font-weight:600; }
-.wrap{ max-width:880px; margin:0 auto; padding:0 1.25rem; }
+/* Central body column floats lighter on a dimmed page (margins darker than the column). */
+.wrap{ max-width:880px; margin:0 auto; padding:0 1.6rem; background:var(--bg); border-left:1px solid var(--line); border-right:1px solid var(--line); min-height:100vh; }
+/* Scroll indicator — hints there is more below the fold. */
+.scrollhint{ display:flex; align-items:center; justify-content:center; gap:.6rem; margin:1.6rem 0 .2rem; color:var(--mut); font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
+.scrollhint .ar{ color:var(--red); animation:bob 1.5s ease-in-out infinite; }
+@keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
 
 /* document strip — the bureau header */
