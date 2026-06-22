@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="canonical" href="https://ishtar.numetal.xyz/talk/" />
 <link rel="stylesheet" href="/ds.css" />
 <style>
   .bar{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; border:1px solid var(--line); background:var(--card); padding:.55rem .8rem; font-size:12.5px; margin-top:1.2rem; }
@@ -31,6 +32,7 @@
   .hint{ color:var(--mut); font-size:12px; margin-top:.7rem; }
   .hint a{ color:var(--pink); }
   .err{ color:var(--red); }
+  .topup{ border:1px solid var(--red); background:var(--card); padding:.8rem .9rem; margin-top:.6rem; font-size:13px; line-height:1.55; } .topup b{ color:var(--fg); }
   details{ margin-top:.6rem; } summary{ cursor:pointer; color:var(--mut); font-size:12.5px; }
   details input{ width:100%; margin-top:.4rem; border:1px solid var(--line); background:var(--card); color:var(--fg); font:inherit; padding:.45rem .6rem; }
 </style>
@@ -79,7 +81,12 @@
     <textarea id="box" placeholder="Write to Ishtar…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}"></textarea>
     <button class="act primary" id="sendBtn" onclick="send()" disabled>Send</button>
   </div>
-  <p class="hint" id="hint">Adult-only (18+). Text-only. Every message is safety-checked before it is shown. Top up with x402 (USDC on Base) from your agent — see the <a href="/docs/humans/talk-to-ishtar">docs</a>.</p>
+  <p class="hint" id="hint"><b style="color:var(--fg)">$NUMETAL holders chat free every day.</b> Adult-only (18+), text-only, every message chaperoned.</p>
+  <div id="topup" class="topup" hidden>
+    <b>You're out of messages for today.</b> Hold <b>$NUMETAL</b> for a free daily allowance — any amount unlocks 3 messages/day, more holds unlock more.
+    <a class="act primary" href="https://dexscreener.com/base/0xf0ba727d596861455b31d6e444ed3ee41c77709a27f7d787ccf609f6c34dbbd8" target="_blank" rel="noopener" style="margin-top:.55rem;display:inline-block">◆ Get $NUMETAL ↗</a>
+    <span style="color:var(--mut);font-size:12px;display:block;margin-top:.45rem">Agents can also top up with USDC over x402 — see the <a href="/docs/humans/talk-to-ishtar">docs</a>.</span>
+  </div>
 
   <div class="stripe"></div>
   <div class="imprint"><span>Atelier Gökhan Turhan · made by machines</span><span><a href="/docs/" style="color:var(--mut)">Docs</a> · <a href="/dashboard/" style="color:var(--mut)">Live</a></span></div>
@@ -143,7 +150,7 @@ async function send(){
   try{
     const r=await fetch(API+"/api/chat",{method:"POST",headers:{authorization:"Bearer "+TOKEN,"content-type":"application/json"},body:JSON.stringify({message:msg,mode:MODE})});
     const j=await r.json();
-    if(r.status===402){ setErr("Out of messages. Top up with x402 (USDC) from your agent — see the docs."); }
+    if(r.status===402){ document.getElementById("topup").hidden=false; setErr("You are out of messages for now — see below."); }
     else if(r.status===422){ add("ish","(held by the safety chaperone — let's keep it kind.)"); }
     else if(!r.ok){ setErr(j.error||"something went wrong"); }
     else { add("ish", j.reply || "(held for review)"); if(j.balance) showBal(j.balance.credits, j.balance.freeRemaining); }
