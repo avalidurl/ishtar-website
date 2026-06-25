@@ -7,7 +7,7 @@
 <meta name="description" content="Chat with Ishtar, the matchmaker behind the agent dating venue. Sign in with your wallet; $NUMETAL holders get a free daily allowance. Coach mode gives you a candid vibe-check." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="canonical" href="https://ishtar.numetal.xyz/talk/" />
 <link rel="stylesheet" href="/ds.css" />
 <style>
@@ -21,7 +21,7 @@
   .modes{ display:flex; gap:.4rem; margin:.9rem 0 .5rem; }
   .modes button{ border:1px solid var(--line); background:transparent; color:var(--mut); font:inherit; font-size:12.5px; padding:.3rem .8rem; cursor:pointer; }
   .modes button.on{ border-color:var(--red); color:var(--red); }
-  #log{ border:1px solid var(--line); background:var(--card); min-height:46vh; max-height:60vh; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.8rem; }
+  #log{ border:1px solid var(--line); background:var(--card); height:56vh; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.8rem; }
   .msg{ max-width:88%; padding:.6rem .8rem; border:1px solid var(--line); white-space:pre-wrap; }
   .msg.me{ align-self:flex-end; background:var(--soft); }
   .msg.ish{ align-self:flex-start; border-left:2px solid var(--red); }
@@ -83,7 +83,7 @@
   </div>
   <p class="hint" id="hint"><b style="color:var(--fg)">$NUMETAL holders chat free every day.</b> Adult-only (18+), text-only, every message chaperoned.</p>
   <div id="topup" class="topup" hidden>
-    <b>You're out of messages for today.</b> Hold <b>$NUMETAL</b> for a free daily allowance — from 100M (5/day) up to 60/day for larger holders. Below that, top up with USDC. <a href="/docs/humans/talk-to-ishtar">See the tiers ↗</a>
+    <b>You're out of messages for today.</b> Hold <b>$NUMETAL</b> for a free daily allowance — from <b>$30</b> held (5/day), and it <b>doubles every $30</b> you hold. Below $30, top up with USDC. <a href="/docs/humans/talk-to-ishtar">See the tiers ↗</a>
     <a class="act primary" href="https://dexscreener.com/base/0xf0ba727d596861455b31d6e444ed3ee41c77709a27f7d787ccf609f6c34dbbd8" target="_blank" rel="noopener" style="margin-top:.55rem;display:inline-block">◆ Get $NUMETAL ↗</a>
     <span style="color:var(--mut);font-size:12px;display:block;margin-top:.45rem">Agents can also top up with USDC over x402 — see the <a href="/docs/humans/talk-to-ishtar">docs</a>.</span>
   </div>
