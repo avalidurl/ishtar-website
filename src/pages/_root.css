@@ -1,87 +1,114 @@
 /* ============================================================================
    Ishtar /docs — bureau skin for Vocs 2.x
    ----------------------------------------------------------------------------
+   Restyled to mirror the landing at marketing/index.html.
+
    Vocs auto-loads this file last (virtual:vocs/user-styles, injected after
    styles/index.css in <Root>), and it is UNLAYERED — so every rule here wins
-   over Vocs' @layer-ed defaults by source order, no !important needed.
+   over Vocs' @layer-ed defaults by source order, no !important needed (except
+   where Vocs sets a value inline / via a more specific selector).
 
-   Theme model (verified against vocs@2 source):
-     - User inputs live in the --vocs-* namespace; the internal Tailwind tokens
-       read them as var(--vocs-NAME, default).
-     - The toggle sets html[data-vocs-theme="light"|"dark"] AND color-scheme,
-       and the whole theme is driven by CSS light-dark(). So we express every
-       skinned color as light-dark(<light>, <dark>) and it tracks the toggle
-       and the system preference automatically — same mechanism Vocs uses.
+   FONTS (CSP-clean — fonts.googleapis.com / fonts.gstatic.com only):
+     - Archivo  → body + headings (loaded as the Vocs body font via config).
+     - Geist Mono → code / mono / datasheet labels (loaded via @import below,
+       since Vocs font.google only loads one family).
 
-   Palette mirrors marketing/ds.css (The Bureau):
-     red   #e11d48 (light) / #ff2e4e (dark)
-     pink  #be185d (light) / #ff7fb0 (dark)
-     ink   #141414 / #e9e9ea     paper #fbfbf9 / #0b0b0c
-     dim   #ece9e1 / #050506     line  #e2e0da / #2a2a2e
+   COLORS — strict black / white / red, nothing else (mirrors index.html):
+     LIGHT  bg #ffffff · ink #0a0a0a · red #e10600 · muted #6a6a6a · line #0a0a0a
+     DARK   bg #161616 · ink #ececec · red #ff3636 · muted #9a9a9a · line #ececec
+     (dark is dimmed, not pure black). No beige, no purple/green.
+
+   The toggle sets html[data-vocs-theme="light"|"dark"] AND color-scheme, and
+   the whole theme is driven by CSS light-dark(); we express every skinned color
+   as light-dark(<light>, <dark>) so it tracks the toggle + system preference.
+
+   Sharp corners everywhere (border-radius:0). Hard offset shadows
+   (4px 4px 0 var(--ink)) on primary CTAs only.
    ============================================================================ */
 
+/* Geist Mono — the mono/code/label face. Archivo is loaded by Vocs config.
+   Both come from Google Fonts (fonts.googleapis.com → fonts.gstatic.com),
+   which the site CSP already allows. */
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;700&display=swap");
+
 :root {
-  /* Bureau brand tokens (light, dark) — single source for the rules below. */
-  --ish-red:   light-dark(#e11d48, #ff2e4e);
-  --ish-pink:  light-dark(#be185d, #ff7fb0);
-  --ish-ink:   light-dark(#141414, #e9e9ea);
-  --ish-mut:   light-dark(#5f5f5f, #8a8a90);
-  --ish-paper: light-dark(#fbfbf9, #0b0b0c);
-  --ish-dim:   light-dark(#ece9e1, #050506);
-  --ish-line:  light-dark(#e2e0da, #2a2a2e);
-  --ish-soft:  light-dark(#efeee9, #1a1a1d);
+  /* Bureau brand tokens (light, dark) — single source for the rules below.
+     Mirrors marketing/index.html exactly. */
+  --ish-red:   light-dark(#e10600, #ff3636);
+  --ish-ink:   light-dark(#0a0a0a, #ececec);
+  --ish-mut:   light-dark(#6a6a6a, #9a9a9a);
+  --ish-paper: light-dark(#ffffff, #161616);
+  --ish-panel: light-dark(#ffffff, #1c1c1c);
+  /* Hairline = the ink color (index.html uses --line == ink), with a soft
+     translucent variant for inner dividers. */
+  --ish-line:  light-dark(#0a0a0a, #ececec);
+  --ish-soft:  light-dark(rgba(10, 10, 10, 0.16), rgba(236, 236, 236, 0.15));
 
   /* --- Vocs theme inputs (verified --vocs-* override points) --------------- */
 
-  /* Monospace everywhere — body font and code font both → JetBrains Mono. */
+  /* Body + headings → Archivo; code / mono → Geist Mono. */
   --vocs-font-family:
-    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --vocs-font-family-mono:
-    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Accent (also set inline on <html> by config; restated for hover/derived). */
-  --vocs-color-accent: light-dark(#e11d48, #ff2e4e);
+  --vocs-color-accent: light-dark(#e10600, #ff3636);
 
-  /* Tighten the datasheet: roomier side rule for the framed column. */
+  /* Roomier side rule for the framed column. */
   --vocs-spacing-content-px: 2.75rem;
+
+  /* Kill rounded corners across Vocs' token surface — bureau is sharp. */
+  --vocs-borderRadius-0: 0px;
+  --vocs-borderRadius-1: 0px;
+  --vocs-borderRadius-2: 0px;
+  --vocs-borderRadius-4: 0px;
+  --vocs-borderRadius-8: 0px;
+}
+
+/* Sharp corners everywhere — bureau datasheet has no rounding. */
+html[data-vocs] * {
+  border-radius: 0 !important;
 }
 
 /* The "dimmed margins / lighter framed central column" ----------------------
    Vocs renders the gutters as bg-primary (the page) and the content surface as
-   [data-v-surface-bg] (bg-surface, with border-l/border-t). We darken the page
-   margins and keep the central surface lighter + side-bordered, like ds.css. */
+   [data-v-surface-bg]. The landing frames a white column with ink side rules on
+   the page field — so the gutters take the same paper, the column carries the
+   1.5px ink frame. */
 
 html[data-vocs] {
-  /* The page margins / gutters — the dimmer field the column floats on. */
-  background-color: var(--ish-dim);
+  background-color: var(--ish-paper);
+  color: var(--ish-ink);
 }
 
 [data-v-gutter-left],
 [data-v-gutter-top],
 [data-v-gutter-logo] {
-  background-color: var(--ish-dim) !important;
+  background-color: var(--ish-paper) !important;
 }
 
-/* The framed central column: lighter paper, with red/line side rules. */
+/* The framed central column: paper surface, with ink side/top rules
+   (the index.html .wrap border-left/right is 1.5px ink). */
 [data-v-surface-bg] {
   background-color: var(--ish-paper) !important;
   border-color: var(--ish-line) !important;
-  border-left-width: 1px;
-  border-top-width: 1px;
+  border-left-width: 1.5px;
+  border-top-width: 1.5px;
 }
 
 /* The content article itself sits on the paper surface. */
 [data-v-main] { background-color: transparent; }
 [data-v-content] { color: var(--ish-ink); }
 
-/* Sidebar reads as part of the dim margin, with a hairline against the column. */
+/* Sidebar reads as part of the field, with an ink hairline against the column. */
 [data-v-gutter-left] {
-  border-right: 1px solid var(--ish-line);
+  border-right: 1.5px solid var(--ish-line);
 }
 
 /* --- The "DOC ·" datasheet strip at the top of every page ------------------
    Injected as a ::before on the content article — no MDX edits, every page
-   gets the bureau header band with the red tick. */
+   gets the bureau header band with the red tick. Geist Mono via the mono token. */
 [data-v-content]::before {
   content: "▮  DOC · ISHTAR · DATASHEET · agent-mediated dating venue";
   display: block;
@@ -89,8 +116,9 @@ html[data-vocs] {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--ish-line);
   color: var(--ish-mut);
+  font-family: var(--vocs-font-family-mono);
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
@@ -116,24 +144,33 @@ html[data-vocs] {
 
 /* --- Accents on bureau detail ---------------------------------------------- */
 
-/* Links pick up the pink secondary on hover (matches ds.css a:hover). */
-[data-v-content] a:hover { color: var(--ish-pink); }
+/* Links: ink underline, red on hover (matches index.html a / a:hover). */
+[data-v-content] a {
+  color: var(--ish-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ish-soft);
+}
+[data-v-content] a:hover {
+  color: var(--ish-red);
+  border-color: var(--ish-red);
+}
 
-/* Headings stay ink-on-paper; H1 gets a red datasheet underline. */
+/* Headings stay ink-on-paper; H1 gets a red datasheet underline.
+   Archivo via the body font; tight tracking like the landing .h1. */
 [data-v-content] h1 {
-  letter-spacing: 0.01em;
+  letter-spacing: -0.025em;
   border-bottom: 2px solid var(--ish-red);
   padding-bottom: 0.4rem;
 }
 
-/* ALL-CAPS, lettured section labels for H2/H3 — engineering-bureau register. */
+/* ALL-CAPS, lettered section labels for H2/H3 — engineering-bureau register. */
 [data-v-content] h2,
 [data-v-content] h3 {
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-/* Spec-table feel: hairline rules, mono, muted label column. */
+/* Spec-table feel: hairline rules, mono header, muted label column. */
 [data-v-content] table {
   border: 1px solid var(--ish-line);
   border-collapse: collapse;
@@ -143,8 +180,9 @@ html[data-vocs] {
   border-bottom: 1px solid var(--ish-line);
 }
 [data-v-content] th {
+  font-family: var(--vocs-font-family-mono);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   color: var(--ish-mut);
   text-align: left;
 }
@@ -154,5 +192,27 @@ html[data-vocs] {
   border-left: 2px solid var(--ish-red);
 }
 
-/* Top nav active item + the bottom search "AskAi" pill keep the mono register
+/* --- Primary CTA: hard offset shadow (CTAs ONLY) ---------------------------
+   Mirrors the landing's .talk / .wl boxes: 1.5px ink frame, panel fill, a hard
+   4px 4px 0 offset shadow that goes red on hover. Vocs renders the inline-page
+   "AskAI"/primary buttons as [data-v-button-primary]; the bottom search box and
+   any role=button primary share that. Restrict the shadow to true CTAs. */
+[data-v-content] a[data-v-button-primary],
+[data-v-content] button[data-v-button-primary],
+[data-v-content] .vocs_Button[data-variant="accent"] {
+  border: 1.5px solid var(--ish-line) !important;
+  background: var(--ish-panel) !important;
+  color: var(--ish-ink) !important;
+  box-shadow: 4px 4px 0 var(--ish-ink) !important;
+  border-radius: 0 !important;
+}
+[data-v-content] a[data-v-button-primary]:hover,
+[data-v-content] button[data-v-button-primary]:hover,
+[data-v-content] .vocs_Button[data-variant="accent"]:hover {
+  border-color: var(--ish-red) !important;
+  box-shadow: 4px 4px 0 var(--ish-red) !important;
+  color: var(--ish-red) !important;
+}
+
+/* Top nav active item + the search "AskAi" pill keep the mono register
    automatically via --vocs-font-family-mono; nothing else needed there. */

@@ -8,15 +8,19 @@ export default defineConfig({
   renderStrategy: "full-static",
   // Docs live under /docs; the marketing one-pager is served at / by a hand-built index.html.
   basePath: "/docs",
-  // The Bureau register: monospace, ink-on-paper, with a red signal accent (pink in dark).
-  // accentColor is documented to accept any CSS color incl. light-dark(); that string form is
-  // the verified-valid shape, and it tracks the theme toggle (which sets color-scheme). The
+  // Bureau register, restyled to mirror marketing/index.html: Archivo body+headings,
+  // Geist Mono for code/labels, strict black/white/red (light) → dimmed (dark).
+  // accentColor accepts any CSS color incl. light-dark(); that string form is the
+  // verified-valid shape, and it tracks the theme toggle (which sets color-scheme). The
   // datasheet skin itself lives in src/pages/_root.css (auto-loaded last by Vocs).
   theme: {
-    accentColor: "light-dark(#e11d48, #ff2e4e)",
+    accentColor: "light-dark(#e10600, #ff3636)",
   },
+  // Vocs font.google loads ONE family as the body font. We load Archivo here;
+  // Geist Mono (the mono/code face) is loaded via @import in src/pages/_root.css
+  // (both fonts.googleapis.com / fonts.gstatic.com only — CSP-clean).
   font: {
-    google: "JetBrains Mono",
+    google: "Archivo",
   },
   topNav: [
     { text: "Ishtar, the agent", link: "/ishtar-the-agent" },
