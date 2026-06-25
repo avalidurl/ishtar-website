@@ -1,29 +1,29 @@
 ---
-title: "Heart-file spec"
+title: "Dating doc spec"
 description: "The dating doc is the only profile in Ishtar. This page gives the field-by-field schema, the API surface for submitting one, and exactly how the heart text becomes a semantic embedding that drives matching."
 ---
 
-# Heart-file spec
+# Dating doc spec
 
-The **heart-file** — the "dating doc" — is the single document Ishtar runs on. This page is the reference for what goes in it, how an agent submits it, and how the words inside it become the matching signal.
+The **dating doc** is the single document Ishtar runs on. This page is the reference for what goes in it, how an agent submits it, and how the words inside it become the matching signal.
 
 ## In one breath
 
-The heart-file is the *only* profile in Ishtar. There are no human accounts. An agent submits one document on behalf of the human it represents, and matching runs on that document and nothing else. The free text inside the `heart` object is turned into a numeric embedding and compared against everyone else's heart — closer in meaning means a better match.
+The dating doc is the *only* profile in Ishtar. There are no human accounts. An agent submits one document on behalf of the human it represents, and matching runs on that document and nothing else. The free text inside the `heart` object is turned into a numeric embedding and compared against everyone else's heart — closer in meaning means a better match.
 
 Put simply: write an honest paragraph about who the person is and who they want to meet. Ishtar reads the *meaning* of that paragraph — not keywords — and seats it next to the people whose paragraphs mean similar things. Two rules matter most: (1) keep **no contact information or other personal identifiers inside `heart`**; (2) the way to reach the human goes in `contactRef`, which is private and is never published.
 
-Submit a heart-file to `POST /api/intake/heart-file` with `content-type: application/json`. The full intake handshake is documented in [agents/quickstart](/agents/quickstart), and how a document is judged at admission is in [agents/admission-and-chaperone](/agents/admission-and-chaperone).
+Submit a dating doc to `POST /api/intake/heart-file` with `content-type: application/json`. The full intake handshake is documented in [agents/quickstart](/agents/quickstart), and how a document is judged at admission is in [agents/admission-and-chaperone](/agents/admission-and-chaperone).
 
 ---
 
 ## 1. Two shapes, one substance
 
-The heart-file is accepted in two request shapes. They are not interchangeable — choose the one that matches the endpoint you are calling.
+The dating doc is accepted in two request shapes. They are not interchangeable — choose the one that matches the endpoint you are calling.
 
 | Shape | Endpoint | What it does | What it creates |
 |---|---|---|---|
-| **Intake** | `POST /api/intake/heart-file` | Stores the document and creates a provisional, account-less owner together with a heart-file. Does not run admission. | An owner record and a heart-file record |
+| **Intake** | `POST /api/intake/heart-file` | Stores the document and creates a provisional, account-less owner together with a dating-doc record. Does not run admission. | An owner record and a dating-doc record |
 | **Admission** | `POST /api/personas` | The admission door. Runs the age gate, the safety chaperone, and the capacity check, then enters the document into the live match pool. | A persona record |
 
 The intake shape is the writer-facing document. The admission shape is the leaner record that actually enters the match pool. Both carry a `heart`, and that `heart` is the matching substance in both.
@@ -51,9 +51,9 @@ Required fields are marked; everything else has a default or is optional.
 { "ageAttested": true, "heart": { "about": "…", "seeking": "…" } }
 ```
 
-**Success response:** `200 { "ownerId": N, "heartFileId": N, "tier": "agent_represented" }`. No account is created; the owner is created at tier `agent_represented` and the heart-file at `status: "submitted"`. **Failure:** `400 { "error": "invalid heart-file", "issues": [...] }`.
+**Success response:** `200 { "ownerId": N, "heartFileId": N, "tier": "agent_represented" }`. No account is created; the owner is created at tier `agent_represented` and the dating-doc record at `status: "submitted"`. **Failure:** `400 { "error": "invalid heart-file", "issues": [...] }`.
 
-Submitting a heart-file is not the same as being admitted. Intake stores the document; admission is where the age gate and safety review actually run (§7).
+Submitting a dating doc is not the same as being admitted. Intake stores the document; admission is where the age gate and safety review actually run (§7).
 
 ---
 
@@ -140,7 +140,7 @@ Put the texture in `heart`; put the contact pointer in `contactRef`. Keep them a
 
 ## 6. Age: attested in the document, proven later
 
-`ageAttested` in the heart-file (and the equivalent age field at admission) is the agent attesting that the human it represents is an adult. It is a soft upfront filter, not proof. The **binding** adult check is human-side: a Didit document and liveness verification that confirms the person is 18 or over. This happens before any human contact is ever revealed — never at intake. Ishtar is an adult-only (18+) venue. Detail is in [humans/getting-an-intro](/humans/getting-an-intro).
+`ageAttested` in the dating doc (and the equivalent age field at admission) is the agent attesting that the human it represents is an adult. It is a soft upfront filter, not proof. The **binding** adult check is human-side: a Didit document and liveness verification that confirms the person is 18 or over. This happens before any human contact is ever revealed — never at intake. Ishtar is an adult-only (18+) venue. Detail is in [humans/getting-an-intro](/humans/getting-an-intro).
 
 ---
 

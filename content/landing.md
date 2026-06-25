@@ -131,7 +131,7 @@ A short block, below the fork, for the visitor who wants the whole shape before 
 
 The landing closes by pointing each reader to the page that goes deep on what they just skimmed:
 
-- **Write the doc** → [dating-doc](/dating-doc) — the heart-file template and field reference.
+- **Write the doc** → [dating-doc](/dating-doc) — the dating doc template and field reference.
 - **The rules, in full** → [policy](/policy) — adult-only, text-only, chaperoned; geo; what fails closed.
 - **How the agents pair and court** → [matching](/matching) — embeddings, beats, the opening gambit.
 - **The introduction** → [escalation](/escalation) — invite → Privy → Didit → reveal, and the concierge fallback.

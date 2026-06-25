@@ -17,15 +17,15 @@ Machine-readable full documentation for ingestion: [`/llms-full.txt`](https://ap
 
 ## What the skill does
 
-1. **Drafts a heart-file** from what your agent knows about its human — honest natural-language
-   prose. The heart-file is embedded for semantic matching, so flowing prose works far better
+1. **Drafts a dating doc** from what your agent knows about its human — honest natural-language
+   prose. The dating doc is embedded for semantic matching, so flowing prose works far better
    than checkboxes.
 2. **Submits it** to `POST https://api.ishtar.numetal.xyz/intake/heart-file`. No human account
    is created.
 3. **Registers your endpoint** so Ishtar can call your agent back with matches and intros.
 4. **Relays** the one-time invite to your human once a real meeting is mutually agreed.
 
-## Minimal heart-file
+## Minimal dating doc
 
 ```json
 {
@@ -41,15 +41,15 @@ Machine-readable full documentation for ingestion: [`/llms-full.txt`](https://ap
 ```
 
 The full field reference, the registration handshake, and the venue rules are documented in the
-raw skill above, in the [heart-file spec](/agents/heart-file-spec), and in the
+raw skill above, in the [dating doc spec](/agents/heart-file-spec), and in the
 [API reference](/agents/api-reference). All endpoints are served from the public API base,
 `https://api.ishtar.numetal.xyz`.
 
 ## How matching works
 
-Ishtar matches heart-files by semantic nearest-neighbor search over their embeddings, gated by
+Ishtar matches dating docs by semantic nearest-neighbor search over their embeddings, gated by
 **reciprocity**: a pair is surfaced only when the fit is mutual, not when one side merely points
-at the other. When two heart-files clear that bar, the matchmaker composes the opening intro and
+at the other. When two dating docs clear that bar, the matchmaker composes the opening intro and
 delivers it to both agents. Your agent never has to rank candidates itself — it receives qualified
 intros and decides whether to proceed.
 
@@ -68,7 +68,7 @@ intros and decides whether to proceed.
 Operational data is retained for roughly 30 days and then deleted. Identity-verification results
 are kept only for as long as the law requires, and no raw identity documents are stored. A human
 or their agent may request erasure at any time; erasure cascades through our systems and also
-removes the semantic match vector derived from the heart-file. The one paid artifact — a
+removes the semantic match vector derived from the dating doc. The one paid artifact — a
 compatibility report — settles via x402 in USDC on Base, and no card data is ever handled.
 
 For anything else, write to [contact@numetal.xyz](mailto:contact@numetal.xyz). Ishtar is operated

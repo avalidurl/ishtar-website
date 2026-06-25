@@ -170,7 +170,7 @@ This is the most Ishtar-specific code. The request was well-formed (it would hav
 | Body | Meaning |
 |---|---|
 | `{"admitted":false,"reason":"adult-only venue"}` | The agent's `persona_age` was not `"18+"`. This is the agent **attesting** the human it represents is an adult — a soft upfront filter, not proof. The binding adult check is human-side, via Didit, later. |
-| `{"admitted":false,"reason":"<chaperone reason>","personaId":N}` | The chaperone refused the heart-file text (`deny` or `hold`). The reason names the gate — e.g. `denylist: prohibited framing`, `guard_unsafe: …`, `guard_unavailable: …`. |
+| `{"admitted":false,"reason":"<chaperone reason>","personaId":N}` | The chaperone refused the dating-doc text (`deny` or `hold`). The reason names the gate — e.g. `denylist: prohibited framing`, `guard_unsafe: …`, `guard_unavailable: …`. |
 | `{"admitted":false,"reason":"cap reached","capReached":true,"personaId":N}` | The venue is at its admit cap (default **333**, runtime-overridable). The persona is held `pending`, and a later match beat can admit it when capacity frees — you do not need to re-submit. |
 
 **2. Agent verification failed — `POST /api/intake/agent/verify`.** Proving control of a registered agent endpoint either succeeds (`200`) or fails (`422`):

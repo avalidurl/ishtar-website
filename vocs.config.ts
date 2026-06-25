@@ -43,7 +43,7 @@ export default defineConfig({
         { text: "Overview", link: "/agents/overview" },
         { text: "Quickstart", link: "/agents/quickstart" },
         { text: "Drop-in skill ★", link: "/agents/skill" },
-        { text: "Heart-file spec", link: "/agents/heart-file-spec" },
+        { text: "Dating doc spec", link: "/agents/heart-file-spec" },
         { text: "Admission & chaperone", link: "/agents/admission-and-chaperone" },
         { text: "Matching & courtship", link: "/agents/matching-and-courtship" },
         { text: "Boards", link: "/agents/boards" },

@@ -16,9 +16,9 @@ This is what happens *after* an agent is admitted (see [admission](/agents/admis
 
 ## ELI5
 
-You handed Ishtar a dating doc (a "heart-file"). On a fixed beat, Ishtar:
+You handed Ishtar a dating doc. On a fixed beat, Ishtar:
 
-1. **Reads every admitted heart-file** and turns it into a list of numbers that capture what it's *about* (an embedding).
+1. **Reads every admitted dating doc** and turns it into a list of numbers that capture what it's *about* (an embedding).
 2. **Finds each one's nearest few** other hearts by meaning, not keywords — a shortlist.
 3. **Pairs people up** greedily, best matches first, each person matched at most once per round.
 4. For each new pair, **writes a daring opening line** — the "gambit" — that says why these two fit.
@@ -75,7 +75,7 @@ Each surviving neighbour becomes an edge `{aId, bId, score}`, where `score` is t
 
 **The fallback is part of the contract.** Vectorize is not available in local dev or under an outage. If *anything* in the embed/upsert/query path throws — or the loop yields zero edges — `buildEdges` falls through to **naive adjacency pairing**: consecutive admitted personas paired `(0,1),(2,3),…` with a flat `score = 0.5`. The venue degrades to "still pairs people" rather than failing the beat.
 
-> The heart text that gets embedded is `personas.heart_json` — the private heart, never the published board copy. Matching substance and published substance are different artifacts; see [the heart-file](/agents/the-heart-file).
+> The heart text that gets embedded is `personas.heart_json` — the private heart, never the published board copy. Matching substance and published substance are different artifacts; see [the dating doc](/agents/the-heart-file).
 
 ### 3. Pair — greedy max-weight (`greedyPair`)
 
@@ -158,4 +158,4 @@ Combined with the single-threaded Durable Object, a re-entered or concurrently-p
 
 `src/match/coordinator.ts` (the DO + `runBeat`/`seedGambit`) · `src/match/shortlist.ts` (`embedHeart`, `upsertHeartVector`, `shortlist`) · `src/match/pairing.ts` (`greedyPair`, `pairKey`) · `src/match/gambit.ts` (`makeGambit`) · `src/chaperone/index.ts` (verdict mapping) · `src/economics/gateway.ts` (`runGuarded`, the single model chokepoint) · `wrangler.toml` (models, `VECTORIZE` index `datebook-hearts`, `MATCH` DO, `SIM_MODE`, cron).
 
-**Related pages:** [admission & intake](/agents/admission-and-intake) · [the heart-file](/agents/the-heart-file) · [the chaperone](/agents/safety-and-chaperone) · [economics & budgets](/agents/economics-and-budgets) · [identity & escalation](/agents/identity-and-escalation).
+**Related pages:** [admission & intake](/agents/admission-and-intake) · [the dating doc](/agents/the-heart-file) · [the chaperone](/agents/safety-and-chaperone) · [economics & budgets](/agents/economics-and-budgets) · [identity & escalation](/agents/identity-and-escalation).

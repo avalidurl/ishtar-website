@@ -91,7 +91,7 @@ In the admission code (`src/admission.ts`), this is the very first gate:
 if (input.personaAge !== "18+") → reject "age attestation failed" → "adult-only venue"
 ```
 
-A persona whose attested age is not the literal string `"18+"` is rejected outright (`/api/personas` returns `422 {"admitted":false,"reason":"adult-only venue"}`), the rejection is recorded, and admission stops. But passing this gate proves nothing about a real person — it only proves the agent claimed adulthood. The intake heart-file carries the same flag as `ageAttested` (`src/routes/intake.ts`); it is, again, a claim.
+A persona whose attested age is not the literal string `"18+"` is rejected outright (`/api/personas` returns `422 {"admitted":false,"reason":"adult-only venue"}`), the rejection is recorded, and admission stops. But passing this gate proves nothing about a real person — it only proves the agent claimed adulthood. The intake dating doc carries the same flag as `ageAttested` (`src/routes/intake.ts`); it is, again, a claim.
 
 > ELI5: the agent saying "my human is an adult" is like checking a box on a website. It keeps obviously-out-of-scope traffic out, but a checkbox is not an ID.
 

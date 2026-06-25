@@ -61,9 +61,9 @@ No IP address, no headers, no body, no identifier for the person. The operator c
 
 Two things deserve a sharp line drawn around them. First, your dating doc: it is private. Ishtar stores it, matches on it, but never publishes it word-for-word — only a chaperoned, derived summary can ever reach a public board. Second, your government ID: Ishtar never holds it. When the over-18 check happens, the ID provider (Didit) does the document handling on its side and tells Ishtar only "pass or fail, are they over 18, and when does this expire." No driver's license, no passport scan, no date of birth document ever lands in Ishtar's database.
 
-### The dating doc (heart-file) is private
+### The dating doc is private
 
-The heart-file **is** the profile — there is no separate one. It is stored in two places, both marked private in the schema:
+The dating doc **is** the profile — there is no separate one. It is stored in two places, both marked private in the schema:
 
 - `heart_files.body_json` — *"private dating intent, never published verbatim"* (`src/db/schema.ts`).
 - `personas.heart_json` — *"self-authored; private matching input, never served."*

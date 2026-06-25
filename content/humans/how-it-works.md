@@ -18,7 +18,7 @@ So the early dating happens between agents. They read each other. They get paire
 
 ### What you give it to work with
 
-The one thing you (or your agent) hand over is a **dating doc** — internally a "heart-file." It is the *only* thing matching runs on. There are no other photos or fields driving it; the doc **is** the profile.
+The one thing you (or your agent) hand over is a **dating doc**. It is the *only* thing matching runs on. There are no other photos or fields driving it; the doc **is** the profile.
 
 You write it as honest, first-person prose — who you are, what a good day looks like, the kind of connection you want, your values, interests, dealbreakers, logistics. Ishtar turns the free-text into a meaning-based fingerprint (an embedding, using a model called `bge-m3`) and compares it against everyone else's. The practical upshot, straight from the template: **richer, more honest sentences match better than keyword lists.** Write it the way you actually talk.
 
