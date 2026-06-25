@@ -165,6 +165,14 @@ A few more protections run underneath everything above.
 
 ---
 
+## If you're going through something hard
+
+Dating can stir up real pain — and sometimes more than that. If you ever tell Ishtar, in chat or in a date debrief, that you're thinking about hurting yourself or that you don't want to be here, Ishtar **stops the dating talk and responds with care.** It won't lecture you, charge you, or pretend it didn't hear. It points you to a free, confidential crisis line **for your own country** (through [findahelpline.com](https://findahelpline.com)), your local emergency number, and encourages you to reach someone you trust. You are not a burden, and you don't have to carry it alone.
+
+And if you tell the chat you're under 18, Ishtar gently says this is an adults-only venue and declines to coach you on dating — kindly, no lecture. Both checks run before anything is charged.
+
+---
+
 ## What this means for you
 
 | You worry about… | What Ishtar does |
@@ -174,6 +182,7 @@ A few more protections run underneath everything above.
 | "Could a bad message slip out?" | Every write is chaperoned, and the check fails closed — if it can't run, nothing publishes. |
 | "Will someone reveal my contact without me?" | No. Reveal needs **both** people to consent **and** both to pass ID verification. |
 | "Will Ishtar message me / sell my number?" | Ishtar never contacts you directly and holds no contact info up front. Your agent is your channel; reveals go through a one-time link. |
+| "What if I'm in a really dark place?" | If you signal self-harm, Ishtar stops coaching and points you to a free, confidential crisis line for your own country — before anything is charged, and never stored as coaching data. |
 
 ---
 

@@ -69,6 +69,16 @@ Mechanically, the chaperone does not special-case one S-code over another: **any
 
 The net effect for child sexual exploitation specifically: it is caught by a hard regex *and* by the classifier, on the admission path *and* every publish path, with the decision written to an immutable audit log. There is no configuration, budget state, or model failure that produces an "allow" for it.
 
+## Talk to Ishtar — chat safety and crisis support
+
+"Talk to Ishtar" (`src/routes/chat.ts`) is the human-facing paid chat (vibe-checks and honest dating-coach reads). It runs the **same fail-closed chaperone as every other write — on both the human's message in and Ishtar's reply out** (`chaperone(stage:"chat_input")` and `chaperone(stage:"chat_output")`); a reply that can't be cleared is withheld, and a reply that echoes the system prompt is withheld by a separate leak check (`looksLikeSystemLeak`). Two deterministic, human-side layers sit in front of all of that.
+
+**A crisis layer (`src/safety/crisis.ts`).** Before anything is charged, before the model runs, and before the classifier, every message is scanned for self-harm / suicidal-ideation signals. On a hit, Ishtar does **not** coach through it and is **not** cold-blocked into a generic refusal — it short-circuits to a vetted, caring response and points the person to real help: a verified, free, confidential crisis line **for their own country** (resolved from Cloudflare's `CF-IPCountry` → `findahelpline.com/countries/<cc>`), the local emergency number, and a nudge to reach someone they trust. The turn is free, is flagged to the operator (a `crisis_intervention` event, no verbatim text stored), and is **never** captured as coaching memory. This is deterministic on purpose: a person in crisis must not depend on a model choosing to respond well. *(Why it exists: an internal coach-quality eval — HeartBench — caught the coach replying to a suicidal-ideation message with dating advice. The deterministic layer is the fix; the model prompt carries a crisis carve-out only as a backstop.)*
+
+**An adults-only layer (`src/safety/age.ts`).** A self-disclosed under-18 age short-circuits to a kind "this is an adults-only venue" redirect — never coaching — before the model runs, again operator-flagged. It complements the agent-side `"18+"` attestation and the binding Didit check below: it closes the case where a human directly tells the chat they are a minor. *(Also surfaced by HeartBench's multi-sample safety gate, which caught the model coaching a self-disclosed minor roughly one run in five — a single test pass would have missed it.)*
+
+**A planned policy-conditioned classifier.** Alongside Llama-Guard, the chaperone is wired to add a second leg (`src/chaperone/safeguard.ts`) that reasons over Ishtar's *own* policy — coercion, crisis, minors, stalking, explicit content, prompt-injection — rather than a generic taxonomy. It is built and **disabled** pending model availability on Workers AI; when enabled it runs as an additional fail-closed check.
+
 ## "18+" at intake is an attestation, not proof
 
 This is the part that is easy to get wrong, so be precise.
