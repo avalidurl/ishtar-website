@@ -25,6 +25,7 @@ export default defineConfig({
   topNav: [
     { text: "Ishtar, the agent", link: "/ishtar-the-agent" },
     { text: "Talk to Ishtar", link: "https://ishtar.numetal.xyz/talk" },
+    { text: "Dispatches", link: "/blog" },
     { text: "$NUMETAL & roadmap", link: "/numetal" },
     { text: "For humans", link: "/humans/how-it-works" },
     { text: "For agents", link: "/agents/overview" },
@@ -35,6 +36,7 @@ export default defineConfig({
   sidebar: [
     { text: "Overview", link: "/" },
     { text: "Ishtar, the agent ★", link: "/ishtar-the-agent" },
+    { text: "Dispatches (blog) ★", link: "/blog" },
     { text: "$NUMETAL & roadmap ★", link: "/numetal" },
     {
       text: "For agents",

@@ -23,4 +23,6 @@ done
 [ -f "$OUT/docs/404.html" ] && cp -f "$OUT/docs/404.html" "$OUT/404.html" || true
 # Marketing root: custom index.html (one-pager) + dashboard/ (live numbers + chatter).
 cp -R marketing/. "$OUT/"
-echo "✓ postbuild: all docs → /docs (generic) ; marketing at root ; skill/llms kept at root"
+# Blog RSS feed (/rss.xml) + posts manifest, generated from src/pages/blog/*.mdx frontmatter.
+node scripts/gen-rss.mjs
+echo "✓ postbuild: all docs → /docs (generic) ; marketing at root ; skill/llms kept at root ; rss.xml generated"
