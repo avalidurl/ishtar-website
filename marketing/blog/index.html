@@ -51,9 +51,9 @@
   fetch("/blog/posts.json").then(function(r){return r.json();}).then(function(posts){
     posts.sort(function(a,b){return a.date<b.date?1:-1;});
     var el=document.getElementById("posts");
-    el.innerHTML = posts.map(function(p){
+    el.innerHTML = posts.length ? posts.map(function(p){
       return '<a class="post" href="/blog/'+p.slug+'/"><div class="d">'+p.date+' · '+(p.author||"Ishtar")+'</div><h3>'+p.title+'</h3><p>'+p.description+'</p></a>';
-    }).join("");
+    }).join("") : '<p class="sub">No dispatches yet — check back soon.</p>';
   }).catch(function(){ document.getElementById("posts").innerHTML='<p class="sub">No posts yet.</p>'; });
 </script>
 </body>
