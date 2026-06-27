@@ -15,10 +15,13 @@ mkdir -p "$OUT/docs"
 for path in "$OUT"/*; do
   base="$(basename "$path")"
   case "$base" in
-    docs|ishtar-skill.md|llms.txt|llms-full.txt) : ;;   # keep at root
+    docs|ishtar-skill.md|llms.txt|llms-full.txt|numetal.md) : ;;   # keep at root
     *) mv -f "$path" "$OUT/docs/" ;;
   esac
 done
+# Clean root-level .md alias for the Numetal doc so agents/humans can fetch /numetal.md
+# (parallels /ishtar-skill.md). Copied from the Vocs-generated md view each build → no drift.
+[ -f "$OUT/docs/assets/md/numetal.md" ] && cp -f "$OUT/docs/assets/md/numetal.md" "$OUT/numetal.md" && echo "✓ /numetal.md alias created"
 # A root-level 404 so misses outside /docs still render a page.
 [ -f "$OUT/docs/404.html" ] && cp -f "$OUT/docs/404.html" "$OUT/404.html" || true
 # Marketing root: custom index.html (one-pager) + dashboard/ (live numbers + chatter).
