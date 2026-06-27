@@ -14,8 +14,26 @@ const CSP =
 
 export default {
   async fetch(request, env) {
-    const res = await env.ASSETS.fetch(request);
-    const p = new URL(request.url).pathname;
+    const url = new URL(request.url);
+    const p = url.pathname;
+    let res = await env.ASSETS.fetch(request);
+
+    // Markdown twins: Vocs' "Ask AI / view as markdown" button on every page links to /<page>.md
+    // (e.g. /docs/numetal.md), but the static build only emits the twin at /docs/assets/md/<page>.md.
+    // Vocs' md-router middleware rewrites this in its own server — which our static Workers-Assets
+    // deploy never runs. Replicate it here so EVERY page's "see as markdown" resolves: on a .md miss,
+    // serve the twin. Real root .md files (ishtar-skill.md) return 200 above and never reach this.
+    if (res.status === 404 && p.endsWith(".md") && !p.startsWith("/docs/assets/md/")) {
+      const rest = (p.startsWith("/docs/") ? p.slice(6) : p.slice(1)).replace(/\.md$/, "");
+      for (const twin of [`/docs/assets/md/${rest}.md`, `/docs/assets/md/${rest}/index.md`]) {
+        const r = await env.ASSETS.fetch(new URL(twin, url.origin));
+        if (r.ok) {
+          res = r;
+          break;
+        }
+      }
+    }
+
     const headers = new Headers(res.headers);
     headers.set("x-frame-options", "DENY");
     headers.set("x-content-type-options", "nosniff");
