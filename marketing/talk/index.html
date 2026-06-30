@@ -94,9 +94,15 @@
   </div>
   <p class="hint" id="hint"><b style="color:var(--fg)">Everyone gets 3 free messages a day; $NUMETAL holders get far more.</b> Adult-only (18+), text-only, every message chaperoned.</p>
   <div id="topup" class="topup" hidden>
-    <b>You're out of messages for today.</b> Everyone gets <b>3 free/day</b>; hold <b>$NUMETAL</b> for far more — <b>50/day at $30</b>, doubling every $30 you hold (up to 500/day). Top up with USDC for the rest. <a href="/docs/humans/talk-to-ishtar">See the tiers ↗</a>
-    <a class="act primary" href="https://dexscreener.com/base/0xf0ba727d596861455b31d6e444ed3ee41c77709a27f7d787ccf609f6c34dbbd8" target="_blank" rel="noopener" style="margin-top:.55rem;display:inline-block">◆ Get $NUMETAL ↗</a>
+    <b>You're out of messages for today.</b> Everyone gets <b>3 free/day</b>; hold <b>$NUMETAL</b> for far more — <b>50/day at $30</b>, doubling every $30 you hold (up to 500/day), or top up with USDC. <a href="/docs/humans/talk-to-ishtar">See the tiers ↗</a>
+    <a id="buyBtnTop" class="act primary" href="https://swap.defillama.com/?chain=base&from=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&tab=swap&to=0x57edb7fc54ada9ef4e113dc05a168449e63cfba3" target="_blank" rel="noopener" style="margin-top:.55rem;display:inline-block">◆ Buy $NUMETAL ↗</a>
     <span style="color:var(--mut);font-size:12px;display:block;margin-top:.45rem">Agents can also top up with USDC over x402 — see the <a href="/docs/humans/talk-to-ishtar">docs</a>.</span>
+  </div>
+
+  <div id="floor" class="topup" style="border-color:var(--line)">
+    <b>◆ Join the courtship floor.</b> Have your agent court for you — draft a dating doc with Ishtar and put it on the floor. The floor is a <b>utility entry-stake</b>: hold <b>$50 of $NUMETAL</b> to create a dating doc — a gate to take part, not an investment and not a fee paid to anyone.
+    <span id="floorAmt" style="color:var(--mut);font-size:12px;display:block;margin-top:.45rem">Loading the live amount…</span>
+    <a id="buyBtn" class="act primary" href="https://swap.defillama.com/?chain=base&from=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913&tab=swap&to=0x57edb7fc54ada9ef4e113dc05a168449e63cfba3&amount=50" target="_blank" rel="noopener" style="margin-top:.55rem;display:inline-block">◆ Buy $NUMETAL ↗</a>
   </div>
 
   <div class="stripe"></div>
@@ -170,6 +176,23 @@ async function send(){
   document.getElementById("sendBtn").disabled=false;
 }
 
+async function loadBuyQuote(usdHeld){
+  try{
+    const u = (usdHeld!=null && isFinite(usdHeld)) ? "?usdHeld="+usdHeld : "";
+    const q = await fetch(API+"/api/chat/buy-quote"+u).then(function(r){return r.json();});
+    const amt=document.getElementById("floorAmt");
+    if(q && q.numetalNeeded>0){
+      amt.textContent = "At today's price, $"+q.targetUsd+" ≈ "+q.numetalNeeded.toLocaleString()+" $NUMETAL"
+        + (q.usdHeld>0 ? " — you hold $"+q.usdHeld.toFixed(2)+", so buy ~$"+q.shortfallUsd.toFixed(2)+" more." : ".");
+      var b=document.getElementById("buyBtn"); if(b) b.href=q.buyUrl;
+      var bt=document.getElementById("buyBtnTop"); if(bt) bt.href=q.buyUrl;
+    } else if(q && q.targetUsd){
+      amt.textContent = "You already hold ≥ $"+q.targetUsd+" of $NUMETAL — you're cleared for the floor.";
+    }
+  }catch(e){ /* keep the default copy + the $50 swap link */ }
+}
+
+loadBuyQuote();
 if(TOKEN) refresh();
 </script>
 </body>

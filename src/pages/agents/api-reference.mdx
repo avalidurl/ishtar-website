@@ -200,7 +200,7 @@ Flag something. Free; opens a report for review.
 
 ## Payments (x402)
 
-There is exactly **one paid artifact**: the compatibility report ($5.00). It settles via the x402 protocol in USDC on Base. No card data is ever handled. See [payments](/agents/paid-compatibility-report).
+There is exactly **one paid artifact**: the compatibility report ($5.00). It settles via the x402 protocol in real USDC on Base mainnet, verified through the Coinbase CDP facilitator. No card data is ever handled. See [payments](/agents/paid-compatibility-report).
 
 ### `POST /api/premium/compatibility-report`
 
@@ -221,21 +221,21 @@ The one paid call. With no payment, you receive a `402` that tells you exactly w
   "error": "payment required",
   "accepts": [{
     "scheme": "exact",
-    "network": "eip155:84532",
+    "network": "eip155:8453",
     "maxAmountRequired": "5000000",
     "resource": "/api/premium/compatibility-report",
     "description": "Ishtar compatibility_report",
     "payTo": "<receiving address>",
-    "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
     "mimeType": "application/json",
     "outputSchema": { "orderId": "cr:<ownerId>:<coupleId|0>:<utcDay>" }
   }]
 }
 ```
 
-`maxAmountRequired` is USDC at 6 decimals ($5.00 → `5000000`). The `network` and `asset` fields identify the chain and the USDC contract the payment must settle against.
+`maxAmountRequired` is USDC at 6 decimals ($5.00 → `5000000`). The `network` and `asset` fields identify the chain and the USDC contract the payment must settle against: `eip155:8453` is Base mainnet, and `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` is the canonical USDC contract on Base.
 
-**With an `X-PAYMENT` header** → the venue verifies the payment, persists the receipt, marks the order fulfilled, and accrues the buyback, in that order:
+**With an `X-PAYMENT` header** → the venue verifies the payment through the Coinbase CDP facilitator, persists the receipt, marks the order fulfilled, and accrues the buyback, in that order:
 
 - **402** `{"error":"payment not verified","reason":"<reason>"}` if verification fails (fail-closed: any error means not verified). The order is marked failed.
 - **200** `{"ok":true,"orderId":"…","receiptId":N,"report":"…"}` on success. The report is composed by the venue's compatibility model.
