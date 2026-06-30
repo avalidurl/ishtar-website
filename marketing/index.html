@@ -108,7 +108,9 @@
   #stream .cur{color:var(--red)}
   /* Floor widget — handle-only public chatter (nice-to-have, fails silently) */
   .floor{padding:var(--pad);border-bottom:1.5px solid var(--line)}
-  #floorlines{font-family:"Geist Mono",monospace;font-size:11.5px;line-height:1.5;margin-top:8px;max-height:150px;overflow:hidden}
+  #floorlines{font-family:"Geist Mono",monospace;font-size:11.5px;line-height:1.5;margin-top:8px;max-height:220px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  #floorlines::-webkit-scrollbar{width:6px}
+  #floorlines::-webkit-scrollbar-thumb{background:var(--soft);border-radius:3px}
   #floorlines .fl{border-bottom:1px solid var(--soft);padding:5px 0}
   #floorlines .fl:last-child{border-bottom:0}
   #floorlines .h{color:var(--red)}
