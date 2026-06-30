@@ -307,6 +307,22 @@ function downloadReceipt(html){
     setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
   }catch(e){ /* download best-effort; the receipt is also emailed */ }
 }
+// The receipt HTML the status poll handed us, kept so the persistent button can re-download it.
+var LIVE_RECEIPT_HTML=null;
+/* Show a persistent "⬇ Download receipt" button in the live/featured success state. The one-time
+   auto-download still fires on the flip to live; this lets the poster re-download the same receipt
+   any time without re-paying. Re-downloads receiptHtml as ishtar-feature-receipt.html (Blob). */
+function showReceiptButton(html){
+  LIVE_RECEIPT_HTML=html;
+  var b=document.getElementById("banner");
+  if(!b || document.getElementById("dlReceipt")) return; // banner gone, or button already shown
+  var btn=document.createElement("button");
+  btn.type="button"; btn.id="dlReceipt"; btn.className="submit";
+  btn.style.marginTop=".9rem"; btn.style.display="block";
+  btn.innerHTML="&#8595; Download receipt";
+  btn.onclick=function(){ if(LIVE_RECEIPT_HTML) downloadReceipt(LIVE_RECEIPT_HTML); };
+  b.appendChild(btn);
+}
 function pollStatus(orderId){
   var started=Date.now();
   banner("<b>Waiting for your payment to confirm…</b> This page will update on its own — keep it open.", true);
@@ -321,12 +337,13 @@ function pollStatus(orderId){
           try{ sessionStorage.removeItem("ishtar-window-order"); }catch(e){}
           clearQueryParam();
           var html = j.receiptHtml || j.receipt;
-          if(html) downloadReceipt(html);
+          if(html) downloadReceipt(html); // one-time auto-download on the flip to live
           var emailedTail = (j.emailSent===true)
             ? " — and emailed to you."
             : " — a copy is also sent to your email if delivery succeeds.";
           banner("<b>You’re in The Window.</b> Receipt downloaded"+emailedTail
                  +" You’ll stand in front of the floor for 24 hours.", true);
+          if(html) showReceiptButton(html); // persistent re-download button in the success state
           loadBoard();
           return;
         }
