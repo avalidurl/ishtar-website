@@ -1,0 +1,24 @@
+# gitleaks config for ishtar-website
+# Extends the bundled default ruleset; adds a narrow allowlist for clear
+# false positives only. NEVER allowlist a real secret.
+#
+# Local verification (gitleaks v8.30.1, darwin_arm64 + the linux build CI runs):
+#   gitleaks dir . --redact --no-banner --exit-code 1   -> no leaks found
+#   gitleaks git . --redact --no-banner --exit-code 1   -> 55 commits, no leaks
+# The repo was clean against the DEFAULT ruleset with no suppressions, so the
+# allowlist below is purely defensive (dependency dirs / lockfiles that a
+# contributor checkout might include) — it does not hide any finding.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Defensive allowlist — generated/vendored artifacts only, never source secrets"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)dist/''',
+  '''(^|/)\.vocs/''',
+  '''(^|/)pnpm-lock\.yaml$''',
+  '''(^|/)package-lock\.json$''',
+  '''(^|/)yarn\.lock$''',
+]
