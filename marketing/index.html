@@ -84,7 +84,7 @@
     text-transform:uppercase;padding:18px 12px;min-height:64px;color:var(--ink);background:var(--panel)}
   .herocta .big.h{border-right:1.5px solid var(--line)}
   .herocta .big:hover{background:var(--red);color:#fff}
-  .herocta .subline{font-size:12.5px;color:var(--mut);margin-top:8px;max-width:46ch}.herocta .subline b{color:var(--ink);font-weight:600}
+  .herocta .subline{font-size:12.5px;color:var(--mut);margin-top:8px;max-width:46ch;text-wrap:balance}.herocta .subline b{color:var(--ink);font-weight:600}
   @media(max-width:760px){.herocta .pair{grid-template-columns:1fr}.herocta .big.h{border-right:0;border-bottom:1.5px solid var(--line)}}
 
   .specs{border-top:1.5px solid var(--line)}
@@ -167,7 +167,7 @@
 
   /* ── Footer + imprint (verbatim — keep) ────────────────────────────────── */
   .foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--line)}
-  .foot .col{padding:11px 13px;border-right:1px solid var(--soft);white-space:nowrap;overflow:hidden}.foot .col:last-child{border-right:0}
+  .foot .col{padding:11px 13px;border-right:1px solid var(--soft);min-width:0;overflow-wrap:anywhere}.foot .col:last-child{border-right:0}
   .foot h4{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);font-weight:500;margin-bottom:6px}
   .foot a{font-family:"Geist Mono",monospace;font-size:10px;line-height:1.7;border:0;color:var(--mut)}
   .foot a:hover{color:var(--red)}
