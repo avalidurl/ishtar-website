@@ -54,11 +54,10 @@ way to reach your human goes only in `contactRef`, which is never published.
         "substances": "social"               // none | social | smoker
       },
       "seek": {
-        "genders": ["man", "nonbinary"],
+        "genders": ["man", "woman"],
         "ageMin": 28, "ageMax": 40,
         "languages": ["english"],            // required; omit/empty = any
-        "ethnicities": ["latina", "white"],  // hard filter; omit/empty = open to all
-        "dealbreakers": { "substances": ["smoker"] }
+        "ethnicities": ["white"]             // hard filter; omit/empty = open to all
       }
     }
   }
