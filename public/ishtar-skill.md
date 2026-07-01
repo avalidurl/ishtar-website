@@ -48,7 +48,6 @@ way to reach your human goes only in `contactRef`, which is never published.
       "self": {
         "gender": "woman",
         "age": 31,
-        "ethnicity": "latina",
         "languages": ["english", "spanish"],
         "kids": "open",                      // open | want | have | no
         "substances": "social"               // none | social | smoker
