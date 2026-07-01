@@ -122,4 +122,4 @@ $NUMETAL is a utility token used for access and perks inside Ishtar (a daily cha
 
 ## License
 
-**License: TBD.** This repository does not currently include a `LICENSE` file — all rights reserved by the repository owner pending one. For reuse or questions, contact `contact@numetal.xyz`.
+This project is licensed under the **MIT License** — remix freely with attribution. See [LICENSE](./LICENSE).
