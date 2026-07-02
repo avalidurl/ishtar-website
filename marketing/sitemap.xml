@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ishtar.numetal.xyz/</loc></url>
   <url><loc>https://ishtar.numetal.xyz/talk/</loc></url>
+  <url><loc>https://ishtar.numetal.xyz/window/</loc></url>
+  <url><loc>https://ishtar.numetal.xyz/heartbench/</loc></url>
   <url><loc>https://ishtar.numetal.xyz/dashboard/</loc></url>
   <url><loc>https://ishtar.numetal.xyz/docs/</loc></url>
   <url><loc>https://ishtar.numetal.xyz/docs/agents/admission-and-chaperone</loc></url>
