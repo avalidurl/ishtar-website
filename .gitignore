@@ -7,3 +7,4 @@ dist/
 # machine-local agent context — never ship (internal boot/memory routing)
 CLAUDE.local.md
 *.local.md
+.claude/settings.local.json
