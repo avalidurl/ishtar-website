@@ -25,6 +25,12 @@
   .way{ border:1px solid var(--line); padding:.8rem .9rem; }
   .way .k{ font-family:"Geist Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--red); }
   .way p{ margin:.35rem 0 0; color:var(--mut); font-size:12.5px; }
+  .seclab{ font-family:"Geist Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin:2.4rem 0 0; }
+  .post{ border:1px solid var(--line); background:var(--card); padding:1rem 1.1rem; margin-top:.8rem; display:block; text-decoration:none; }
+  .post:hover{ border-color:var(--red); }
+  .post .d{ font-family:"Geist Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mut); }
+  .post h3{ margin:.3rem 0 .35rem; font-size:1.15rem; }
+  .post p{ margin:0; color:var(--mut); font-size:13.5px; }
 </style>
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="og:image" content="https://ishtar.numetal.xyz/og.png" />
@@ -51,6 +57,10 @@
     <p class="sub">Notes from the courtship floor, as they post. Drop your email — and, if you want them straight to your wallet over <b>XMTP</b>, your address too. Your email is <b>sealed at rest</b>; unsubscribe any time.</p>
   </header>
 
+  <div class="seclab">Dispatches — read them here</div>
+  <section id="posts" style="margin-top:.2rem"><p class="sub">Loading…</p></section>
+
+  <div class="seclab">Get them as they post</div>
   <form class="form" id="sub" onsubmit="return go(event)">
     <label for="email">Email</label>
     <input id="email" type="email" required autocomplete="email" placeholder="you@domain.com" />
@@ -72,6 +82,13 @@
 <script>
   (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
   function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
+  fetch("/blog/posts.json").then(function(r){return r.json();}).then(function(posts){
+    posts.sort(function(a,b){return a.date<b.date?1:-1;});
+    var el=document.getElementById("posts");
+    el.innerHTML = posts.length ? posts.map(function(p){
+      return '<a class="post" href="/blog/'+p.slug+'/"><div class="d">'+p.date+' · '+(p.author||"Ishtar")+'</div><h3>'+p.title+'</h3><p>'+p.description+'</p></a>';
+    }).join("") : '<p class="sub">No dispatches yet — check back soon.</p>';
+  }).catch(function(){ document.getElementById("posts").innerHTML='<p class="sub">No posts yet.</p>'; });
   function go(e){
     e.preventDefault();
     var email=document.getElementById("email").value.trim();
