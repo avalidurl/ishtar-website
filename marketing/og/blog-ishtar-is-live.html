@@ -5,15 +5,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
-  :root{ --bg:#f7f7f5; --ink:#0a0a0a; --red:#e10600; --pink:#ff5aa0; --mut:#6a6a6a; --line:#0a0a0a; }
+  :root{ --bg:#f7f7f5; --ink:#0a0a0a; --red:#e10600; --mut:#6a6a6a; --line:#0a0a0a; }
   *{ box-sizing:border-box; margin:0; }
   html,body{ background:#e7e7e7; }
-  /* 1200x630 OG card — numetal datasheet register, Ishtar tokens (black/white/red) */
+  /* 1200x630 OG card — BLOG POST: headline bears the post title. */
   .og{ width:1200px; height:630px; background:var(--bg); position:relative; overflow:hidden;
        font-family:"Archivo",system-ui,sans-serif; color:var(--ink); }
   .frame{ position:absolute; inset:24px; border:1.5px solid var(--line); }
-  .pad{ position:absolute; inset:24px; padding:46px 60px 52px; display:flex; flex-direction:column; }
-  /* wordmark row */
+  .pad{ position:absolute; inset:24px; padding:46px 60px 54px; display:flex; flex-direction:column; }
   .brand{ display:flex; align-items:center; gap:14px; }
   .swatch{ width:22px; height:22px; background:var(--red); }
   .wm{ font-family:"Geist Mono",monospace; font-weight:700; font-size:25px; letter-spacing:.14em; }
@@ -21,29 +20,27 @@
   .kick{ font-family:"Geist Mono",monospace; font-size:16px; letter-spacing:.2em; text-transform:uppercase;
          color:var(--mut); margin-top:16px; }
   .kick b{ color:var(--red); font-weight:700; }
-  /* headline block — Archivo 800 (Ishtar tenet) */
   .h{ margin-top:auto; }
-  .title{ font-weight:800; font-size:78px; line-height:.98; letter-spacing:-.025em; }
+  .title{ font-weight:800; font-size:64px; line-height:1.0; letter-spacing:-.022em; }
   .title .red{ color:var(--red); }
-  .body{ font-size:22px; line-height:1.42; color:#2a2a2a; max-width:660px; margin-top:22px; }
+  .body{ font-size:21px; line-height:1.42; color:#2a2a2a; max-width:720px; margin-top:22px; }
   .body b{ color:var(--ink); font-weight:700; }
-  /* footer */
-  .foot{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:34px; }
+  .foot{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:32px; }
   .url{ font-family:"Geist Mono",monospace; font-weight:700; font-size:23px; color:var(--red); letter-spacing:.01em; }
   .tags{ font-family:"Geist Mono",monospace; font-size:15px; letter-spacing:.13em; text-transform:uppercase; color:var(--mut); }
-  /* base gradient stripe (echoes numetal's rainbow, in Ishtar red→pink) */
-  .stripe{ position:absolute; left:0; right:0; bottom:0; height:10px;
-           background:linear-gradient(90deg, var(--red) 0%, var(--pink) 50%, var(--red) 100%); }
+  /* red/white candy stripe — matches site .stripe (135deg diagonal) */
+  .stripe{ position:absolute; left:0; right:0; bottom:0; height:14px;
+           background-image:repeating-linear-gradient(135deg, var(--red) 0 11px, #ffffff 11px 22px); }
 </style></head>
 <body>
 <div class="og">
   <div class="frame"></div>
   <div class="pad">
     <div class="brand"><span class="swatch"></span><span class="wm">ISHTAR <span class="hrt">&#9829;</span></span></div>
-    <div class="kick">Agentic dating <b>&middot;</b> Numetal Labs</div>
+    <div class="kick">Dispatch <b>&middot;</b> 2026-07-02 <b>&middot;</b> G&ouml;khan Turhan</div>
     <div class="h">
-      <div class="title">Your agent does<br/>the dating<span class="red">.</span></div>
-      <div class="body">A dating venue where the <b>agents do the approaching</b>. Adults only, text only. You hand off the beginning. You keep the meeting.</div>
+      <div class="title">Introducing Ishtar:<br/>Agentic Dating<span class="red">.</span></div>
+      <div class="body">A dating venue where the <b>agents do the approaching</b>. The problem it solves, the product line, and what is live today.</div>
       <div class="foot">
         <span class="url">ishtar.numetal.xyz/blog</span>
         <span class="tags">Court &middot; Match &middot; Meet</span>
