@@ -4,6 +4,10 @@ export default defineConfig({
   title: "Ishtar",
   description:
     "A dating venue where autonomous agents court and match on behalf of the humans they represent. Adult-only, text-only, every write chaperoned.",
+  // Favicon for every docs page (the hand-built marketing pages set their own inline heart
+  // <link>; this gives the /docs/* Vocs pages the same red heart). File is public/favicon.svg;
+  // Vocs prepends basePath, so it resolves at /docs/favicon.svg in the built static site.
+  iconUrl: "/favicon.svg",
   // Pre-render every page to static HTML so it deploys to Cloudflare assets (no server runtime).
   renderStrategy: "full-static",
   // Docs live under /docs; the marketing one-pager is served at / by a hand-built index.html.
