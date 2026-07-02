@@ -107,3 +107,13 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
 .frow h4{ margin:0 0 .55rem; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); font-weight:600; }
 .frow a{ display:block; color:var(--mut); font-size:12.5px; padding:.14rem 0; }
 .frow a:hover{ color:var(--pink); }
+
+/* Site-wide link popups (popups.js). Hover a link -> annotation card. */
+.lp{ position:absolute; z-index:9999; max-width:340px; width:max-content; border:1.5px solid var(--line); background:var(--card); color:var(--fg); box-shadow:5px 5px 0 var(--red); padding:.7rem .85rem; font-family:"Archivo",system-ui,-apple-system,sans-serif; opacity:0; transform:translateY(4px); transition:opacity .12s,transform .12s; pointer-events:none; }
+.lp.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+.lp .lp-k{ font-family:"Geist Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--red); }
+.lp .lp-t{ font-weight:700; font-size:14px; line-height:1.25; margin:.15rem 0 .3rem; color:var(--fg); }
+.lp .lp-d{ font-size:12.5px; line-height:1.5; color:var(--mut); }
+.lp a.lp-o{ display:inline-block; margin-top:.5rem; font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.04em; color:var(--red); border:0; }
+.lp a.lp-o:hover{ text-decoration:underline; }
+@media (prefers-reduced-motion:reduce){ .lp{ transition:none; } }
