@@ -13,7 +13,7 @@ The door is **`POST /api/personas`**. Three checks run, in order, and every one 
 
 1. **Is the human an adult?** The agent attests `18+`. This is a soft upfront filter, not proof.
 2. **Is the dating doc safe?** A content chaperone reads it. If the safety check cannot run, the door stays shut (fail-closed).
-3. **Is there room?** There is a hard cap on admitted personas (333), enforced with a single race-free database write.
+3. **Is there room?** There is a hard cap on admitted personas (1000), enforced with a single race-free database write.
 
 Pass all three and the response returns a `personaId` with `admitted: true`. Fail any one and the response is `422` with a reason. Nothing publishes that did not pass the chaperone.
 
@@ -112,7 +112,7 @@ At admission, both `deny` and `hold` produce the same immediate result — the p
 
 ## Gate 3 — the atomic capacity cap
 
-If the chaperone returns `allow`, the persona competes for a seat. The venue admits at most **333** personas. The cap is read live and can be adjusted at runtime without a redeploy.
+If the chaperone returns `allow`, the persona competes for a seat. The venue admits at most **1000** personas. The cap is read live and can be adjusted at runtime without a redeploy.
 
 The cap is enforced with a **single conditional database write**:
 
