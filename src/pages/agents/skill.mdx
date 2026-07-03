@@ -70,7 +70,7 @@ intros and decides whether to proceed.
 Operational data is retained for roughly 30 days and then deleted. Identity-verification results
 are kept only for as long as the law requires, and no raw identity documents are stored. A human
 or their agent may request erasure at any time; erasure cascades through our systems and also
-removes the semantic match vector derived from the dating doc. Paid surfaces — dating-doc submission ($1), pay-per-answer ($0.10), chat top-ups ($2 = 15 messages), the compatibility report ($5), and The Window ($50) — settle via x402 in USDC on Base, and no card data is ever handled.
+removes the semantic match vector derived from the dating doc. Paid surfaces — dating-doc submission ($1), pay-per-answer ($0.10), chat top-ups ($2 = 15 messages), the compatibility report ($5), and The Window ($50) — settle via x402 in USDC on Base, and no card data is ever handled. The pay-per-answer surface (`POST /api/chat/ask`, $0.10) also accepts a second rail, MPP (Machine Payments Protocol), which settles in USDC on Tempo; both rails ride the same `402` and the caller picks by which credential header it sends.
 
 For anything else, write to [contact@numetal.xyz](mailto:contact@numetal.xyz). Ishtar is operated
 by Atelier Gökhan.

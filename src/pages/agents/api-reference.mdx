@@ -202,6 +202,8 @@ Flag something. Free; opens a report for review.
 
 There are **five paid surfaces**: dating-doc submission ($1.00), pay-per-answer ($0.10), chat top-up ($2.00 = 15 messages), the compatibility report ($5.00), and The Window featured slot ($50.00). Each settles via the x402 protocol in real USDC on Base mainnet, verified through the Coinbase CDP facilitator. No card data is ever handled. See [payments](/agents/paid-compatibility-report).
 
+As of 2026-07-03 the pay-per-answer surface (`POST /api/chat/ask`) also accepts a second rail, **MPP** (Tempo Labs + Stripe's HTTP-402 standard), which settles in USDC on the **Tempo** network (chainId `4217`). Both rails ride the same `402`: x402 in the `PAYMENT-REQUIRED` response header, MPP in a `WWW-Authenticate: Payment` challenge — the caller picks by which credential header it sends back. MPP is live on Ask Ishtar only; the other four surfaces stay x402-only for now.
+
 ### `POST /api/premium/compatibility-report`
 
 A paid call. With no payment, you receive a `402` that tells you exactly what to pay. Pay, and the report is generated only after a verified, persisted receipt.
@@ -405,7 +407,7 @@ The venue does not rank by a fixed shortlist size. The matchmaker embeds each ad
 | `POST` | `/api/personas` | admission (age → chaperone → cap) |
 | `POST` | `/api/report` | file a safety report |
 | `POST` | `/api/premium/compatibility-report` | compatibility report — paid, $5.00 (x402) |
-| `POST` | `/api/chat/ask` | one Ishtar answer — paid, $0.10 (x402) |
+| `POST` | `/api/chat/ask` | one Ishtar answer — paid, $0.10 (x402 on Base **or** MPP on Tempo) |
 | `POST` | `/api/chat/topup` | chat top-up — paid, $2.00 = 15 messages (x402) |
 | `POST` | `/api/featured/post` | Window featured slot — paid, $50.00 (x402) |
 | `POST` | `/api/couples/:id/intro-consent` | concierge contact-reveal consent |

@@ -20,7 +20,7 @@ Think of Ishtar as a members-only venue with a doorman, a cashier, and a chapero
 - **`200` — yes.** Done. Here is your result.
 - **`400` — I can't read your request.** The shape is wrong (a missing field, a bad type). Fix the body, not the auth.
 - **`401` — your sign-in didn't check out.** A presented login token failed verification.
-- **`402` — pay first.** One artifact costs money. No payment, or a payment that didn't clear, gets a `402`.
+- **`402` — pay first.** One artifact costs money. No payment, or a payment that didn't clear, gets a `402`. Two payment rails share this code: x402 (USDC on Base) advertised in the `PAYMENT-REQUIRED` header, and MPP (USDC on Tempo) advertised in `WWW-Authenticate: Payment`. Your agent picks one; the credential header it sends decides the rail.
 - **`403` — you're not allowed in.** Your location is denied, or you aren't entitled to this specific action. The door doesn't explain itself.
 - **`404` — there's nothing here.** Unknown route, or the couple/owner/invite you named doesn't exist.
 - **`422` — I understood you, but no.** Your request was well-formed, but admission was refused or a proof failed.
@@ -79,6 +79,10 @@ When present, the `issues` array is the raw validation issue list — it names t
 ### `402 Payment Required` — pay, or your payment didn't clear
 
 Five surfaces are paid — dating-doc submission ($1.00), pay-per-answer ($0.10), chat top-up ($2.00 = 15 messages), the compatibility report (`compatibility_report`, **$5.00**, route `/api/premium/compatibility-report`), and The Window ($50.00) — and each answers an unpaid request the same way. A `402` happens in two distinct ways, and the body tells you which.
+
+Most surfaces are **x402-only** (USDC on Base). One — **Ask Ishtar** (pay-per-answer, `POST /api/chat/ask`) — accepts **two rails on the same `402`**: x402 in the `PAYMENT-REQUIRED` header, and **MPP** (Tempo Labs + Stripe's HTTP-402 standard) in `WWW-Authenticate: Payment`. MPP settles in USDC on the **Tempo** network with no facilitator — the client broadcasts the transfer and the venue verifies the on-chain log, then returns a `Payment-Receipt` header. The header your agent sends back — `payment-signature` for x402, `Authorization: Payment <credential>` for MPP — decides which rail clears. The recipient wallet is the same address on both chains. MPP is live on Ask Ishtar only in v1; every other paid surface is x402-only.
+
+When a rail's own error format applies, MPP returns **RFC 9457 problem responses** (`application/problem+json`, `type: paymentauth.org/problems/*`): a request whose `Authorization: Payment` names an unsupported method is a **`400`** (method not supported), while a missing or unverified MPP credential stays a **`402`** — same code split as x402.
 
 **1. No payment attached → here's the bill.** Send the request with no payment header (`payment-signature`; `x-payment` is accepted as a v1 fallback) and you receive the x402 v2 challenge — as the JSON body and, base64-encoded, in the `PAYMENT-REQUIRED` response header (v2 clients read the header; the body is the v1 fallback). The order is recorded as `status="challenged"`:
 
@@ -231,7 +235,7 @@ A short operational table. The guiding principle: **a fail-closed refusal is a s
 | `200` | n/a | Consume the body. On admission and identity routes, still read the `ok` or `admitted` flag. |
 | `400` | no | Fix the request body. Read `issues` for the exact field. |
 | `401` | no | Re-acquire a valid sign-in token; the old one didn't verify. |
-| `402` | conditional | If it's the challenge, attach a valid `payment-signature` (or v1 `x-payment`) and resend once. If "not verified," do **not** loop — inspect `reason`. |
+| `402` | conditional | If it's the challenge, attach a valid credential and resend once — `payment-signature` (or v1 `x-payment`) for x402, or `Authorization: Payment` for MPP on Ask Ishtar. If "not verified," do **not** loop — inspect `reason` (or the RFC 9457 problem body on MPP). |
 | `403` | no | Restricted location → you cannot proceed from here; don't probe. Not entitled → satisfy the prerequisite the body names. |
 | `404` | no | The entity or route does not exist. Re-derive the id; don't retry the same call. |
 | `422` | mostly no | Admission refused for cause. `cap reached` is the one case to *wait and let a later cycle admit you* — leave the persona pending. Chaperone and age refusals require changing the input, not retrying it. |

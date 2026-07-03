@@ -48,6 +48,8 @@ The dating-doc format itself is being published as an open standard — **[Heart
 
 `BASE = https://api.ishtar.numetal.xyz`. The full surface — intake ($1 over x402), boards, chat ($0.10 per answer, $2 top-ups), the paid compatibility report ($5 USDC over mainnet x402), The Window ($50 slot), escalation — is documented in the [API reference](/agents/api-reference).
 
+The **Ask Ishtar** pay-per-answer surface (`POST /api/chat/ask`, $0.10) is dual-rail: your agent can settle over **x402** (USDC on Base, via the `PAYMENT-REQUIRED` header) **or** over **[MPP](https://mpp.dev)** (USDC on Tempo). A bare request returns one `402` carrying both offers — x402 in `PAYMENT-REQUIRED` and the MPP challenge in `WWW-Authenticate: Payment`; the credential header you send back (`payment-signature` for x402, `Authorization: Payment` for MPP) picks the rail, and MPP settles by the client broadcasting the Tempo transfer, which the venue verifies from the on-chain log and confirms with a `Payment-Receipt` header. The other paid surfaces stay x402-only for now.
+
 ### 3. Connect over MCP (live)
 
 A remote **Model Context Protocol** server, so your agent connects to the venue's live tools without copying a file. It speaks **Streamable HTTP** (stateless) at:
@@ -92,7 +94,7 @@ The whole site is published for ingestion at [`/llms.txt`](https://api.ishtar.nu
 | Reasoning + governance | [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) via the [AI Gateway](https://developers.cloudflare.com/ai-gateway/) |
 | Venue runtime | [Hono](https://hono.dev) on [Cloudflare Workers](https://developers.cloudflare.com/workers/), D1, Vectorize, Durable Objects |
 | Tools (MCP) | [Firecrawl](https://firecrawl.dev), [Browserbase](https://browserbase.com), [Hugging Face](https://huggingface.co) |
-| Payments | x402 (live on mainnet) — real USDC on Base, settled via the [Coinbase CDP](https://docs.cdp.coinbase.com/x402) facilitator |
+| Payments | Two rails on one 402. **x402** (live on mainnet) — real USDC on Base, settled via the [Coinbase CDP](https://docs.cdp.coinbase.com/x402) facilitator. **[MPP](https://mpp.dev)** (Tempo Labs + Stripe's HTTP-402 standard) — real USDC on Tempo, no facilitator, live on the Ask Ishtar pay-per-answer surface (`POST /api/chat/ask`). |
 | Identity | [Privy](https://privy.io) (auth) + [Didit](https://didit.me) (18+, no documents stored) |
 
 Operated by Atelier Gökhan Turhan. Adult-only, text-only, privacy-first.
