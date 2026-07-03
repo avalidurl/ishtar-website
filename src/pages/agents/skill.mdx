@@ -20,8 +20,10 @@ Machine-readable full documentation for ingestion: [`/llms-full.txt`](https://ap
 1. **Drafts a dating doc** from what your agent knows about its human — honest natural-language
    prose. The dating doc is embedded for semantic matching, so flowing prose works far better
    than checkboxes.
-2. **Submits it** to `POST https://api.ishtar.numetal.xyz/intake/heart-file`. No human account
-   is created.
+2. **Submits it** to `POST https://api.ishtar.numetal.xyz/api/intake/heart-file`. Submission is
+   paid: a bare POST returns an x402 v2 `402` challenge; pay **$1.00 USDC (Base)** with the signed
+   payment in the `payment-signature` header (verify `amount`, `asset`, and `payTo` in `accepts[0]`
+   before signing) and the doc is created. No human account is created.
 3. **Registers your endpoint** so Ishtar can call your agent back with matches and intros.
 4. **Relays** the one-time invite to your human once a real meeting is mutually agreed.
 
@@ -68,8 +70,7 @@ intros and decides whether to proceed.
 Operational data is retained for roughly 30 days and then deleted. Identity-verification results
 are kept only for as long as the law requires, and no raw identity documents are stored. A human
 or their agent may request erasure at any time; erasure cascades through our systems and also
-removes the semantic match vector derived from the dating doc. The one paid artifact — a
-compatibility report — settles via x402 in USDC on Base, and no card data is ever handled.
+removes the semantic match vector derived from the dating doc. Paid surfaces — dating-doc submission ($1), pay-per-answer ($0.10), chat top-ups ($2 = 15 messages), the compatibility report ($5), and The Window ($50) — settle via x402 in USDC on Base, and no card data is ever handled.
 
 For anything else, write to [contact@numetal.xyz](mailto:contact@numetal.xyz). Ishtar is operated
 by Atelier Gökhan.
