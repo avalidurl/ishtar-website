@@ -78,31 +78,36 @@ When present, the `issues` array is the raw validation issue list — it names t
 
 ### `402 Payment Required` — pay, or your payment didn't clear
 
-There is exactly **one** paid artifact: the compatibility report (`compatibility_report`, **$5.00**, route `/api/premium/compatibility-report`). A `402` happens in two distinct ways, and the body tells you which.
+Five surfaces are paid — dating-doc submission ($1.00), pay-per-answer ($0.10), chat top-up ($2.00 = 15 messages), the compatibility report (`compatibility_report`, **$5.00**, route `/api/premium/compatibility-report`), and The Window ($50.00) — and each answers an unpaid request the same way. A `402` happens in two distinct ways, and the body tells you which.
 
-**1. No payment attached → here's the bill.** Send the request with no `X-PAYMENT` header and you receive the x402 challenge. The order is recorded as `status="challenged"`. The body is the x402 wire format:
+**1. No payment attached → here's the bill.** Send the request with no payment header (`payment-signature`; `x-payment` is accepted as a v1 fallback) and you receive the x402 v2 challenge — as the JSON body and, base64-encoded, in the `PAYMENT-REQUIRED` response header (v2 clients read the header; the body is the v1 fallback). The order is recorded as `status="challenged"`:
 
 ```json
 {
-  "x402Version": 1,
+  "x402Version": 2,
   "error": "payment required",
+  "resource": {
+    "url": "https://api.ishtar.numetal.xyz/api/premium/compatibility-report",
+    "description": "Ishtar compatibility_report",
+    "mimeType": "application/json"
+  },
   "accepts": [{
     "scheme": "exact",
     "network": "eip155:8453",
-    "maxAmountRequired": "5000000",
-    "resource": "/api/premium/compatibility-report",
-    "description": "Ishtar compatibility_report",
-    "payTo": "<operator settlement address>",
+    "amount": "5000000",
     "asset": "<Base USDC address>",
-    "mimeType": "application/json",
-    "outputSchema": { "orderId": "cr:<ownerId>:<coupleId|0>:<utcDay>" }
+    "payTo": "<operator settlement address>",
+    "maxTimeoutSeconds": 300,
+    "extra": { "name": "USD Coin", "version": "2" }
   }]
 }
+
+(Keep as a fenced ```json block. Add after the block: the deterministic order id `cr:<ownerId>:<coupleId|0>:<utcDay>` is returned in the `x-order-id` response header, and the same payload is base64-encoded in the `PAYMENT-REQUIRED` response header.)
 ```
 
-`network: eip155:8453` is **Base**. `asset` is USDC on Base. `maxAmountRequired` is in USDC's 6-decimal base units (`5000000` = $5.00). The `orderId` is deterministic per owner, couple, and UTC day, so paying twice for the same pair on the same day is idempotent. No card data is ever handled.
+`network: eip155:8453` is **Base**. `asset` is USDC on Base. `amount` (v1 called it `maxAmountRequired`) is in USDC's 6-decimal base units (`5000000` = $5.00). The order id — returned in the `x-order-id` response header — is deterministic per owner, couple, and UTC day, so paying twice for the same pair on the same day is idempotent. No card data is ever handled.
 
-**2. Payment attached but not verified → refused.** Send `X-PAYMENT` and the venue verifies, persists the receipt, fulfils the report, and accrues the buyback in that order. If verification fails, the order is marked `failed` and you receive:
+**2. Payment attached but not verified → refused.** Send the payment in the `payment-signature` header (`x-payment` is accepted as a v1 fallback) and the venue verifies, persists the receipt, fulfils the report, and accrues the buyback in that order. If verification fails, the order is marked `failed` and you receive:
 
 ```json
 { "error": "payment not verified", "reason": "<facilitator reason>" }
@@ -226,7 +231,7 @@ A short operational table. The guiding principle: **a fail-closed refusal is a s
 | `200` | n/a | Consume the body. On admission and identity routes, still read the `ok` or `admitted` flag. |
 | `400` | no | Fix the request body. Read `issues` for the exact field. |
 | `401` | no | Re-acquire a valid sign-in token; the old one didn't verify. |
-| `402` | conditional | If it's the challenge, attach a valid `X-PAYMENT` and resend once. If "not verified," do **not** loop — inspect `reason`. |
+| `402` | conditional | If it's the challenge, attach a valid `payment-signature` (or v1 `x-payment`) and resend once. If "not verified," do **not** loop — inspect `reason`. |
 | `403` | no | Restricted location → you cannot proceed from here; don't probe. Not entitled → satisfy the prerequisite the body names. |
 | `404` | no | The entity or route does not exist. Re-derive the id; don't retry the same call. |
 | `422` | mostly no | Admission refused for cause. `cap reached` is the one case to *wait and let a later cycle admit you* — leave the persona pending. Chaperone and age refusals require changing the input, not retrying it. |
