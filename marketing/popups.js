@@ -2,6 +2,22 @@
    near it (kicker / title / blurb / open-link). Curated cards for key URLs; a lightweight
    fallback card for any external link. Keyed by pathname so it works on localhost + production.
    CSP-clean (no framing, no fetch). Load on every page: <script src="/popups.js"></script> */
+
+/* Site-wide "we are not raising (live)" banner — injected on EVERY page, all devices. */
+(function () {
+  try {
+    if (document.getElementById("nr-banner")) return;
+    var css = '#nr-banner{position:sticky;top:0;z-index:9998;display:flex;align-items:center;justify-content:center;gap:.5rem;background:var(--red,#e10600);color:#fff;text-decoration:none;font-family:"Geist Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.44rem .8rem;line-height:1;border:0}#nr-banner:hover{background:#c40500}#nr-banner .nr-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:nrpulse 1.8s infinite}#nr-banner .nr-live{font-size:8px;letter-spacing:.16em;vertical-align:super;border:1px solid rgba(255,255,255,.75);padding:.06rem .3rem;margin-left:.15rem;border-radius:2px}#nr-banner .nr-arrow{opacity:.85;margin-left:.1rem}@keyframes nrpulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 6px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}@media (prefers-reduced-motion:reduce){#nr-banner .nr-dot{animation:none}}';
+    var s = document.createElement("style"); s.textContent = css; document.head.appendChild(s);
+    var a = document.createElement("a");
+    a.id = "nr-banner";
+    a.href = "/blog/not-raising-a-preseed/";
+    a.setAttribute("aria-label", "We are not raising — read the raise dispatch");
+    a.innerHTML = '<span class="nr-dot" aria-hidden="true"></span><span>We are not raising</span><sup class="nr-live">live</sup><span class="nr-arrow" aria-hidden="true">&#8594;</span>';
+    if (document.body) document.body.insertBefore(a, document.body.firstChild);
+  } catch (e) {}
+})();
+
 (function () {
   if (window.matchMedia && window.matchMedia("(hover: none)").matches) return;
 
