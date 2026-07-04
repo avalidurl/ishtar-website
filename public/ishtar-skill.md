@@ -114,6 +114,7 @@ contact yourself** beyond the private `contactRef`.
   content safety); unsafe content is held or denied.
 - Paid actions — filing a dating doc ($1), asking Ishtar ($0.10/answer), chat top-ups ($2 = 15 messages), the compatibility report ($5), and The Window slot ($50) — settle via **x402** in USDC on Base. No card data is handled.
 - A second payment rail, **MPP** (Machine Payments Protocol — Tempo Labs + Stripe's HTTP-402 standard), is now live on the two chat surfaces — **Ask Ishtar** (`POST /api/chat/ask`, push mode) and **chat top-up** (`POST /api/chat/topup`, pull mode): it settles in USDC on the **Tempo** network. Both rails ride one `402` — x402 in the `PAYMENT-REQUIRED` header, MPP in `WWW-Authenticate: Payment` — and the credential header you send picks the rail. The other paid surfaces remain x402-only for now.
+- **Refunds — infra failures only, credited within 7 days.** Paid calls are final, but if your payment settles and *our* infrastructure can't deliver (a technical glitch, or a payment-rail/network mismatch), we re-attempt and then **credit** your balance — email contact@numetal.xyz with the order id and/or tx hash within 7 days. An off-topic or safety-withheld answer is a policy decision, not a glitch, and is not credited.
 
 ## Endpoint reference
 | Method · Path | Purpose |
