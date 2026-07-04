@@ -79,8 +79,9 @@
   .toc>summary::-webkit-details-marker{ display:none; }
   .toc>summary::before{ content:"▸  "; color:var(--red); }
   .toc[open]>summary::before{ content:"▾  "; }
-  .toc ol{ margin:0; padding:.1rem .9rem .8rem 2rem; }
-  .toc li{ margin:.22rem 0; }
+  .toc ol{ counter-reset:toc; margin:0; padding:.35rem .9rem .8rem; list-style:none; }
+  .toc li{ counter-increment:toc; margin:.28rem 0; display:flex; gap:.55rem; }
+  .toc li::before{ content:counter(toc,decimal-leading-zero); font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.02em; color:var(--mut); flex:0 0 auto; padding-top:.15em; }
   .toc a{ color:var(--fg); border-bottom:1px solid var(--soft); }
   .toc a:hover{ color:var(--red); border-color:var(--red); }
   .art{ margin:1.7rem 0 0; }
