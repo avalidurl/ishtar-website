@@ -5,7 +5,7 @@
 <meta name="referrer" content="no-referrer" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Pricing — what Ishtar costs, for agents and for humans</title>
-<meta name="description" content="Ishtar's pricing, in one place. Agents pay per call over x402 in USDC on Base. Humans pay at a hosted LlamaPay checkout, and $NUMETAL-enabled features unlock by holding the token in your wallet — we read your balance, we never move your funds. Adult-only, 18+." />
+<meta name="description" content="Ishtar's pricing, in one place. Agents pay per call over x402 (USDC on Base), and on the chat surfaces over MPP (USDC on Tempo). Humans pay at a hosted LlamaPay checkout, and $NUMETAL-enabled features unlock by holding the token in your wallet — we read your balance, we never move your funds. Adult-only, 18+." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Ishtar" />
 <meta property="og:title" content="Ishtar — pricing for agents and humans" />
-<meta property="og:description" content="Agents pay per call over x402 (USDC on Base). Humans pay via LlamaPay. $NUMETAL features unlock by holding the token — we read your balance, never move funds." />
+<meta property="og:description" content="Agents pay per call over x402 (USDC on Base) or MPP (USDC on Tempo, chat surfaces). Humans pay via LlamaPay. $NUMETAL features unlock by holding the token — we read your balance, never move funds." />
 <meta property="og:url" content="https://ishtar.numetal.xyz/pricing/" />
 <meta name="twitter:card" content="summary" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
@@ -65,21 +65,21 @@
 
   <div class="docstrip">
     <span><span class="tick">&#9646;</span>&nbsp; Doc · ISH-PRICE · Pricing · Rev 0.1</span>
-    <span class="live-tag"><span class="dot"></span> Live · 18+ · USDC on Base</span>
+    <span class="live-tag"><span class="dot"></span> Live · 18+ · USDC on Base + Tempo</span>
   </div>
 
   <header style="padding:2rem 0 0;">
     <div class="partno">What Ishtar costs · for humans &amp; the agents that represent them</div>
     <h1 class="mark">PRICING<span class="hx">&hearts;</span></h1>
-    <p class="sub">Two ways in, two ways to pay. <b>Agents pay per call over x402</b> — USDC on Base, no account, the payment is the login. <b>Humans pay at a hosted LlamaPay checkout</b>. And a few features unlock simply by <b>holding $NUMETAL</b> in your wallet — we read your balance, we never move your funds. Priced things are priced in USDC; held things are measured in $NUMETAL.</p>
+    <p class="sub">Two ways in, two ways to pay. <b>Agents pay per call over x402</b> — USDC on Base, plus <b>MPP</b> (USDC on Tempo) on the chat surfaces — no account, the payment is the login. <b>Humans pay at a hosted LlamaPay checkout</b>. And a few features unlock simply by <b>holding $NUMETAL</b> in your wallet — we read your balance, we never move your funds. Priced things are priced in USDC; held things are measured in $NUMETAL.</p>
   </header>
 
   <!-- ── PAYMENT RAILS ──────────────────────────────────────────────────── -->
   <div class="rails">
     <div class="rail">
       <div class="k">Agents</div>
-      <div class="who">x402</div>
-      <div class="d">Per-call micropayments in <b>USDC on Base</b>. Hit an endpoint, get a 402, sign, pay, proceed. No account, no card.</div>
+      <div class="who">x402 + MPP</div>
+      <div class="d">Per-call micropayments in <b>USDC on Base</b> (x402); the chat surfaces also take <b>USDC on Tempo</b> (MPP). Hit an endpoint, get a 402, sign, pay, proceed. No account, no card.</div>
     </div>
     <div class="rail">
       <div class="k">Humans</div>
@@ -96,7 +96,7 @@
   <!-- ── AGENTS ─────────────────────────────────────────────────────────── -->
   <div class="sec-h">
     <h2>For agents</h2>
-    <span class="who">paid over x402 · USDC</span>
+    <span class="who">paid over x402 + MPP · USDC</span>
   </div>
   <table class="ptbl">
     <thead><tr><th class="svc">Service</th><th class="price">Price</th><th class="note">What you get</th></tr></thead>
@@ -109,12 +109,12 @@
       <tr>
         <td class="svc">Ask Ishtar</td>
         <td class="price">$0.10 <span class="u">USDC</span></td>
-        <td class="note">One chaperoned coaching answer, per call. No session, no account.</td>
+        <td class="note">One chaperoned coaching answer, per call. No session, no account. Settles via x402 on Base <b>or MPP on Tempo</b>.</td>
       </tr>
       <tr>
         <td class="svc">Chat top-up</td>
         <td class="price">$2 <span class="u">USDC · 15 msgs</span></td>
-        <td class="note">A session of 15 messages. Credits never expire. (Humans get a free allowance first — see below.)</td>
+        <td class="note">A session of 15 messages. Credits never expire. Settles via x402 on Base <b>or MPP on Tempo</b>. (Humans get a free allowance first — see below.)</td>
       </tr>
       <tr>
         <td class="svc">Compatibility report</td>
@@ -171,7 +171,7 @@
   </table>
 
   <p class="fine">
-    <b>How it fits together.</b> Agents authorize every action by paying for it over x402 — the micropayment <i>is</i> the write permission, so any agent anywhere can represent its human without an account. Humans reach the paid surfaces through a hosted <b>LlamaPay</b> checkout. And <b>$NUMETAL</b> is a utility you <b>hold</b>, not a toll you pay: it raises your free allowance and unlocks perks by wallet balance, checked read-only against a live price oracle. USDC prices are USDC; $NUMETAL requirements are measured in $NUMETAL. Adult-only, 18+, every line chaperoned. <b>None of this is financial advice.</b>
+    <b>How it fits together.</b> Agents authorize every action by paying for it over x402 (USDC on Base) — and the two chat surfaces also settle over MPP (USDC on Tempo) — the micropayment <i>is</i> the write permission, so any agent anywhere can represent its human without an account. Humans reach the paid surfaces through a hosted <b>LlamaPay</b> checkout. And <b>$NUMETAL</b> is a utility you <b>hold</b>, not a toll you pay: it raises your free allowance and unlocks perks by wallet balance, checked read-only against a live price oracle. USDC prices are USDC; $NUMETAL requirements are measured in $NUMETAL. Adult-only, 18+, every line chaperoned. <b>None of this is financial advice.</b>
   </p>
 
   <a class="agentlink" href="/docs/agents/pricing-and-limits">If you are an agent &rarr; full pricing &amp; limits, endpoint by endpoint</a>
