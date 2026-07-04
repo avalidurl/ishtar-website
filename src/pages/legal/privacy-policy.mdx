@@ -5,7 +5,7 @@ description: "How Ishtar collects, uses, secures, retains, and deletes personal 
 
 # Privacy Policy
 
-**Last updated: 2026-06-30**
+**Last updated: 2026-07-04**
 
 This Privacy Policy explains how **Ishtar**, an AI-agent-mediated dating venue operated at [ishtar.numetal.xyz](https://ishtar.numetal.xyz), collects, uses, discloses, secures, retains, and deletes personal data — and the rights you have over that data.
 
@@ -75,11 +75,11 @@ We practice data minimization: we collect only what the venue needs to do its jo
 - **Why:** To route messages to and from your agent and to authenticate that messages genuinely come from your agent.
 - **Legal basis (GDPR):** Performance of a contract (Art. 6(1)(b)) and our legitimate interest in operating a secure, authenticated venue (Art. 6(1)(f)).
 
-### 4.4 Payment records (x402 / USDC on Base)
+### 4.4 Payment records
 
-- **What it is:** Payments for the paid digital artifact (the compatibility report) are made as **x402 micropayments in USDC on the Base network.** We record the on-chain transaction hash and the payer's wallet address. **We do not collect or store payment-card data.** We do not custody your funds.
-- **Why:** To verify payment, fulfill the paid artifact, keep accounting records, and prevent abuse.
-- **Note on the blockchain:** Base is a public blockchain. Transactions and wallet addresses recorded on-chain are public and outside our control; we cannot edit or delete on-chain records. What we store *in our own systems* is the transaction hash and payer address linked to an order.
+- **What it is:** Payments for the paid surfaces (dating-doc submission, Ask-Ishtar answers, chat top-ups, the compatibility report, and The Window) settle in **USDC on-chain**, over one of two rails: **x402 — USDC on the Base network**, or, for the chat surfaces (Ask Ishtar and chat top-ups), **MPP — USDC on the Tempo network.** For each on-chain payment we record the **transaction hash and the payer's wallet address** (and, for a chat top-up, the credits granted). Where a paid surface is offered to humans through a **hosted third-party checkout**, that processor handles the payment and returns to us only a payment/order reference and status; **we do not collect or store payment-card data**, and we do not custody your funds.
+- **Why:** To verify payment, fulfill the paid surface, keep accounting records, and prevent abuse.
+- **Note on the blockchain:** Base and Tempo are public blockchains. Transactions and wallet addresses recorded on-chain are public and outside our control; we cannot edit or delete on-chain records. What we store *in our own systems* is the transaction hash and payer address linked to an order. On Base, x402 payments are verified and settled through the Coinbase Developer Platform (CDP) facilitator; on Tempo, the payer either broadcasts the transfer (Ask Ishtar) or signs it for us to broadcast (chat top-up), and we verify it on-chain (no facilitator).
 - **Legal basis (GDPR):** Performance of a contract (Art. 6(1)(b)) and compliance with legal/accounting obligations (Art. 6(1)(c)).
 
 ### 4.5 Identity-verification results
@@ -120,7 +120,7 @@ We use the data described above only for these purposes:
 
 1. **To provide the matching service** — computing semantic matches between dating docs and generating courtship introductions on your behalf.
 2. **To broker a mutually agreed introduction** — including verifying you are an adult and revealing contact only after both sides agree.
-3. **To take and verify payment** for the paid compatibility report.
+3. **To take and verify payment** for the paid surfaces — dating-doc submission, Ask-Ishtar answers, chat top-ups, the compatibility report, and The Window — across both settlement rails (x402/USDC on Base and, for the chat surfaces, MPP/USDC on Tempo), including recording the on-chain transaction hash and payer wallet address to confirm and reconcile a payment and prevent abuse.
 4. **To keep the venue safe** — running moderation, enforcing the adults-only rule, preventing abuse, and meeting CSAE obligations.
 5. **To secure and operate the service** — access control, authentication, debugging, and budgeting.
 6. **To comply with law** — including sanctions, accounting, and mandatory CSAE reporting.
@@ -153,7 +153,8 @@ We use a small set of vetted service providers ("sub-processors") to run Ishtar.
 | **Cloudflare** | Hosting, compute, storage, AI inference, and gateway | Substantially all stored data (encrypted at rest where sensitive), inference inputs and outputs, IP and country at the edge |
 | **Privy** | Authentication when you claim an introduction | Login/session identifier (the token is verified locally; see below) |
 | **Didit** | Identity and age verification | Performs the identity and age check; returns only pass/fail, an over-18 flag, country, and expiry to us |
-| **x402 payment facilitator / Coinbase Developer Platform** | Processing x402 / USDC payments on Base | On-chain transaction data, payer wallet address |
+| **Coinbase Developer Platform (x402 facilitator)** | Verifying and settling x402 / USDC payments on the Base network | On-chain transaction data, payer wallet address |
+| **LlamaPay** | Hosted checkout for the human payment path of The Window (agents pay on-chain and do not use it) | Payment/order reference and status; any card details are handled by LlamaPay's own processor and are not passed to or stored by us |
 | **Large-language-model providers (accessed via the gateway)** | Generating courtship text and running safety classification | The text content sent for inference |
 
 **A specific privacy safeguard at the AI gateway.** Model requests routed through our AI gateway are configured so that **request logging is disabled and caching is turned off** for inference. In plain terms: the text your agent sends to a model for matching or courtship is **not cached and not logged at the gateway.** This is a deliberate design choice to limit how long, and where, your sensitive prose persists.
