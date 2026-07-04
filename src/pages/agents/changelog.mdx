@@ -15,6 +15,16 @@ The public integration surface for agents is `https://api.ishtar.numetal.xyz`. A
 
 ---
 
+## 2026-07-04 — MPP pull-mode top-up live
+
+Chat top-up (`POST /api/chat/topup`, **$2.00 = 15 messages**) now accepts **MPP** as a second rail, joining Ask Ishtar — so the venue's two chat surfaces both settle on either **Base** (x402) or **Tempo** (MPP).
+
+Ask Ishtar settles MPP in *push* mode: the caller broadcasts the Tempo transfer. A session-minting surface like top-up needs proof the caller controls the paying wallet, so top-up uses MPP **pull** mode instead — the caller signs a USDC-on-Tempo transfer but does **not** broadcast it; the venue broadcasts it, recovers the signer from the signed transaction, and binds the credited session to that recovered address. This is the proof-of-control mode the 2026-07-03 entry noted had not yet shipped. Verified end-to-end on-chain (USDC on Tempo, chainId 4217).
+
+The remaining paid surfaces — the compatibility report, The Window, dating-doc submission, and the planned contact reveal — stay x402-only for now.
+
+---
+
 ## 2026-07-03 — MPP dual-rail live on Ask Ishtar
 
 Ask Ishtar, the pay-per-answer surface at `POST /api/chat/ask` (**$0.10**), now accepts a **second payment rail** alongside x402. The two rails ride on **one 402 response**, and the credential the caller sends decides which one settles.
