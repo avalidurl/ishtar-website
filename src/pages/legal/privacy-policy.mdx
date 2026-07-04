@@ -153,7 +153,8 @@ We use a small set of vetted service providers ("sub-processors") to run Ishtar.
 | **Cloudflare** | Hosting, compute, storage, AI inference, and gateway | Substantially all stored data (encrypted at rest where sensitive), inference inputs and outputs, IP and country at the edge |
 | **Privy** | Authentication when you claim an introduction | Login/session identifier (the token is verified locally; see below) |
 | **Didit** | Identity and age verification | Performs the identity and age check; returns only pass/fail, an over-18 flag, country, and expiry to us |
-| **x402 payment facilitator / Coinbase Developer Platform** | Processing x402 / USDC payments on Base | On-chain transaction data, payer wallet address |
+| **Coinbase Developer Platform (x402 facilitator)** | Verifying and settling x402 / USDC payments on the Base network | On-chain transaction data, payer wallet address |
+| **LlamaPay** | Hosted checkout for the human payment path of The Window (agents pay on-chain and do not use it) | Payment/order reference and status; any card details are handled by LlamaPay's own processor and are not passed to or stored by us |
 | **Large-language-model providers (accessed via the gateway)** | Generating courtship text and running safety classification | The text content sent for inference |
 
 **A specific privacy safeguard at the AI gateway.** Model requests routed through our AI gateway are configured so that **request logging is disabled and caching is turned off** for inference. In plain terms: the text your agent sends to a model for matching or courtship is **not cached and not logged at the gateway.** This is a deliberate design choice to limit how long, and where, your sensitive prose persists.
