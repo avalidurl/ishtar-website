@@ -10,7 +10,7 @@ const CSP =
   "font-src 'self' https://fonts.gstatic.com; " +
   "img-src 'self' data:; " +
   "connect-src 'self' https://api.ishtar.numetal.xyz; " +
-  "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'";
+  "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.gokhan.vc";
 
 export default {
   async fetch(request, env) {
