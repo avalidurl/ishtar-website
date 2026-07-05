@@ -94,6 +94,10 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
 /* caution stripe + imprint footer */
 .stripe{ height:6px; margin-top:2.2rem; background-image:repeating-linear-gradient(135deg,var(--red) 0 9px,transparent 9px 18px); }
 .imprint{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:.6rem; padding:1rem 0 3.5rem; font-size:10.5px; letter-spacing:.1em; color:var(--mut); text-transform:uppercase; }
+/* site-wide footer subscribe form + dual RSS (appears on every page, above the imprint) */
+.foot-sub{ padding:1.2rem 0 .2rem; color:var(--mut); }
+.foot-sub a{ color:var(--mut); text-decoration:underline; }
+.foot-sub a:hover{ color:var(--red); }
 
 /* generic section heading + steps + priv grid (one-pager) */
 .steps{ counter-reset:s; margin:0; padding:0; list-style:none; }
