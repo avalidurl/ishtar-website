@@ -14,59 +14,9 @@ const CSP_BASE =
 
 const CSP_MARKETING = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 
-const CSP_BLOG =
-  CSP_BASE +
-  "; frame-ancestors 'none'; object-src 'self'; frame-src 'self' https://assets.numetal.xyz https://numetal.xyz; child-src 'self' https://assets.numetal.xyz https://numetal.xyz";
-
-// Origins that may iframe deck PDFs / the minimal embed shell (blog syndication).
-const EMBED_FRAME_ANCESTORS =
-  "frame-ancestors 'self' https://numetal.xyz https://www.numetal.xyz https://gokhanturhan.com https://www.gokhanturhan.com https://gokhan.vc https://www.gokhan.vc";
+const CSP_BLOG = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 
 const FEEDHUB_XMTP = "https://api.gokhan.vc/newsletter/xmtp/subscribe";
-
-const PDF_EMBED_HTML = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ishtar pitch deck</title>
-<meta name="robots" content="noindex" />
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #fff; }
-  object, embed, iframe { width: 100%; height: 100%; border: 0; display: block; }
-</style>
-</head>
-<body>
-  <object data="ishtar-deck-not-a-preseed.pdf#toolbar=1&amp;navpanes=1" type="application/pdf" aria-label="Ishtar pitch deck PDF">
-    <embed src="ishtar-deck-not-a-preseed.pdf#toolbar=1&amp;navpanes=1" type="application/pdf" />
-    <p style="padding:1rem;font:14px system-ui,sans-serif">
-      Your browser can't embed PDFs.
-      <a href="ishtar-deck-not-a-preseed.pdf">Download the deck</a>.
-    </p>
-  </object>
-</body>
-</html>`;
-
-function isDeckPdf(path) {
-  return /^\/deck\/.*\.pdf$/i.test(path);
-}
-
-function isDeckEmbed(path) {
-  return /^\/deck\/.*\/pdf-embed(?:\.html)?$/i.test(path);
-}
-
-function embedHeaders() {
-  const headers = new Headers({
-    "content-type": "text/html; charset=utf-8",
-    "cache-control": "no-store",
-    "cloudflare-cdn-cache-control": "no-store",
-    "x-content-type-options": "nosniff",
-    "referrer-policy": "no-referrer",
-    "permissions-policy": "camera=(), microphone=(), geolocation=(), payment=()",
-    "content-security-policy": `${CSP_BASE}; object-src 'self'; frame-src 'self'; ${EMBED_FRAME_ANCESTORS}`,
-  });
-  return headers;
-}
 
 export default {
   async fetch(request, env) {
@@ -85,10 +35,6 @@ export default {
       headers.set("Cache-Control", "no-store");
       headers.set("Cloudflare-CDN-Cache-Control", "no-store");
       return new Response(upstream.body, { status: upstream.status, headers });
-    }
-
-    if (p === "/deck/not-raising-a-preseed/pdf-embed") {
-      return new Response(PDF_EMBED_HTML, { status: 200, headers: embedHeaders() });
     }
 
     let res = await env.ASSETS.fetch(request);
@@ -116,22 +62,9 @@ export default {
     headers.set("referrer-policy", "no-referrer");
     headers.set("permissions-policy", "camera=(), microphone=(), geolocation=(), payment=()");
 
-    if (isDeckPdf(p)) {
-      // Allow partner blogs to iframe the PDF (fallback) while keeping other framing blocked.
-      headers.delete("x-frame-options");
-      headers.set("content-security-policy", `default-src 'none'; ${EMBED_FRAME_ANCESTORS}`);
-    } else if (isDeckEmbed(p)) {
-      // Minimal same-origin PDF shell — partner sites iframe this page, not the raw PDF.
-      headers.delete("x-frame-options");
-      headers.set(
-        "content-security-policy",
-        `${CSP_BASE}; object-src 'self'; frame-src 'self'; ${EMBED_FRAME_ANCESTORS}`,
-      );
-    } else {
-      headers.set("x-frame-options", "DENY");
-      if (!p.startsWith("/docs")) {
-        headers.set("content-security-policy", p.startsWith("/blog") ? CSP_BLOG : CSP_MARKETING);
-      }
+    headers.set("x-frame-options", "DENY");
+    if (!p.startsWith("/docs")) {
+      headers.set("content-security-policy", p.startsWith("/blog") ? CSP_BLOG : CSP_MARKETING);
     }
 
     if (p.endsWith(".md")) headers.set("content-type", "text/markdown; charset=utf-8");
