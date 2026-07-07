@@ -12,10 +12,27 @@ const CSP =
   "connect-src 'self' https://api.ishtar.numetal.xyz https://api.gokhan.vc; " +
   "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.gokhan.vc";
 
+const FEEDHUB_XMTP = "https://api.gokhan.vc/newsletter/xmtp/subscribe";
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const p = url.pathname;
+    const p = url.pathname.replace(/\/+$/, "") || "/";
+
+    // Same-origin proxy: zone-level CSP on ishtar.numetal.xyz can block connect-src to
+    // api.gokhan.vc even when the worker sets a looser policy. Proxy keeps subscribe on 'self'.
+    if (p === "/newsletter/xmtp/subscribe" && request.method === "POST") {
+      const upstream = await fetch(FEEDHUB_XMTP, {
+        method: "POST",
+        headers: { "content-type": request.headers.get("content-type") || "application/json" },
+        body: request.body,
+      });
+      const headers = new Headers(upstream.headers);
+      headers.set("Cache-Control", "no-store");
+      headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+      return new Response(upstream.body, { status: upstream.status, headers });
+    }
+
     let res = await env.ASSETS.fetch(request);
 
     // Belt-and-suspenders: if postbuild.sh was skipped, Vocs HTML still references /docs/assets/*
@@ -50,6 +67,8 @@ export default {
     }
 
     const headers = new Headers(res.headers);
+    headers.set("Cache-Control", "no-store");
+    headers.set("Cloudflare-CDN-Cache-Control", "no-store");
     headers.set("x-frame-options", "DENY");
     headers.set("x-content-type-options", "nosniff");
     headers.set("referrer-policy", "no-referrer");

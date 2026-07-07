@@ -3,8 +3,8 @@
 name = "ishtar-site"
 main = "worker.js"
 compatibility_date = "2026-06-01"
-# Custom domain ishtar.numetal.xyz is attached out-of-band (account workers/domains API),
-# so it is NOT declared here — the deploy token has no zone Workers-Routes permission.
+workers_dev = true
+routes = [{ pattern = "ishtar.numetal.xyz", custom_domain = true }]
 
 [assets]
 directory = "./dist/public"

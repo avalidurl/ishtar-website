@@ -1,6 +1,6 @@
-/** Wallet subscribe for studio newsletter over XMTP — POST api.gokhan.vc/newsletter/xmtp/subscribe */
+/** Wallet subscribe for studio newsletter over XMTP — same-origin proxy → api.gokhan.vc */
 (function () {
-  var API = 'https://api.gokhan.vc/newsletter/xmtp/subscribe';
+  var API = '/newsletter/xmtp/subscribe';
   var provider = null;
 
   function subMessage(wallet) {
@@ -41,7 +41,7 @@
   function userMessage(err) {
     if (!err) return 'Something went wrong — try again.';
     if (walletRejected(err)) return 'Wallet request cancelled.';
-    if (networkError(err)) return 'Network blocked — could not reach api.gokhan.vc (CORS or CSP).';
+    if (networkError(err)) return 'Network blocked — could not reach subscribe endpoint (CORS or CSP).';
     if (err.message) return String(err.message).slice(0, 140);
     return 'Something went wrong — try again.';
   }
