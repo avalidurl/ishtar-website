@@ -35,6 +35,8 @@ export default {
     }
 
     const headers = new Headers(res.headers);
+    headers.set("Cache-Control", "no-store");
+    headers.set("Cloudflare-CDN-Cache-Control", "no-store");
     headers.set("x-frame-options", "DENY");
     headers.set("x-content-type-options", "nosniff");
     headers.set("referrer-policy", "no-referrer");
