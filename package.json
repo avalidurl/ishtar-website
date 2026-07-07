@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "vocs build",
-    "preview": "vocs preview"
+    "build": "vocs build && bash scripts/postbuild.sh",
+    "preview": "vocs preview",
+    "deck:pdf": "node scripts/generate-deck-pdf.mjs"
   },
   "dependencies": {
     "@vocs/twoslash-rust": "^0.1.0",

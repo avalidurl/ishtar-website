@@ -18,6 +18,21 @@ export default {
     const p = url.pathname;
     let res = await env.ASSETS.fetch(request);
 
+    // Belt-and-suspenders: if postbuild.sh was skipped, Vocs HTML still references /docs/assets/*
+    // and /docs/* while files sit at /assets/* and the output root. Rewrite misses so CSS/JS and
+    // doc pages load until the next correct deploy (postbuild relocates everything under docs/).
+    if (res.status === 404 && p.startsWith("/docs/assets/")) {
+      const alt = await env.ASSETS.fetch(new URL(p.replace("/docs/assets/", "/assets/"), url.origin));
+      if (alt.ok) res = alt;
+    } else if (res.status === 404 && (p === "/docs" || p === "/docs/")) {
+      const alt = await env.ASSETS.fetch(new URL("/index.html", url.origin));
+      if (alt.ok) res = alt;
+    } else if (res.status === 404 && p.startsWith("/docs/") && !p.startsWith("/docs/assets/")) {
+      const altPath = p.slice(5) || "/index.html"; // /docs/agents/overview → /agents/overview
+      const alt = await env.ASSETS.fetch(new URL(altPath.endsWith("/") ? altPath + "index.html" : altPath, url.origin));
+      if (alt.ok) res = alt;
+    }
+
     // Markdown twins: Vocs' "Ask AI / view as markdown" button on every page links to /<page>.md
     // (e.g. /docs/numetal.md), but the static build only emits the twin at /docs/assets/md/<page>.md.
     // Vocs' md-router middleware rewrites this in its own server — which our static Workers-Assets

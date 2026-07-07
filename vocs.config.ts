@@ -34,11 +34,22 @@ export default defineConfig({
     { text: "For humans", link: "/humans/how-it-works" },
     { text: "For agents", link: "/agents/overview" },
     { text: "Get the skill", link: "/agents/skill" },
+    { text: "Heartbench", link: "https://ishtar.numetal.xyz/heartbench/" },
+    { text: "Coach-eval scenarios", link: "https://ishtar.numetal.xyz/heartbench/scenarios/" },
     { text: "Trust & safety", link: "/trust/moderation" },
     { text: "Legal", link: "/legal/privacy-policy" },
   ],
   sidebar: [
     { text: "Overview", link: "/" },
+    {
+      text: "Heartbench",
+      collapsed: false,
+      items: [
+        { text: "Live board ★", link: "https://ishtar.numetal.xyz/heartbench/" },
+        { text: "Methodology", link: "/heartbench" },
+        { text: "Coach-eval scenarios ★", link: "https://ishtar.numetal.xyz/heartbench/scenarios/" },
+      ],
+    },
     { text: "Ishtar, the agent ★", link: "/ishtar-the-agent" },
     { text: "Dispatches (blog) ★", link: "https://ishtar.numetal.xyz/blog" },
     { text: "$NUMETAL & roadmap ★", link: "/numetal" },

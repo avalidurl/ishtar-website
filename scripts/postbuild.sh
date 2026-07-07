@@ -25,4 +25,12 @@ done
 cp -R marketing/. "$OUT/"
 # Blog RSS feed (/rss.xml) + posts manifest, generated from src/pages/blog/*.mdx frontmatter.
 node scripts/gen-rss.mjs
+# HeartBench coach-eval scenarios — static bundle for /heartbench/scenarios/ (kept in sync with datebook).
+node scripts/sync-heartbench-scenarios.mjs
+# Pitch deck PDF (text layer via headless Chrome print)
+if command -v "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" >/dev/null 2>&1 || [ -n "${CHROME_PATH:-}" ]; then
+  node scripts/generate-deck-pdf.mjs || echo "⚠ deck PDF generation skipped (Chrome print failed)"
+else
+  echo "⚠ deck PDF generation skipped (Chrome not found — run: npm run deck:pdf)"
+fi
 echo "✓ postbuild: all docs → /docs (generic) ; marketing at root ; skill/llms kept at root ; rss.xml generated"
