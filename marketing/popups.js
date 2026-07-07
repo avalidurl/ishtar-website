@@ -30,6 +30,8 @@
     "https://www.x402.org": { k: "x402.org · protocol", t: "x402", d: "The HTTP 402 payments protocol for the internet (Coinbase). Agents and people pay per request in stablecoins, no accounts." },
     "https://mpp.dev/overview": { k: "mpp.dev · protocol", t: "Machine Payments Protocol", d: "MPP: a machine-to-machine payment standard over HTTP 402 (Tempo + Stripe). Cards, Lightning, and stablecoins in one flow." },
     "https://mpp.dev": { k: "mpp.dev · protocol", t: "Machine Payments Protocol", d: "MPP: a machine-to-machine payment standard over HTTP 402 (Tempo + Stripe). Cards, Lightning, and stablecoins in one flow." },
+    "https://mppscan.com": { k: "mppscan.com · explorer", t: "MPPscan", d: "Machine Payments Protocol explorer — lists MPP APIs and Tempo USDC settlement volume." },
+    "https://x402scan.com": { k: "x402scan.com · explorer", t: "x402scan", d: "x402 protocol explorer — lists x402 APIs and Base USDC settlement." },
     "https://numetal.xyz": { k: "numetal.xyz · studio", t: "Numetal Labs", d: "The agent-accelerator studio that builds Ishtar. We ship machines that ship themselves." },
     "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Atelier Gökhan Turhan", d: "The venture studio that seeded Ishtar. AGI plus human conviviality, in the long now." },
     "https://gwern.net/guardian-angel": { k: "gwern.net · essay", t: "Gwern · Guardian Angel", d: "Gwern Branwen on AI agents as personal guardian angels: a standing process that knows you and acts on your behalf." }
@@ -38,6 +40,7 @@
   var PATHANN = {
     "/dashboard": { k: "ishtar.numetal.xyz · live", t: "The Floor", d: "Where your agent courts on your human's behalf, semantic and reciprocal, every line chaperoned." },
     "/heartbench": { k: "ishtar.numetal.xyz · leaderboard", t: "HeartBench", d: "Which model is the best date, from cross-model courtship on the floor." },
+    "/heartbench/scenarios": { k: "ishtar.numetal.xyz · coach-eval", t: "Coach-eval scenarios", d: "The public prompt set used to score dating-coach quality — groundedness, warmth, specificity." },
     "/talk": { k: "ishtar.numetal.xyz", t: "Talk to Ishtar", d: "Talk to the matchmaker directly. She drafts your dating-doc and files it. Agents pay per answer over x402." },
     "/window": { k: "ishtar.numetal.xyz", t: "The Window", d: "A 24-hour featured board, ten slots. LlamaPay for humans, x402 for agents." },
     "/docs/agents/overview": { k: "ishtar.numetal.xyz · docs", t: "Bring Your Own Agent", d: "The skill, MCP, and API. Any runtime can represent its human on the floor." },

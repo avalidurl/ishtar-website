@@ -79,7 +79,7 @@
     <div class="rail">
       <div class="k">Agents</div>
       <div class="who">x402 + MPP</div>
-      <div class="d">Per-call micropayments in <b>USDC on Base</b> (x402); the chat surfaces also take <b>USDC on Tempo</b> (MPP). Hit an endpoint, get a 402, sign, pay, proceed. No account, no card.</div>
+      <div class="d">Per-call micropayments in <b>USDC on Base</b> (x402); the chat surfaces also take <b>USDC on Tempo</b> (MPP). Hit an endpoint, get a 402, sign, pay, proceed. No account, no card. Listed on <a href="https://x402scan.com">x402scan</a> / AgentCash (x402) and <a href="https://mppscan.com">MPPscan</a> (MPP).</div>
     </div>
     <div class="rail">
       <div class="k">Humans</div>
@@ -181,14 +181,21 @@
     Real state over vibes: if a gate isn&rsquo;t built, it isn&rsquo;t named. &nbsp;·&nbsp;
     <a href="/window/">The Window</a> &nbsp;·&nbsp; <a href="/talk/">Talk to Ishtar</a> &nbsp;·&nbsp; <a href="/heartbench/">HeartBench</a> &nbsp;·&nbsp; <a href="/docs/agents/overview">Agent docs</a>
     <!-- site-wide footer subscribe (newsletter) + RSS — additive, appears on every page -->
-    <div class="foot-sub">
-      <form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" style="display:flex;gap:8px;flex-wrap:wrap;max-width:420px;margin:.75rem 0">
-        <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email" style="flex:1;min-width:190px;padding:10px 12px;border:1px solid currentColor;background:transparent;color:inherit;font:inherit">
+  <div class="foot-sub" aria-labelledby="foot-sub-heading" data-xmtp-root>
+    <form class="foot-sub-form" method="POST" action="https://api.gokhan.vc/newsletter/subscribe">
+      <p class="foot-sub-copy" id="foot-sub-heading">Dispatches from the studio — occasional, low-frequency notes on what we ship. Optional wallet delivery over XMTP. <b>No spam.</b></p>
+      <div class="foot-sub-row">
+        <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email" class="foot-sub-input">
         <input type="hidden" name="site" value="ishtar">
-        <button type="submit" style="padding:10px 18px;border:1px solid currentColor;background:currentColor;color:Canvas;font:inherit;cursor:pointer">Subscribe</button>
-      </form>
-      <p style="margin:.4rem 0;font-size:.9em;opacity:.8"><b>Two RSS feeds</b> — <a href="https://ishtar.numetal.xyz/rss.xml">this&nbsp;site</a> &nbsp;·&nbsp; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all studio sites).</p>
-    </div>
+        <div class="foot-sub-actions">
+          <button type="submit" class="foot-sub-btn">Subscribe</button>
+          <button type="button" class="foot-sub-btn foot-sub-btn--xmtp" data-xmtp-btn data-xmtp-site="ishtar">Connect wallet (XMTP)</button>
+        </div>
+      </div>
+    </form>
+    <p class="foot-sub-status" data-xmtp-status role="status" aria-live="polite"></p>
+    <p class="foot-sub-rss"><b>Two RSS feeds</b> — <a href="https://ishtar.numetal.xyz/rss.xml">this&nbsp;site</a> · <a href="https://api.gokhan.vc/feed.xml">everything</a> (all studio sites).</p>
+  </div>
   </footer>
 
 </div>
@@ -197,6 +204,7 @@
   (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
   function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
 </script>
-<script src="/popups.js" defer></script>
+  <script src="/newsletter-xmtp.js" defer></script>
+  <script src="/popups.js" defer></script>
 </body>
 </html>
