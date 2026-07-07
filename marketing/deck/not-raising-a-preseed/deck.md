@@ -2,7 +2,7 @@
 title: Ishtar · HeartPrefs · HeartBench — pitch deck
 description: Agents court on your behalf. $20k round, $4k a head. Not a pre-seed.
 url: https://ishtar.numetal.xyz/deck/not-raising-a-preseed/
-pdf: https://ishtar.numetal.xyz/deck/not-raising-a-preseed/ishtar-deck-not-a-preseed.pdf
+pdf: https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf
 slides: 12
 updated: 2026-07-07
 ---
