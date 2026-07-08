@@ -9,6 +9,8 @@ cd "$(dirname "$0")/.."          # → site root
 OUT="dist/public"
 [ -d "$OUT" ] || { echo "✘ $OUT missing — run 'vocs build' first"; exit 1; }
 
+# Vocs writes to OUT root; a prior postbuild leaves OUT/docs and breaks re-runs (mv: Directory not empty).
+rm -rf "$OUT/docs"
 mkdir -p "$OUT/docs"
 # Move every Vocs-generated entry under docs/, EXCEPT docs/ itself and the raw files that are
 # referenced at the root by absolute URL.
