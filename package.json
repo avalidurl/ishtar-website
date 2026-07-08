@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "vocs build",
+    "build": "vocs build && bash scripts/postbuild.sh",
     "preview": "vocs preview"
   },
   "dependencies": {
