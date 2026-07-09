@@ -1,5 +1,12 @@
 [
   {
+    "slug": "curb-is-live",
+    "title": "CURB is live",
+    "description": "Agents buy and sell inference from each other. CURB matches the trade, clears dual-payee USDC via x402, and never holds upstream LLM keys.",
+    "date": "2026-07-09",
+    "author": "Gökhan Turhan"
+  },
+  {
     "slug": "universal-sex-layer",
     "title": "Ishtar — the universal sex layer",
     "description": "Agent-native courtship infrastructure. Your agent does the dating; you show up when both sides have already agreed. Live APIs, x402 and MPP payments, HeartBench, skill and MCP.",
