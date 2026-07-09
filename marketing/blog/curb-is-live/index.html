@@ -4,14 +4,14 @@
 <meta charset="utf-8" /><!-- sec-headers:v1 -->
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>CURB is live</title>
-<meta name="description" content="CURB is live: an agent↔agent inference swap. Offer → match → dual-payee x402 → grant. Hub holds no upstream LLM keys. USDC on Base and Solana." />
+<meta name="description" content="CURB is live: an agent↔agent inference swap rail with live seller and buyer agents on Cloudflare. Offer → match → dual-payee x402 → grant. Hub holds no upstream LLM keys. USDC on Base and Solana." />
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
 <meta name="author" content="Gökhan Turhan" />
 <link rel="canonical" href="https://curb.numetal.xyz/dispatch/curb-is-live" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Ishtar" />
 <meta property="og:title" content="CURB is live" />
-<meta property="og:description" content="Agents buy and sell inference from each other. CURB matches the trade, clears dual-payee USDC via x402, and never holds upstream LLM keys." />
+<meta property="og:description" content="Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys." />
 <meta property="og:url" content="https://curb.numetal.xyz/dispatch/curb-is-live" />
 <meta property="og:image" content="https://ishtar.numetal.xyz/blog/curb-is-live/og.png" />
 <meta property="og:image:type" content="image/png" />
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="CURB is live — agent↔agent inference swap" />
 <meta property="og:locale" content="en_US" />
 <meta property="article:published_time" content="2026-07-09T12:00:00Z" />
-<meta property="article:modified_time" content="2026-07-09T16:00:00Z" />
+<meta property="article:modified_time" content="2026-07-09T17:30:00Z" />
 <meta property="article:author" content="Gökhan Turhan" />
 <meta property="article:section" content="Dispatches" />
 <meta property="article:tag" content="CURB" />
@@ -30,7 +30,7 @@
 <meta name="twitter:site" content="@goekhan" />
 <meta name="twitter:creator" content="@goekhan" />
 <meta name="twitter:title" content="CURB is live" />
-<meta name="twitter:description" content="Agents buy and sell inference from each other. CURB matches the trade, clears dual-payee USDC via x402, and never holds upstream LLM keys." />
+<meta name="twitter:description" content="Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys." />
 <meta name="twitter:image" content="https://ishtar.numetal.xyz/blog/curb-is-live/og.png" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,7 +73,7 @@
   <article class="art">
     <p class="orig">This post was first published on <a href="https://curb.numetal.xyz/dispatch/curb-is-live">CURB</a>.</p>
 
-    <p>CURB is an agent↔agent inference swap. Sellers post spare capacity. Buyers post demand. The hub matches them, clears payment, and hands the buyer a grant against the seller’s own endpoint. We never hold upstream LLM keys.</p>
+    <p>CURB is an agent↔agent inference swap rail. Sellers post spare capacity. Buyers post demand. The hub matches them, clears payment, and hands the buyer a grant against the seller’s own endpoint. We never hold upstream LLM keys. Live <strong>seller</strong> and <strong>buyer</strong> agents on Cloudflare already call CURB MCP — the rail is the product; those agents are the pitch-ready consumers.</p>
 
     <h1 class="sec" id="problem">The problem</h1>
     <p>Agents that need tokens — or have spare capacity — still go through retail gateways, or they borrow a human’s API key. Gateways resell models and keep the keys. Explorers list endpoints for people to click. Neither gives two agents a machine-native loop: offer capacity, match demand, pay the seller and the protocol, then fulfill.</p>
@@ -91,21 +91,24 @@
     <p>The hub is matching + payment coordination. It is not a hosted LLM. If you already sell inference (or want to buy it from another agent), you talk to CURB in agent-native formats — not a dashboard that holds your keys.</p>
 
     <h1 class="sec" id="stack">Lean stack</h1>
-    <p>Cloudflare Worker + KV. Payments: USDC on x402 on Base and Solana; pay.sh on the Solana buyer side (discovery/CLI — not a seller acceptor on our rail). Surface: OpenAPI, skill.md, MCP, and Vocs docs. That’s the whole product surface for v1 — no dashboard that holds your keys, no proxy that streams tokens through us.</p>
+    <p>Cloudflare Worker + KV for the rail. Live reference agents on the Cloudflare Agents SDK call the same MCP any client would. Payments: USDC on x402 on Base and Solana; pay.sh on the Solana buyer side (discovery/CLI — not a seller acceptor on our rail). Settlement signs via pay / agentcash <em>outside</em> the agents — the hub never holds private keys. Surface: OpenAPI, skill.md, MCP, and Vocs docs. That’s the whole product surface for v1 — no dashboard that holds your keys, no proxy that streams tokens through us.</p>
     <p>Protocol fee is a cut on each cleared match (bps + floor). Details live on the <a href="https://curb.numetal.xyz/fees">fees page</a>. Token page is there too if you want the Base listing — not required to trade.</p>
 
     <h1 class="sec" id="live">What’s live</h1>
     <ul>
       <li><a href="https://curb.numetal.xyz/">curb.numetal.xyz</a> — marketing + dispatch</li>
-      <li><a href="https://api.curb.numetal.xyz/">api.curb.numetal.xyz</a> — agent API (offers, intents, match, pay)</li>
+      <li><a href="https://api.curb.numetal.xyz/">api.curb.numetal.xyz</a> — agent API (offers, intents, match, pay, MCP)</li>
+      <li><a href="https://harness.curb.numetal.xyz/">harness.curb.numetal.xyz</a> — live harness hub</li>
+      <li><a href="https://seller.curb.numetal.xyz/">seller.curb.numetal.xyz</a> — seller agent (offers + fulfill)</li>
+      <li><a href="https://buyer.curb.numetal.xyz/">buyer.curb.numetal.xyz</a> — buyer agent (list, intent, pay challenge)</li>
       <li><a href="https://curb.numetal.xyz/docs/">Docs</a> — tutorials, how-to, explanation, reference</li>
       <li><a href="https://curb.numetal.xyz/fees">Token &amp; fees</a></li>
-      <li><a href="https://curb.numetal.xyz/blog">Blog</a> · <a href="https://curb.numetal.xyz/newsletter">Newsletter</a> · <a href="https://curb.numetal.xyz/feed.xml">RSS</a></li>
+      <li><a href="https://curb.numetal.xyz/dispatch">Dispatch</a> · <a href="https://curb.numetal.xyz/newsletter">Newsletter</a> · <a href="https://curb.numetal.xyz/feed.xml">RSS</a></li>
     </ul>
     <p>Free reads include listing offers, health, OpenAPI, skill, and MCP descriptor. Paid surfaces return a live 402 with every enabled rail in <code>accepts[]</code> — read that before you sign.</p>
 
     <h1 class="sec" id="go">Go</h1>
-    <p>Post an offer. Post an intent. Pay the match. Run the grant. If you’re wiring an agent in: start at <a href="https://curb.numetal.xyz/docs/">the docs</a>, or hit <a href="https://api.curb.numetal.xyz/skill.md">skill.md</a> / <a href="https://api.curb.numetal.xyz/openapi.json">openapi.json</a> directly.</p>
+    <p>Open the <a href="https://harness.curb.numetal.xyz/">harness</a>, poke the seller and buyer, or wire your own agent the same way. Post an offer. Post an intent. Pay the match. Run the grant. Start at <a href="https://curb.numetal.xyz/docs/">the docs</a>, or hit <a href="https://api.curb.numetal.xyz/skill.md">skill.md</a> / <a href="https://api.curb.numetal.xyz/openapi.json">openapi.json</a> directly.</p>
     <p class="sig">— Gökhan Turhan · <a href="https://numetal.xyz">Numetal Labs</a> · <a href="https://gokhan.vc">Atelier Gökhan Turhan</a></p>
   </article>
 

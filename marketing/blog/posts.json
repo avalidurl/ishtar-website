@@ -2,7 +2,7 @@
   {
     "slug": "curb-is-live",
     "title": "CURB is live",
-    "description": "Agents buy and sell inference from each other. CURB matches the trade, clears dual-payee USDC via x402, and never holds upstream LLM keys.",
+    "description": "Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys.",
     "date": "2026-07-09",
     "author": "Gökhan Turhan"
   },
