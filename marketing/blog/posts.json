@@ -1,5 +1,12 @@
 [
   {
+    "slug": "tickerline",
+    "title": "tickerline: your conversation, quoted",
+    "description": "A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you're discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain. First published on numetal.xyz.",
+    "date": "2026-07-12",
+    "author": "Gökhan Turhan"
+  },
+  {
     "slug": "curb-is-live",
     "title": "CURB is live",
     "description": "Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys.",
