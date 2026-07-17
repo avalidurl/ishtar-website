@@ -259,7 +259,7 @@ html, body.deck-root {
   padding: 0.12rem 0.35rem;
   border: 1px solid var(--line);
   background: var(--card);
-  border-radius: 2px;
+  border-radius: 0;
   color: var(--fg);
   text-transform: none;
   letter-spacing: 0;
@@ -298,6 +298,23 @@ html, body.deck-root {
 .deck-top a {
   color: var(--mut);
   text-decoration: none;
+}
+.deck-top .deck-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+.deck-top .deck-doc {
+  color: var(--mut);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 860px) {
+  .deck-top .deck-doc {
+    display: none;
+  }
 }
 .deck-top a:hover {
   color: var(--red);
