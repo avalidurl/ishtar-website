@@ -8,7 +8,7 @@ const CSP_BASE =
   "script-src 'self' 'unsafe-inline'; " +
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
   "font-src 'self' https://fonts.gstatic.com; " +
-  "img-src 'self' data:; " +
+  "img-src 'self' data: https://gokhan.vc; " +
   "connect-src 'self' https://api.ishtar.numetal.xyz https://api.gokhan.vc; " +
   "base-uri 'self'; form-action 'self' https://api.gokhan.vc";
 
