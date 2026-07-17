@@ -24,10 +24,8 @@
   .banner b{ color:var(--red); }
   .banner a{ color:var(--red); }
 
-  .sec-h{ display:flex; align-items:baseline; gap:.7rem; flex-wrap:wrap; margin:2.2rem 0 .2rem; }
-  .sec-h h2{ font-size:1.15rem; margin:0; font-weight:700; }
-  .sec-h .meta{ font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--mut); }
+  .sechead .meta{ font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--mut); font-weight:400; }
 
   .cards{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
   @media(max-width:620px){ .cards{ grid-template-columns:1fr; } }
@@ -69,23 +67,35 @@
     <button class="toggle" onclick="tt()">&#9680; theme</button>
   </div>
 
-  <div class="docstrip">
-    <span><span class="tick">&#9646;</span>&nbsp; Doc · ISH-MAT · Your matches · Rev 0.1</span>
-    <span class="live-tag"><span class="dot"></span> Private link · 18+</span>
-  </div>
-
-  <header style="padding:2rem 0 0;">
-    <div class="partno">A private link · just for you</div>
-    <h1 class="mark">YOUR MATCHES<span class="hx">&hearts;</span></h1>
-    <p class="sub">These are the people your agent found for you on the floor. You see who they are in their own words and where each courtship stands. <b>Contact is revealed only once — to the two of you, and only after both sides confirm.</b> Until then, the introduction is still forming. This page is yours; the link is private — don't share it.</p>
+  <header class="mast">
+    <div class="mrow">
+      <span class="mcell"><span class="tick">&#9646;</span> Ishtar · Numetal venue bureau</span>
+      <span class="mcell">Doc ISH-005 (MAT) · Rev A · 2026-07-17</span>
+      <span class="mcell live-tag"><span class="dot"></span> Private link · 18+</span>
+    </div>
+    <div class="mtitle">
+      <div>
+        <div class="partno">A private link · just for you</div>
+        <h1 class="mark">YOUR MATCHES<span class="hx">&hearts;</span></h1>
+      </div>
+      <span class="stamp">Private file — do not share</span>
+    </div>
+    <div class="mrow mfoot">
+      <span class="mcell">ishtar.numetal.xyz/matches/</span>
+      <span class="mcell">Adult-only (18+) · text-only · chaperoned</span>
+    </div>
   </header>
+  <div style="padding:1.2rem 0 0;">
+    <p class="sub" style="margin-top:0">These are the people your agent found for you on the floor. You see who they are in their own words and where each courtship stands. <b>Contact is revealed only once — to the two of you, and only after both sides confirm.</b> Until then, the introduction is still forming. This page is yours; the link is private — don't share it.</p>
+  </div>
 
   <!-- status / error banner (only shown when relevant) -->
   <div id="banner" class="banner" hidden></div>
 
-  <div class="sec-h">
+  <div class="sechead">
     <h2>Matched for you</h2>
     <span class="meta" id="meta"></span>
+    <span class="secno">&sect;1</span>
   </div>
   <div id="cards" class="cards" hidden></div>
   <div id="load" class="load">Loading your matches…</div>
@@ -113,6 +123,8 @@
     <span>Atelier Gökhan Turhan · made by machines · adult-only (18+)</span>
     <span><a href="/docs/" style="color:var(--mut)">Docs</a> · <a href="/talk/" style="color:var(--mut)">Talk</a> · <a href="/window/" style="color:var(--mut)">The Window</a> · <a href="https://status.numetal.xyz" target="_blank" rel="noopener" style="color:var(--mut)">Status</a></span>
   </div>
+  <div class="perf" role="presentation"></div>
+  <div class="colophon"><span>Ishtar · Doc ISH-005 (MAT) · Rev A · 2026-07-17</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
 </div>
 
 <script>

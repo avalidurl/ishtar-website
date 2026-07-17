@@ -17,7 +17,8 @@
 }}
 *{ box-sizing:border-box; }
 html,body{ margin:0; background:var(--bg-dim); color:var(--fg);
-  font-family:"Archivo",system-ui,-apple-system,sans-serif; font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  font-family:"Archivo",system-ui,-apple-system,sans-serif; font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums; }
 /* Geist Mono datasheet voice for labels, marks, codes, numbers, controls */
 .docstrip,.reg,.partno,.mark,.toggle,.live-tag,.pill,.demoflag,.who,.k,.btn,.act,.modes button,.livebar .lbl,.stat .v,.bar{ font-family:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace; }
 a{ color:var(--fg); text-decoration:none; }
@@ -36,8 +37,8 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
   border-bottom:1px solid var(--line); padding:.6rem 0; font-size:11px; letter-spacing:.14em; color:var(--mut); text-transform:uppercase; }
 .docstrip .tick{ color:var(--red); }
 .live-tag{ display:inline-flex; align-items:center; gap:7px; color:var(--pink); }
-.dot{ width:7px; height:7px; border-radius:50%; background:var(--red); display:inline-block; flex:0 0 auto; animation:pulse 2s infinite; }
-@keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(255,46,78,.5)} 70%{box-shadow:0 0 0 7px rgba(255,46,78,0)} 100%{box-shadow:0 0 0 0 rgba(255,46,78,0)} }
+.dot{ width:7px; height:7px; background:var(--red); display:inline-block; flex:0 0 auto; animation:pulse 2s infinite; }
+@keyframes pulse{ 0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--red) 50%,transparent)} 70%{box-shadow:0 0 0 7px transparent} 100%{box-shadow:0 0 0 0 transparent} }
 
 .topbar{ display:flex; justify-content:space-between; align-items:center; padding:1rem 0 0; }
 .toggle{ border:1px solid var(--line); background:transparent; color:var(--mut); font:inherit; font-size:12px; padding:.3rem .65rem; cursor:pointer; letter-spacing:.08em; }
@@ -135,6 +136,59 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
 .frow h4{ margin:0 0 .55rem; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); font-weight:600; }
 .frow a{ display:block; color:var(--mut); font-size:12.5px; padding:.14rem 0; }
 .frow a:hover{ color:var(--pink); }
+
+/* ── filed-document furniture — masthead, section rules, spec grid, tables,
+      footnotes, perforation + colophon. Same tokens, same register. ─────── */
+
+/* masthead — the document header box: meta row / title block / bottom meta row */
+.mast{ border:1.5px solid var(--line); background:var(--card); margin-top:1.1rem; }
+.mast .mrow{ display:flex; flex-wrap:wrap; justify-content:space-between; border-bottom:1px solid var(--line); }
+.mast .mrow.mfoot{ border-bottom:0; border-top:1px solid var(--line); }
+.mast .mcell{ font-family:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--mut); padding:.5rem .85rem; border-right:1px solid var(--line); flex:1 1 auto; min-width:0; }
+.mast .mrow .mcell:last-child{ border-right:0; }
+.mast .mcell b{ color:var(--fg); font-weight:600; }
+.mast .mcell .tick{ color:var(--red); }
+.mast .mtitle{ display:flex; justify-content:space-between; align-items:center; gap:1.2rem; flex-wrap:wrap; padding:1.05rem .9rem 1.2rem; }
+.mast .mtitle .mark{ margin:.15rem 0 0; }
+/* the one rotated element on the page — the filing stamp */
+.stamp{ flex:none; display:inline-block; border:1.5px solid var(--red); color:var(--red);
+  font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  padding:.3rem .7rem; transform:rotate(-1.6deg); white-space:nowrap; }
+
+/* section heading — tiny uppercase, bottom rule, flush-right section number */
+.sechead{ display:flex; justify-content:flex-start; align-items:baseline; gap:1rem; flex-wrap:wrap;
+  border-bottom:1.5px solid var(--line); padding-bottom:.4rem; margin:2.4rem 0 .9rem;
+  font-family:"Geist Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--fg); font-weight:600; }
+.sechead h2, .sechead h3{ font:inherit; letter-spacing:inherit; margin:0; }
+.secno{ font-family:"Geist Mono",ui-monospace,monospace; color:var(--mut); font-weight:400; font-size:11px; letter-spacing:.14em; margin-left:auto; }
+
+/* spec grid — key stats in a ruled frame */
+.specgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); border:1.5px solid var(--line); background:var(--card); margin-top:1rem; }
+.specgrid .cell{ border:1px solid var(--soft); min-height:5.2rem; padding:.6rem .75rem; }
+.specgrid .cell .k{ font-family:"Geist Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--mut); }
+.specgrid .cell .v{ font-size:17px; font-weight:700; margin-top:.25rem; font-variant-numeric:tabular-nums; }
+.specgrid .cell .a{ font-size:11px; color:var(--mut); margin-top:.2rem; line-height:1.45; }
+
+/* fully-ruled document table — th on the soft tone, numeric columns right-set */
+.tablewrap{ overflow-x:auto; margin-top:1rem; }
+.dtable{ width:100%; border-collapse:collapse; font-size:13px; }
+.dtable th,.dtable td{ border:1px solid var(--line); padding:.5rem .65rem; text-align:left; vertical-align:top; }
+.dtable th{ font-family:"Geist Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--mut); font-weight:500; background:var(--soft); }
+.dtable .num{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+
+/* footnotes — † and ‡, dim, small */
+.fnote{ font-size:11.5px; color:var(--mut); line-height:1.6; margin-top:.9rem; }
+.fnote .dag, .dag{ color:var(--red); }
+
+/* perforation bar + colophon — every page ends filed */
+.perf{ height:10px; margin-top:1.6rem; background-image:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px); }
+.colophon{ display:flex; justify-content:space-between; gap:.6rem 1.4rem; flex-wrap:wrap;
+  border-top:1.5px solid var(--line); margin-top:.6rem; padding:.6rem 0 2.8rem;
+  font-family:"Geist Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--mut); }
+.colophon a{ color:var(--mut); }
 
 /* Site-wide link popups (popups.js). Hover a link -> annotation card. */
 .lp{ position:absolute; z-index:9999; max-width:340px; width:max-content; border:1.5px solid var(--line); background:var(--card); color:var(--fg); box-shadow:5px 5px 0 var(--red); padding:.7rem .85rem; font-family:"Archivo",system-ui,-apple-system,sans-serif; opacity:0; transform:translateY(4px); transition:opacity .12s,transform .12s; pointer-events:none; }

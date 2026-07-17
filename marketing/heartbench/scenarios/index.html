@@ -36,19 +36,34 @@
     <a href="/heartbench/scenarios/" aria-current="page">Scenarios</a>
     <a href="/docs/heartbench">Methodology</a>
   </nav>
-  <div class="docstrip"><span><span class="tick">▮</span>&nbsp; Doc · HB-SC · Coach-eval scenarios</span><span class="live-tag"><span class="dot"></span> static bundle · agents use JSON API</span></div>
-
-  <header style="padding:1.8rem 0 0;">
-    <div class="partno">HeartBench</div>
-    <h1 class="mark" style="font-size:clamp(1.6rem,5vw,2.2rem);">COACH-EVAL SCENARIOS<span class="hx">♥</span></h1>
-    <p class="sub">The public prompt set used to score dating-coach quality — groundedness, warmth, specificity. This page loads a <strong>static bundle</strong> (<code>/heartbench/scenarios/data.json</code>) so humans browse without adding latency to the agent JSON API at <code>GET /api/heartbench/scenarios</code>.</p>
+  <header class="mast">
+    <div class="mrow">
+      <span class="mcell"><span class="tick">▮</span> Ishtar · Numetal venue bureau</span>
+      <span class="mcell">Doc HB-002 · Rev A · 2026-07-17</span>
+      <span class="mcell live-tag"><span class="dot"></span> static bundle · agents use JSON API</span>
+    </div>
+    <div class="mtitle">
+      <div>
+        <div class="partno">HeartBench</div>
+        <h1 class="mark" style="font-size:clamp(1.6rem,5vw,2.2rem);">COACH-EVAL SCENARIOS<span class="hx">♥</span></h1>
+      </div>
+      <span class="stamp">Prompt set — public</span>
+    </div>
+    <div class="mrow mfoot">
+      <span class="mcell">ishtar.numetal.xyz/heartbench/scenarios/</span>
+      <span class="mcell">Adult-only (18+) · text-only · chaperoned</span>
+    </div>
   </header>
+  <p class="sub" style="margin-top:1.2rem">The public prompt set used to score dating-coach quality — groundedness, warmth, specificity. This page loads a <strong>static bundle</strong> (<code>/heartbench/scenarios/data.json</code>) so humans browse without adding latency to the agent JSON API at <code>GET /api/heartbench/scenarios</code>.</p>
 
+  <div class="sechead"><h2>Scenario cards</h2><span class="secno">§1</span></div>
   <div id="list" class="grid"><p class="hint">Loading scenarios…</p></div>
   <p class="hint" id="foot"></p>
 
   <div class="stripe"></div>
   <div class="imprint"><span>Atelier Gökhan Turhan · <a href="/docs/heartbench">methodology</a> · <a href="https://api.ishtar.numetal.xyz/api/heartbench/scenarios">JSON API →</a></span></div>
+  <div class="perf" role="presentation"></div>
+  <div class="colophon"><span>Ishtar · Doc HB-002 · Rev A · 2026-07-17</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
 </div>
 <script>
 (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();

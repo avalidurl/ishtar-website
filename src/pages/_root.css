@@ -110,7 +110,7 @@ html[data-vocs] {
    Injected as a ::before on the content article — no MDX edits, every page
    gets the bureau header band with the red tick. Geist Mono via the mono token. */
 [data-v-content]::before {
-  content: "▮  DOC · ISHTAR · DATASHEET · agent-mediated dating venue";
+  content: "▮  DOC ISH-100 · ISHTAR · DATASHEET · REV A · 2026-07-17 · agent-mediated dating venue";
   display: block;
   margin: 0 0 1.6rem;
   padding-bottom: 0.6rem;
@@ -142,6 +142,28 @@ html[data-vocs] {
   );
 }
 
+/* Perforation bar + colophon — every docs page ends filed. The 10px ink-dash
+   strip is painted as the pseudo-element's top band; the tiny uppercase line
+   below it is the filing record. */
+[data-v-content-footer]::after {
+  content: "ISHTAR · DOC ISH-100 · REV A · 2026-07-17 — FILED AT ISHTAR.NUMETAL.XYZ · A NUMETAL VENUE";
+  display: block;
+  margin-top: 1.8rem;
+  padding-top: 1.15rem;
+  background-image: repeating-linear-gradient(
+    90deg, var(--ish-line) 0 6px, transparent 6px 12px
+  );
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: top left;
+  color: var(--ish-mut);
+  font-family: var(--vocs-font-family-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
 /* --- Accents on bureau detail ---------------------------------------------- */
 
 /* Links: ink underline, red on hover (matches index.html a / a:hover). */
@@ -163,21 +185,51 @@ html[data-vocs] {
   padding-bottom: 0.4rem;
 }
 
-/* ALL-CAPS, lettered section labels for H2/H3 — engineering-bureau register. */
-[data-v-content] h2,
-[data-v-content] h3 {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+/* Tabular figures everywhere — numbers align in columns like a printed table. */
+[data-v-content] {
+  font-variant-numeric: tabular-nums;
+  counter-reset: ish-sec;
 }
 
-/* Spec-table feel: hairline rules, mono header, muted label column. */
+/* ALL-CAPS section labels for H2/H3 — engineering-bureau register.
+   H2 = the filed-document section heading: small, letterspaced, a full-width
+   ink bottom rule, and a flush-right §N section number (CSS counter). */
+[data-v-content] h2 {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.85rem;
+  border-bottom: 1.5px solid var(--ish-line);
+  padding-bottom: 0.45rem;
+  padding-right: 3.2rem;
+  counter-increment: ish-sec;
+}
+[data-v-content] h2::after {
+  content: "§" counter(ish-sec);
+  position: absolute;
+  right: 0;
+  bottom: 0.45rem;
+  color: var(--ish-mut);
+  font-family: var(--vocs-font-family-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+}
+[data-v-content] h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+/* Spec-table: FULLY ruled document table — every cell bordered, mono header
+   on the soft tone, muted label column. */
 [data-v-content] table {
   border: 1px solid var(--ish-line);
   border-collapse: collapse;
 }
 [data-v-content] th,
 [data-v-content] td {
-  border-bottom: 1px solid var(--ish-line);
+  border: 1px solid var(--ish-line);
 }
 [data-v-content] th {
   font-family: var(--vocs-font-family-mono);
@@ -185,6 +237,13 @@ html[data-vocs] {
   letter-spacing: 0.07em;
   color: var(--ish-mut);
   text-align: left;
+  background: var(--ish-soft);
+}
+
+/* Code blocks read as bordered exhibits on the page plane. */
+[data-v-content] pre {
+  border: 1px solid var(--ish-line);
+  border-radius: 0;
 }
 
 /* Inline code + blockquote edge read as exposed structure. */
