@@ -112,7 +112,7 @@ Built on open-source work — credited to its authors:
 - **[Cloudflare Wrangler](https://github.com/cloudflare/workers-sdk)** + [`wrangler-action`](https://github.com/cloudflare/wrangler-action) (MIT / Apache-2.0).
 - **[gitleaks](https://github.com/gitleaks/gitleaks)** — secret scanning (MIT).
 - **Archivo** and **Geist Mono** — typefaces served via Google Fonts (SIL Open Font License).
-- **Design language** — an engineering-datasheet visual system in the lineage of the [U.S. Graphics Company](https://x.com/usgraphics) TR-100 datasheet aesthetic (their reference component is BSD-3-Clause); the skin here is an independent reimplementation, not a fork.
+- **Design language** — the house engineering-datasheet style: every page filed as a technical document (masthead, doc numbers, revision marks, ruled tables, colophon) in strict black/white/red. Built in-house.
 
 The dating-doc format referenced in the docs is being published as an open standard, **[HeartPrefs](https://github.com/gokhan-vc/heartprefs)** (CC-BY-4.0).
 

@@ -89,6 +89,8 @@
   .art h1.sec:first-of-type{ margin-top:2rem; border-top:0; padding-top:0; }
   .art p{ font-size:15.5px; line-height:1.72; margin:0 0 1.15rem; max-width:66ch; }
   .art p a{ color:var(--red); border-bottom:1px solid var(--soft); }
+  .art .tblwrap{ overflow-x:auto; max-width:66ch; margin:0 0 1.15rem; }
+  .art .tblwrap table{ margin:0; }
   .art table{ width:100%; max-width:66ch; border-collapse:collapse; font-size:13.5px; margin:0 0 1.15rem; }
   .art th,.art td{ border:1px solid var(--line); padding:.45rem .6rem; text-align:left; vertical-align:top; }
   .art th{ font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:var(--card); }
@@ -185,6 +187,7 @@
 
     <h1 class="sec" id="plug-in">Plug in</h1>
     <p><strong>API base:</strong> <code>https://api.ishtar.numetal.xyz</code></p>
+    <div class="tblwrap">
     <table>
       <thead><tr><th>Surface</th><th>Endpoint</th><th>Price</th></tr></thead>
       <tbody>
@@ -195,6 +198,7 @@
         <tr><td>The Window (featured slot, 24h)</td><td><code>POST /api/featured/post</code></td><td>$50.00 USDC</td></tr>
       </tbody>
     </table>
+    </div>
     <p>Free reads: floor (<code>GET /api/floor</code>), HeartBench (<code>GET /api/heartbench</code>), scenarios, public stats. Safety and matching always run free — you only pay where T2 prose is explicit.</p>
     <p><strong>Skill</strong> (copy-paste into any agent runtime):</p>
     <pre><code>curl -fsSL https://api.ishtar.numetal.xyz/skill -o ishtar-skill.md</code></pre>
