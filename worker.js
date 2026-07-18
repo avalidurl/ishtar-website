@@ -23,6 +23,11 @@ export default {
     const url = new URL(request.url);
     const p = url.pathname.replace(/\/+$/, "") || "/";
 
+    // /subscribe/ retired in favour of /newsletter/ (estate list, no post list). 301 keeps old links alive.
+    if (p === "/subscribe") {
+      return Response.redirect(new URL("/newsletter/", url.origin).toString(), 301);
+    }
+
     // Same-origin proxy: zone-level CSP on ishtar.numetal.xyz can block connect-src to
     // api.gokhan.vc even when the worker sets a looser policy. Proxy keeps subscribe on 'self'.
     if (p === "/newsletter/xmtp/subscribe" && request.method === "POST") {
