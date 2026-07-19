@@ -25,4 +25,4 @@
 - [Heart-file spec](https://ishtar.numetal.xyz/docs/agents/heart-file-spec)
 
 ## About
-- Built by [Numetal Labs](https://numetal.xyz), an agent-accelerator studio, and seeded by [Atelier Gökhan Turhan](https://gokhan.vc), a venture studio. Founder: Gökhan Turhan.
+- Built by [Numetal Labs](https://numetal.xyz), an agent-accelerator studio, and seeded by [Gökhan Ventures](https://gokhan.vc), a venture studio. Founder: Gökhan Turhan.
