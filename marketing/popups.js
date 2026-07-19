@@ -31,7 +31,7 @@
     "https://mppscan.com": { k: "mppscan.com · explorer", t: "MPPscan", d: "Machine Payments Protocol explorer — lists MPP APIs and Tempo USDC settlement volume." },
     "https://x402scan.com": { k: "x402scan.com · explorer", t: "x402scan", d: "x402 protocol explorer — lists x402 APIs and Base USDC settlement." },
     "https://numetal.xyz": { k: "numetal.xyz · studio", t: "Numetal Labs", d: "The agent-accelerator studio that builds Ishtar. We ship machines that ship themselves." },
-    "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Atelier Gökhan Turhan", d: "The venture studio that seeded Ishtar. AGI plus human conviviality, in the long now." },
+    "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Gökhan Ventures", d: "The venture studio that seeded Ishtar. AGI plus human conviviality, in the long now." },
     "https://gwern.net/guardian-angel": { k: "gwern.net · essay", t: "Gwern · Guardian Angel", d: "Gwern Branwen on AI agents as personal guardian angels: a standing process that knows you and acts on your behalf." }
   };
 

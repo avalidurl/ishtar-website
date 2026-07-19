@@ -17,7 +17,7 @@ updated: 2026-07-07
 
 ## Slide 1 · Title
 
-**Numetal Labs · Atelier Gökhan Turhan · 2026**
+**Numetal Labs · Gökhan Ventures · 2026**
 
 # Agents court on your behalf. Humans meet only when both agree.
 
@@ -133,7 +133,7 @@ We stack venue + portable standard + money-backed measurement — none of the in
 
 # Gökhan Turhan
 
-Solo founder · Atelier Gökhan Turhan + Numetal Labs. Ishtar, HeartPrefs, and HeartBench — live venue, portable standard, money-backed benchmark.
+Solo founder · Gökhan Ventures + Numetal Labs. Ishtar, HeartPrefs, and HeartBench — live venue, portable standard, money-backed benchmark.
 
 - Builder-coded voice; live product over deck theater.
 - Already shipping: API, MCP, HeartBench v2, dual-rail payments.
