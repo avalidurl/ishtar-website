@@ -73,7 +73,14 @@
   .pick .pq{ display:block; color:var(--fg); }
 
   /* ── transcript ── */
-  .turns{ display:grid; gap:.55rem; }
+  /* The transcript scrolls INSIDE its own box. Letting it grow pushed the whole document down on
+     every click, so the thing you just revealed moved off screen as you read it. */
+  .turns{ display:grid; gap:.55rem; max-height:min(46vh,360px); overflow-y:auto; padding-right:.4rem;
+    border-top:1px solid var(--soft); border-bottom:1px solid var(--soft); padding-top:.55rem; padding-bottom:.55rem; }
+  .turns::-webkit-scrollbar{ width:8px; }
+  .turns::-webkit-scrollbar-thumb{ background:var(--soft); }
+  .turncount{ font-family:"Geist Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--mut); margin-top:.45rem; display:block; }
   .turn{ border-left:2px solid var(--soft); padding:.1rem 0 .1rem .7rem; }
   .turn .who{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--red); }
   .turn .bd{ margin-top:.15rem; }
@@ -112,7 +119,9 @@
   .wire{ font-family:"Geist Mono",ui-monospace,monospace; font-size:11.5px; background:transparent;
     border:1px solid var(--soft); padding:.55rem .6rem; overflow-x:auto; white-space:pre; margin-top:.5rem; }
   .note{ color:var(--mut); font-size:12.5px; margin-top:.7rem; }
-  .navbtns{ display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; }
+  .navbtns{ display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; align-items:center; }
+  .nexthint{ font-family:"Geist Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--mut); }
 </style>
 </head>
 <body>
@@ -141,9 +150,11 @@
          a half-written one costs the page. -->
     <div class="seats" role="tablist" aria-label="Choose your seat">
       <button class="seat" role="tab" id="seat-human" aria-selected="true" data-seat="human">Human<span class="st">the represented party</span></button>
-      <button class="seat" role="tab" id="seat-agent" aria-selected="false" data-seat="agent" disabled>Agent<span class="st">not yet filed</span></button>
-      <button class="seat" role="tab" id="seat-house" aria-selected="false" data-seat="house" disabled>The house<span class="st">not yet filed</span></button>
-      <button class="seat" role="tab" id="seat-voyeur" aria-selected="false" data-seat="voyeur" disabled>Voyeur<span class="st">not yet filed</span></button>
+      <!-- "not yet filed" was internal jargon that told a visitor nothing. Each unbuilt seat now
+           says what it will show, so the bar reads as a roadmap rather than three broken buttons. -->
+      <button class="seat" role="tab" id="seat-agent" aria-selected="false" data-seat="agent" disabled>Agent<span class="st">do the courting yourself — building</span></button>
+      <button class="seat" role="tab" id="seat-house" aria-selected="false" data-seat="house" disabled>The house<span class="st">run the venue — building</span></button>
+      <button class="seat" role="tab" id="seat-voyeur" aria-selected="false" data-seat="voyeur" disabled>Voyeur<span class="st">just watch — building</span></button>
     </div>
     <div class="mrow mfoot">
       <span class="mcell">ishtar.numetal.xyz/play/</span>
@@ -169,6 +180,7 @@
       <div class="navbtns">
         <button class="btn" id="prev" type="button">← Back</button>
         <button class="btn primary" id="next" type="button">Continue →</button>
+        <span class="nexthint" id="nexthint"></span>
       </div>
     </div>
     <div class="pane">
@@ -255,7 +267,9 @@ function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if
         });
         h += '</div>';
         if(S.turns < t.length){
-          h += '<div class="navbtns"><button class="btn" type="button" id="advance">Let it run →</button></div>'
+          h += '<span class="turncount">turn '+S.turns+' of '+t.length+'</span>'
+            +  '<div class="navbtns"><button class="btn" type="button" id="advance">Let it run →</button>'
+            +  '<button class="btn" type="button" id="skipend">Skip to the verdict →</button></div>'
             +  '<span class="deadctl" style="margin-top:.6rem">[ intervene ] — disabled: you are the represented party, not a participant</span>';
         } else {
           h += '<div class="verdict"><div class="vw">CLOSE</div>'
@@ -400,7 +414,7 @@ function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if
       + rows + '<tr><td><b>Balance</b></td><td>no wallet, nothing charged</td><td class="r"><b>'+bal+'</b></td></tr>';
   }
 
-  function render(){
+  function render(keepAtNewest){
     var c = CH[S.ch];
     $("lhd").textContent = c.lhd;
     $("left").innerHTML = c.render(S);
@@ -410,19 +424,32 @@ function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if
     $("prev").disabled = S.ch === 0;
     var ok = c.canNext(S);
     $("next").disabled = !ok || S.ch === CH.length - 1;
-    $("next").textContent = (S.ch === CH.length - 1) ? "End of walkthrough" : (ok ? "Continue →" : (c.nextHint || "Continue →"));
+    // A disabled button must never wear its hint as a label — the red "Let the courtship finish"
+    // button read as the primary action while being inert. Label stays constant; the hint goes
+    // beside it as text.
+    $("next").textContent = (S.ch === CH.length - 1) ? "End of walkthrough" : "Continue →";
+    var hint = $("nexthint");
+    hint.textContent = (!ok && S.ch < CH.length - 1 && c.nextHint) ? c.nextHint : "";
 
     // Seat labels advertise what the other seats are holding at this exact beat.
     document.querySelectorAll(".seat").forEach(function(b){
       b.setAttribute("aria-selected", String(b.dataset.seat === S.seat));
     });
+
+    // Keep the newest turn in view WITHOUT moving the page: scroll the transcript box, not the
+    // document. Advancing used to grow the pane and push everything down as you read.
+    if(keepAtNewest){
+      var box = document.querySelector(".turns");
+      if(box) box.scrollTop = box.scrollHeight;
+    }
   }
 
   document.addEventListener("click", function(e){
     var t = e.target.closest("button"); if(!t) return;
     if(t.dataset.doc){ S.doc = t.dataset.doc; S.turns = 1; render(); return; }
     if(t.dataset.ch){ S.ch = Number(t.dataset.ch); render(); return; }
-    if(t.id === "advance"){ S.turns = Math.min(S.turns + 2, TRANSCRIPT(S.doc).length); render(); return; }
+    if(t.id === "advance"){ S.turns = Math.min(S.turns + 2, TRANSCRIPT(S.doc).length); render(true); return; }
+    if(t.id === "skipend"){ S.turns = TRANSCRIPT(S.doc).length; render(true); return; }
     if(t.id === "reveal"){ S.revealed = true; render(); return; }
     if(t.id === "next" && S.ch < CH.length - 1 && CH[S.ch].canNext(S)){ S.ch++; render(); return; }
     if(t.id === "prev" && S.ch > 0){ S.ch--; render(); return; }
