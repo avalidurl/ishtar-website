@@ -29,19 +29,27 @@
   /* Local to /play/. Ten ds.css tokens only — never --ink, never --panel. */
 
   .seats{ display:flex; flex-wrap:wrap; border-top:1px solid var(--line); }
+  /* Every control carries its affordance AT REST, not only on hover — rendered in --mut/--soft
+     these read as disabled, which is exactly the wrong signal on a page that also has genuinely
+     disabled controls. Full-contrast at rest; red on hover/focus. */
   .seat{ font-family:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:10.5px;
-    letter-spacing:.14em; text-transform:uppercase; color:var(--mut); background:transparent;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--fg); background:transparent;
     padding:.5rem .85rem; border:0; border-right:1px solid var(--line); flex:1 1 auto; min-width:0;
-    text-align:left; cursor:pointer; }
+    text-align:left; cursor:pointer; transition:background .12s, color .12s; }
   .seat:last-child{ border-right:0; }
+  .seat:hover, .seat:focus-visible{ background:var(--red); color:var(--on-red); outline:none; }
+  .seat:hover .st, .seat:focus-visible .st{ color:var(--on-red); }
   .seat[aria-selected="true"]{ background:var(--red); color:var(--on-red); }
-  .seat .st{ display:block; text-transform:none; letter-spacing:.04em; font-size:10px; opacity:.85; }
+  .seat .st{ display:block; text-transform:none; letter-spacing:.04em; font-size:10px; opacity:.85; color:var(--mut); }
+  .seat[aria-selected="true"] .st{ color:var(--on-red); }
 
   .rail{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; margin:1.2rem 0 .2rem;
     font-family:"Geist Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; }
-  .rail button{ background:transparent; border:1px solid var(--soft); color:var(--mut);
-    font:inherit; padding:.35rem .6rem; cursor:pointer; }
+  .rail button{ background:transparent; border:1px solid var(--line); color:var(--fg);
+    font:inherit; padding:.35rem .6rem; cursor:pointer; transition:background .12s, color .12s, border-color .12s; }
+  .rail button:hover, .rail button:focus-visible{ background:var(--fg); color:var(--bg); border-color:var(--fg); outline:none; }
   .rail button[aria-current="true"]{ border-color:var(--red); color:var(--red); }
+  .rail button[aria-current="true"]:hover{ background:var(--red); color:var(--on-red); border-color:var(--red); }
   .rail .spacer{ flex:1 1 auto; }
 
   .panes{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1.5px solid var(--line);
