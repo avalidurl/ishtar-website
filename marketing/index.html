@@ -28,6 +28,10 @@
     --fs-lab:11px; --fs-spec-k:11px; --fs-spec-v:13.5px; --fs-foot:10.5px;
     --pad:16px;                 /* standard compartment padding */
     --s1:8px;--s2:12px;--s3:16px;--s4:20px;--s5:24px;--s6:32px;  /* one spacing scale */
+    /* Sheet geometry — Ishtar's assigned width, matching ds.css. This page used
+       to be 1180 while every other surface was 880, so / and /window were two
+       different documents wearing one masthead. Same number now, one brand. */
+    --sheet:928px;
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +43,7 @@
   a:hover{color:var(--red);border-color:var(--red)}
   :focus-visible{outline:2px solid var(--red);outline-offset:2px}
 
-  .wrap{max-width:1180px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;border-left:1.5px solid var(--line);border-right:1.5px solid var(--line)}
+  .wrap{max-width:var(--sheet);margin:0 auto;min-height:100vh;display:flex;flex-direction:column;border-left:1.5px solid var(--line);border-right:1.5px solid var(--line)}
 
   /* ── Top strip (existing — keep) ───────────────────────────────────────── */
   .top{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-bottom:1.5px solid var(--line)}

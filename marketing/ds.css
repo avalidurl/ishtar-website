@@ -6,6 +6,12 @@
 :root{ /* light is the default — white base */
   --bg:#fff; --fg:#0a0a0a; --mut:#6a6a6a; --line:#0a0a0a; --soft:rgba(10,10,10,.16); --card:#fff;
   --red:#e10600; --pink:#e10600; --on-red:#fff; --bg-dim:#fff;
+  /* Sheet geometry — Ishtar's row in the estate table. One number, one place.
+     The property used to ship two sheet widths for one brand: 880 here and
+     1180 on the one-pager, so the masthead of / and the masthead of /window
+     were different documents. 928 is Ishtar's assigned width; every surface
+     reads it from here. */
+  --sheet:928px; --margin:24px; --gutter:24px;
 }
 :root[data-theme="dark"]{
   --bg:#161616; --fg:#ececec; --mut:#9a9a9a; --line:#ececec; --soft:rgba(236,236,236,.15); --card:#1c1c1c;
@@ -25,7 +31,7 @@ a{ color:var(--fg); text-decoration:none; }
 a:hover{ color:var(--red); }
 b{ font-weight:600; }
 /* Central body column floats lighter on a dimmed page (margins darker than the column). */
-.wrap{ max-width:880px; margin:0 auto; padding:0 1.6rem; background:var(--bg); border-left:1.5px solid var(--line); border-right:1.5px solid var(--line); min-height:100vh; }
+.wrap{ max-width:var(--sheet); margin:0 auto; padding:0 var(--margin); background:var(--bg); border-left:1.5px solid var(--line); border-right:1.5px solid var(--line); min-height:100vh; }
 /* Scroll indicator — hints there is more below the fold. */
 .scrollhint{ display:flex; align-items:center; justify-content:center; gap:.6rem; margin:1.6rem 0 .2rem; color:var(--mut); font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
 .scrollhint .ar{ color:var(--red); animation:bob 1.5s ease-in-out infinite; }
