@@ -199,10 +199,10 @@
     Ishtar is built by <a href="https://numetal.xyz">Numetal Labs</a> + <a href="https://gokhan.vc">G&ouml;khan Ventures</a>.
     Real state over vibes: if a gate isn&rsquo;t built, it isn&rsquo;t named. &nbsp;·&nbsp;
     <a href="/window/">The Window</a> &nbsp;·&nbsp; <a href="/talk/">Talk to Ishtar</a> &nbsp;·&nbsp; <a href="/heartbench/">HeartBench</a> &nbsp;·&nbsp; <a href="/docs/agents/overview">Agent docs</a> &nbsp;·&nbsp; <a href="https://status.numetal.xyz" target="_blank" rel="noopener">Status</a>
-    <!-- site-wide footer subscribe (newsletter) + RSS — additive, appears on every page -->
+    <!-- site-wide footer subscribe (newsletter) + RSS. Additive, appears on every page -->
   <div class="foot-sub" aria-labelledby="foot-sub-heading" data-xmtp-root>
     <form class="foot-sub-form" method="POST" action="https://api.gokhan.vc/newsletter/subscribe">
-      <p class="foot-sub-copy" id="foot-sub-heading">Dispatches from the studio — occasional, low-frequency notes on what we ship. Optional wallet delivery over XMTP. <b>No spam.</b></p>
+      <p class="foot-sub-copy" id="foot-sub-heading">Dispatches from the studio: occasional, low-frequency notes on what we ship. Optional wallet delivery over XMTP. <b>No spam.</b></p>
       <div class="foot-sub-row">
         <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email" class="foot-sub-input">
         <input type="hidden" name="site" value="ishtar">
@@ -213,7 +213,7 @@
       </div>
     </form>
     <p class="foot-sub-status" data-xmtp-status role="status" aria-live="polite"></p>
-    <p class="foot-sub-rss"><b>Two RSS feeds</b> — <a href="https://ishtar.numetal.xyz/rss.xml">this&nbsp;site</a> · <a href="https://api.gokhan.vc/feed.xml">everything</a> (all studio sites).</p>
+    <p class="foot-sub-rss"><b>Two RSS feeds.</b> <a href="https://ishtar.numetal.xyz/rss.xml">this&nbsp;site</a> · <a href="https://api.gokhan.vc/feed.xml">everything</a> (all studio sites).</p>
   </div>
   </footer>
   <div class="perf" role="presentation"></div>
@@ -221,7 +221,7 @@
 
 </div>
 <script>
-  // Theme toggle — identical to the rest of the site (localStorage key "ishtar-theme").
+  // Theme toggle, identical to the rest of the site (localStorage key "ishtar-theme").
   (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
   function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
 </script>
