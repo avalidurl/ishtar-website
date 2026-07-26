@@ -6,6 +6,12 @@
 :root{ /* light is the default — white base */
   --bg:#fff; --fg:#0a0a0a; --mut:#6a6a6a; --line:#0a0a0a; --soft:rgba(10,10,10,.16); --card:#fff;
   --red:#e10600; --pink:#e10600; --on-red:#fff; --bg-dim:#fff;
+  /* Sheet geometry — Ishtar's row in the estate table. One number, one place.
+     The property used to ship two sheet widths for one brand: 880 here and
+     1180 on the one-pager, so the masthead of / and the masthead of /window
+     were different documents. 928 is Ishtar's assigned width; every surface
+     reads it from here. */
+  --sheet:928px; --margin:24px; --gutter:24px;
 }
 :root[data-theme="dark"]{
   --bg:#161616; --fg:#ececec; --mut:#9a9a9a; --line:#ececec; --soft:rgba(236,236,236,.15); --card:#1c1c1c;
@@ -25,7 +31,7 @@ a{ color:var(--fg); text-decoration:none; }
 a:hover{ color:var(--red); }
 b{ font-weight:600; }
 /* Central body column floats lighter on a dimmed page (margins darker than the column). */
-.wrap{ max-width:880px; margin:0 auto; padding:0 1.6rem; background:var(--bg); border-left:1.5px solid var(--line); border-right:1.5px solid var(--line); min-height:100vh; }
+.wrap{ max-width:var(--sheet); margin:0 auto; padding:0 var(--margin); background:var(--bg); border-left:1.5px solid var(--line); border-right:1.5px solid var(--line); min-height:100vh; }
 /* Scroll indicator — hints there is more below the fold. */
 .scrollhint{ display:flex; align-items:center; justify-content:center; gap:.6rem; margin:1.6rem 0 .2rem; color:var(--mut); font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
 .scrollhint .ar{ color:var(--red); animation:bob 1.5s ease-in-out infinite; }
@@ -37,7 +43,18 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
   border-bottom:1px solid var(--line); padding:.6rem 0; font-size:11px; letter-spacing:.14em; color:var(--mut); text-transform:uppercase; }
 .docstrip .tick{ color:var(--red); }
 .live-tag{ display:inline-flex; align-items:center; gap:7px; color:var(--pink); }
-.dot{ width:7px; height:7px; background:var(--red); display:inline-block; flex:0 0 auto; animation:pulse 2s infinite; }
+/* .dot is a BULLET — a 7px square that marks a cell. It asserts nothing, and
+   it does not move. Eight of the eleven cells that carry it make no liveness
+   claim at all (/play states "not a live feed" in the very same cell), so they
+   keep the mark and lose a pulse they were never entitled to.
+   .dot--live is the only form that claims a feed is alive, and therefore the
+   only one that animates. Exactly three cells in the property carry it:
+   /dashboard, /heartbench, /window. */
+.dot{ width:7px; height:7px; background:var(--red); display:inline-block; flex:0 0 auto; }
+.dot--live{ animation:pulse 2s infinite; }
+/* A live mark must be able to be wrong: stale and dead render as ink, unmoving,
+   so a dead feed can never paint the same pixels as a healthy one. */
+.dot--live[data-state="stale"],.dot--live[data-state="dead"],.dot--live[data-state="unknown"]{ background:var(--fg); animation:none; }
 @keyframes pulse{ 0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--red) 50%,transparent)} 70%{box-shadow:0 0 0 7px transparent} 100%{box-shadow:0 0 0 0 transparent} }
 
 .topbar{ display:flex; justify-content:space-between; align-items:center; padding:1rem 0 0; }
@@ -198,4 +215,14 @@ hr{ border:0; border-top:1px solid var(--line); margin:2.2rem 0; }
 .lp .lp-d{ font-size:12.5px; line-height:1.5; color:var(--mut); }
 .lp a.lp-o{ display:inline-block; margin-top:.5rem; font-family:"Geist Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.04em; color:var(--red); border:0; }
 .lp a.lp-o:hover{ text-decoration:underline; }
-@media (prefers-reduced-motion:reduce){ .lp{ transition:none; } }
+/* ── motion gate ──────────────────────────────────────────────────────────
+   Every animation on this property is decorative: the liveness pulse, the
+   scroll-hint bob, the popup fade. None of them carries information a reader
+   loses by holding still. One gate, applied to everything, so a new keyframe
+   cannot ship ungated by accident. */
+@media (prefers-reduced-motion:reduce){
+  .lp{ transition:none; }
+  *,*::before,*::after{
+    animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important; }
+}
