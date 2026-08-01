@@ -17,6 +17,8 @@ const CSP_MARKETING = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 const CSP_BLOG = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 
 const FEEDHUB_XMTP = "https://api.gokhan.vc/newsletter/xmtp/subscribe";
+const FEEDHUB_SUBSCRIBE = "https://api.gokhan.vc/newsletter/subscribe";
+const FEEDHUB_FEED = "https://api.gokhan.vc/feed.json";
 
 export default {
   async fetch(request, env) {
@@ -30,6 +32,35 @@ export default {
 
     // Same-origin proxy: zone-level CSP on ishtar.numetal.xyz can block connect-src to
     // api.gokhan.vc even when the worker sets a looser policy. Proxy keeps subscribe on 'self'.
+    // Email subscribe — the form used to POST straight to api.gokhan.vc, which the zone CSP's
+    // form-action 'self' silently blocked, so subscribing from this site never reached feedhub.
+    if (p === "/newsletter/subscribe" && request.method === "POST") {
+      const upstream = await fetch(FEEDHUB_SUBSCRIBE, {
+        method: "POST",
+        headers: {
+          "content-type": request.headers.get("content-type") || "application/x-www-form-urlencoded",
+          accept: request.headers.get("accept") || "text/html",
+        },
+        body: request.body,
+      });
+      const headers = new Headers(upstream.headers);
+      headers.set("Cache-Control", "no-store");
+      headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+      return new Response(upstream.body, { status: upstream.status, headers });
+    }
+
+    // Estate aggregate feed, same-origin, so /newsletter/ can show a live "Latest".
+    if (p === "/newsletter/latest.json" && request.method === "GET") {
+      const upstream = await fetch(FEEDHUB_FEED, { cf: { cacheTtl: 300, cacheEverything: true } });
+      return new Response(upstream.body, {
+        status: upstream.status,
+        headers: {
+          "content-type": "application/feed+json; charset=utf-8",
+          "cache-control": "public, max-age=300",
+        },
+      });
+    }
+
     if (p === "/newsletter/xmtp/subscribe" && request.method === "POST") {
       const upstream = await fetch(FEEDHUB_XMTP, {
         method: "POST",

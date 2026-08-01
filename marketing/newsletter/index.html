@@ -53,7 +53,7 @@
   <div class="stripe"></div>
   <!-- estate newsletter subscribe (email + wallet over XMTP) -->
   <div class="foot-sub" aria-labelledby="foot-sub-heading" data-xmtp-root>
-    <form class="foot-sub-form" method="POST" action="https://api.gokhan.vc/newsletter/subscribe">
+    <form class="foot-sub-form" method="POST" action="/newsletter/subscribe">
       <p class="foot-sub-copy" id="foot-sub-heading">Dispatches from the studio: occasional, low-frequency notes on what we ship. Optional wallet delivery over XMTP. <b>No spam.</b></p>
       <div class="foot-sub-row">
         <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email" class="foot-sub-input">
@@ -68,7 +68,7 @@
     <p class="foot-sub-rss"><b>Two RSS feeds.</b> <a href="https://ishtar.numetal.xyz/rss.xml">this&nbsp;site</a> · <a href="https://api.gokhan.vc/feed.xml">everything</a> (all studio sites).</p>
   </div>
   <p class="nl-more">
-    Latest: <a href="/blog/x402-economy-july-2026/">The x402 economy — July 2026</a> · <a href="/blog">All dispatches</a>.
+    Latest: <a href="/blog/complementary-substitutions/" data-latest-post data-latest-src="/newsletter/latest.json">Complementary Substitutions</a> · <a href="/blog">All dispatches</a>.
     Public contact: <a href="mailto:contact@numetal.xyz">contact@numetal.xyz</a>.
   </p>
   <div class="imprint"><span>Gökhan Ventures · made by machines · adult-only</span><span><a href="/blog" style="color:var(--mut)">Dispatches</a> · <a href="/docs/legal/privacy-policy" style="color:var(--mut)">Privacy</a> · <a href="https://status.numetal.xyz" target="_blank" rel="noopener" style="color:var(--mut)">Status</a></span></div>
@@ -80,6 +80,7 @@
   function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
 </script>
   <script src="/newsletter-xmtp.js" defer></script>
+  <script src="/newsletter-latest.js" defer></script>
   <script src="/popups.js" defer></script>
 </body>
 </html>
