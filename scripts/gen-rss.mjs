@@ -47,6 +47,8 @@ function buildRss(posts) {
     <link>${SITE}/blog</link>
     <description>${xmlEscape(FEED_DESC)}</description>
     <language>en</language>
+    <managingEditor>contact@gokhan.vc (Gökhan Turhan)</managingEditor>
+    <webMaster>contact@gokhan.vc (Gökhan Turhan)</webMaster>
     <lastBuildDate>${last}</lastBuildDate>
     <atom:link href="${SITE}/rss.xml" rel="self" type="application/rss+xml" />
 ${items}
