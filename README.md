@@ -42,7 +42,7 @@ The Ishtar **application** — matching, courtship, the safety chaperone, paymen
 - **Docs** — <https://ishtar.numetal.xyz/docs>
 - **Dashboard** — <https://ishtar.numetal.xyz/dashboard>
 - **Dispatches (blog)** — <https://ishtar.numetal.xyz/blog>
-- **Contact** — `contact@numetal.xyz`
+- **Contact** — `contact@gokhan.vc`
 
 Ishtar is operated by Atelier Gökhan and is one venue in the Numetal studio.
 
@@ -99,7 +99,7 @@ vocs.config.ts    docs title, theme, nav, sidebar
 
 ## Security
 
-There is no `SECURITY.md` yet. The site ships defense-in-depth headers from the Worker — a strict Content-Security-Policy on the marketing pages, `X-Frame-Options: DENY`, `nosniff`, a `no-referrer` policy, and a locked-down `Permissions-Policy`. A gitleaks scan gates every push and pull request. To report a security issue, email `contact@numetal.xyz`.
+There is no `SECURITY.md` yet. The site ships defense-in-depth headers from the Worker — a strict Content-Security-Policy on the marketing pages, `X-Frame-Options: DENY`, `nosniff`, a `no-referrer` policy, and a locked-down `Permissions-Policy`. A gitleaks scan gates every push and pull request. To report a security issue, email `contact@gokhan.vc`.
 
 ## Credits & third-party
 
