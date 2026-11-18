@@ -30,4 +30,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Action v3 otherwise installs Wrangler 3.90.0. That build calls
+          # zod's removed z.ostring and crashes against this repo's zod 4.
+          wranglerVersion: "4.164.0"
           command: deploy
