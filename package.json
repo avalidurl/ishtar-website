@@ -11,7 +11,7 @@
     "@vocs/twoslash-rust": "^0.1.0",
     "mermaid": "^11.16.1",
     "react": "^19.2.9",
-    "react-dom": "^19.2.9",
+    "react-dom": "^19.3.1",
     "vite": "^8.1.6",
     "vocs": "2.0.15",
     "waku": "1.0.0-beta.3"
