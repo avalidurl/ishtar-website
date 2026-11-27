@@ -17,7 +17,7 @@ const CSP_MARKETING = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 const CSP_BLOG = CSP_BASE + "; frame-ancestors 'none'; object-src 'none'";
 
 const FEEDHUB_XMTP = "https://api.gokhan.vc/newsletter/xmtp/subscribe";
-const FEEDHUB_SUBSCRIBE = "https://api.gokhan.vc/newsletter/subscribe";
+const FEEDHUB_SUBSCRIBE = "https://gokhanturhan.com/newsletter/subscribe"; // the live journal list (api.gokhan.vc no longer exists)
 const FEEDHUB_FEED = "https://api.gokhan.vc/feed.json";
 
 export default {
